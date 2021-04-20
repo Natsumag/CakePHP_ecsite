@@ -18,11 +18,10 @@
             echo $this->Form->control('name');
             echo $this->Form->control('email');
             echo $this->Form->control('password');
-            echo $this->Form->control('created_at');
         ?>
     </fieldset>
-    <?= $this->Html->link(__('一覧へ戻る'), ['action' => 'index'], ['class' => 'button']) ?>
-    <?= $this->Form->postLink(__('削除'), ['action' => 'delete', $adminUser->id], ['class' => 'button', 'confirm' => __('Are you sure you want to delete # {0}?', $adminUser->id)]) ?>
-    <?= $this->Form->button(__('編集')) ?>
+    <button type=“button” onclick="location.href='/ecsite/admin-users/index'">一覧へ戻る</button>
+    <?= $this->Form->button(__('Submit')) ?>
     <?= $this->Form->end() ?>
 </div>
+<?= $this->Form->postLink(__('削除'), ['action' => 'delete', $adminUser->id], ['class' => 'button', 'confirm' => __('Are you sure you want to delete # {0}?', $adminUser->id)]) ?>

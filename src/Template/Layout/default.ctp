@@ -14,7 +14,7 @@
  * @var \App\View\AppView $this
  */
 
-$cakeDescription = 'CakePHP: the rapid development php framework';
+$cakeDescription = '管理画面';
 ?>
 <!DOCTYPE html>
 <html>
@@ -43,6 +43,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
         </ul>
         <div class="top-bar-section">
             <ul class="right">
+                <li><?= $this->Html->link(__('Logout'), ['action' => 'logout']) ?></li>
                 <li><a target="_blank" href="https://book.cakephp.org/3/">Documentation</a></li>
                 <li><a target="_blank" href="https://api.cakephp.org/3.0/">API</a></li>
             </ul>

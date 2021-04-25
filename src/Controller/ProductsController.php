@@ -27,6 +27,26 @@ class ProductsController extends AppController
     }
 
     /**
+     * Add method
+     *
+     * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
+     */
+    public function add()
+    {
+        $product = $this->Products->newEntity();
+        if ($this->request->is('post')) {
+            $product = $this->Products->patchEntity($product, $this->request->getData());
+            if ($this->Products->save($product)) {
+                $this->Flash->success(__('The product has been saved.'));
+
+                return $this->redirect(['action' => 'index']);
+            }
+            $this->Flash->error(__('The product could not be saved. Please, try again.'));
+        }
+        $this->set(compact('product'));
+    }
+
+    /**
      * role別にアクセスを制御したい場合はここに記述。全ロールに許可する場合はreturn trueとだけ書く
      */
     public function isAuthorized($adminUser = null)

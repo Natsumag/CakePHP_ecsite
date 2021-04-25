@@ -10,16 +10,17 @@ use Cake\ORM\Entity;
  * @property int $category_id
  * @property int $ih_correspond_id
  * @property int $material_id
+ * @property string $name
  * @property int $price
  * @property int $units_in_stock
  * @property int $number_of_units_sold
  * @property string $description
  * @property int $size
  * @property int|null $thickness
- * @property string $filename
- * @property string $filetype
- * @property string $filepath
- * @property int $filesize
+ * @property string $file_name
+ * @property string $file_type
+ * @property string $file_path
+ * @property int $file_size
  * @property \Cake\I18n\FrozenTime $created_at
  * @property \Cake\I18n\FrozenTime|null $updated_at
  *
@@ -42,16 +43,17 @@ class Product extends Entity
         'category_id' => true,
         'ih_correspond_id' => true,
         'material_id' => true,
+        'name' => true,
         'price' => true,
         'units_in_stock' => true,
         'number_of_units_sold' => true,
         'description' => true,
         'size' => true,
         'thickness' => true,
-        'filename' => true,
-        'filetype' => true,
-        'filepath' => true,
-        'filesize' => true,
+        'file_name' => true,
+        'file_type' => true,
+        'file_path' => true,
+        'file_size' => true,
         'created_at' => true,
         'updated_at' => true,
         'category' => true,

@@ -50,11 +50,16 @@ class ProductsTable extends Table
 //            'foreignKey' => 'material_id',
 //            'joinType' => 'INNER',
 //        ]);
-
+        // Upload Plugin
         $this->addBehavior('Josegonzalez/Upload.Upload', [
-            'filename' => [],
+            'filename' => [
+                'fields' => [
+                    'type' => 'file_type',
+                    'dir'  => 'file_path',
+                    'size' => 'file_size',
+                ]
+            ],
         ]);
-
     }
 
     /**
@@ -68,6 +73,11 @@ class ProductsTable extends Table
         $validator
             ->integer('id')
             ->allowEmptyString('id', null, 'create');
+
+        $validator
+            ->scalar('name')
+            ->requirePresence('name', 'create')
+            ->notEmptyString('name');
 
         $validator
             ->integer('price')
@@ -99,24 +109,24 @@ class ProductsTable extends Table
             ->allowEmptyString('thickness');
 
         $validator
-            ->scalar('filename')
-            ->requirePresence('filename', 'create')
-            ->notEmptyFile('filename');
+            ->scalar('file_name')
+            ->requirePresence('file_name', 'create')
+            ->notEmptyFile('file_name');
 
         $validator
-            ->scalar('filetype')
-            ->requirePresence('filetype', 'create')
-            ->notEmptyFile('filetype');
+            ->scalar('file_type')
+            ->requirePresence('file_type', 'create')
+            ->notEmptyFile('file_type');
 
         $validator
-            ->scalar('filepath')
-            ->requirePresence('filepath', 'create')
-            ->notEmptyFile('filepath');
+            ->scalar('file_path')
+            ->requirePresence('file_path', 'create')
+            ->notEmptyFile('file_path');
 
         $validator
-            ->integer('filesize')
-            ->requirePresence('filesize', 'create')
-            ->notEmptyFile('filesize');
+            ->integer('file_size')
+            ->requirePresence('file_size', 'create')
+            ->notEmptyFile('file_size');
 
         $validator
             ->dateTime('created_at')

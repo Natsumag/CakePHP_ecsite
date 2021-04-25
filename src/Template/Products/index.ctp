@@ -13,7 +13,7 @@
 <div class="Products index large-9 medium-8 columns content">
     <h3><?= __('Products') ?></h3>
 
-<!--    <div class="col text-right">--><?//= $this->Html->link(__('管理者ユーザの追加'), ['action' => 'add'], ['class' => 'button']) ?><!--</div>-->
+    <div class="col text-right"><?= $this->Html->link(__('品物の追加'), ['action' => 'add'], ['class' => 'button']) ?></div>
 
     <table cellpadding="0" cellspacing="0">
         <thead>
@@ -22,18 +22,14 @@
             <th scope="col"><?= $this->Paginator->sort('category_id') ?></th>
             <th scope="col"><?= $this->Paginator->sort('ih_correspond_id') ?></th>
             <th scope="col"><?= $this->Paginator->sort('material_id') ?></th>
+            <th scope="col"><?= $this->Paginator->sort('name') ?></th>
             <th scope="col"><?= $this->Paginator->sort('price') ?></th>
             <th scope="col"><?= $this->Paginator->sort('units_in_stock') ?></th>
             <th scope="col"><?= $this->Paginator->sort('number_of_units_sold') ?></th>
             <th scope="col"><?= $this->Paginator->sort('description') ?></th>
             <th scope="col"><?= $this->Paginator->sort('size') ?></th>
             <th scope="col"><?= $this->Paginator->sort('thickness') ?></th>
-            <th scope="col"><?= $this->Paginator->sort('filename') ?></th>
-            <th scope="col"><?= $this->Paginator->sort('filetype') ?></th>
-            <th scope="col"><?= $this->Paginator->sort('filepath') ?></th>
-            <th scope="col"><?= $this->Paginator->sort('filesize') ?></th>
-            <th scope="col"><?= $this->Paginator->sort('created_at') ?></th>
-            <th scope="col"><?= $this->Paginator->sort('updated_at') ?></th>
+            <th scope="col"><?= $this->Paginator->sort('file_name') ?></th>
             <th scope="col" class="actions"><?= __('Actions') ?></th>
 
         </tr>
@@ -45,18 +41,14 @@
                 <td><?= h($product->category_id) ?></td>
                 <td><?= h($product->ih_correspond_id) ?></td>
                 <td><?= h($product->material_id) ?></td>
+                <td><?= h($product->name) ?></td>
                 <td><?= h($product->price) ?></td>
                 <td><?= h($product->units_in_stock) ?></td>
                 <td><?= h($product->number_of_units_sold) ?></td>
                 <td><?= h($product->description) ?></td>
                 <td><?= h($product->size) ?></td>
                 <td><?= h($product->thickness) ?></td>
-                <td><?= h($product->filename) ?></td>
-                <td><?= h($product->filetype) ?></td>
-                <td><?= h($product->filepath) ?></td>
-                <td><?= h($product->filesize) ?></td>
-                <td><?= h($product->created_at) ?></td>
-                <td><?= h($product->updated_at) ?></td>
+                <td><?= h($product->file_name) ?></td>
             </tr>
         <?php endforeach; ?>
         </tbody>

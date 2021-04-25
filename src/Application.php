@@ -34,6 +34,8 @@ class Application extends BaseApplication
      */
     public function bootstrap()
     {
+        $this->addPlugin('Josegonzalez/Upload');
+
         $this->addPlugin('Migrations');
 
         // Call parent to load bootstrap from files.

@@ -15,14 +15,6 @@ class AppUtility
      */
     public function file_upload ($file = null,$dir = null, $limitFileSize = 1024 * 1024){
         try {
-            // ファイルを保存するフォルダ $dirの値のチェック
-            if ($dir){
-                if(!file_exists($dir)){
-                    throw new RuntimeException('指定のディレクトリがありません。');
-                }
-            } else {
-                throw new RuntimeException('ディレクトリの指定がありません。');
-            }
 
             // 未定義、複数ファイル、破損攻撃のいずれかの場合は無効処理
             if (!isset($file['error']) || is_array($file['error'])){
@@ -31,8 +23,6 @@ class AppUtility
 
             // エラーのチェック
             switch ($file['error']) {
-                case 0:
-                    break;
                 case UPLOAD_ERR_OK:
                     break;
                 case UPLOAD_ERR_NO_FILE:
@@ -63,22 +53,13 @@ class AppUtility
                 throw new RuntimeException('Invalid file format.');
             }
 
-            // ファイル名の生成
-            $uploadFile = $file["name"] . "." . $ext;
-//            $uploadFile = sha1_file($file["tmp_name"]) . "." . $ext;
-
             // ファイルの移動 move_uploaded_file()だと止まったときにエラーが返せないため
-            if (!@move_uploaded_file($file["tmp_name"], $dir . "/" . $uploadFile)){
+            if (!@move_uploaded_file($file["tmp_name"], $dir)){
                 throw new RuntimeException('Failed to move uploaded file.');
             }
-
-//             処理を抜けたら正常終了
-            echo 'File is uploaded successfully.';
 
         } catch (RuntimeException $e) {
             throw $e;
         }
-        return $uploadFile;
     }
-
 }

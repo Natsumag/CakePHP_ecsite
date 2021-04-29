@@ -22,9 +22,16 @@
     <?= $this->Form->create($category, ['type' => 'file']) ?>
     <fieldset>
         <legend><?= __('Edit Category') ?></legend>
+        <p>ID:<?= $this->Number->format($category->id) ?></p>
         <?php
             echo $this->Form->control('name');
             echo $this->Form->control('description');
+            if ($category->file_name){
+                echo $this->Html->image('../files/Categories/image/'.$category->file_name, array('height' => 100, 'width' => 100));
+                $dir = '../webroot/files/Categories/image/';
+                echo $this->Form->control("file_before",["type"=>"hidden", "value"=>$category->file]);
+                echo $this->Form->control("delete",["type"=>"submit", "name"=>"file_delete", "value"=>"delete"]);
+            }
             echo $this->Form->control('file_name', ['type' => 'file']);
             echo $this->Form->control('created_at',['type'=>'hidden']);
             echo $this->Form->control('updated_at',['type'=>'hidden', 'empty' => true]);

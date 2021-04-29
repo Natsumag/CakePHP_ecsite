@@ -18,7 +18,9 @@
         <thead>
             <tr>
                 <th scope="col"><?= $this->Paginator->sort('id') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('file_name') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('name') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('description') ?></th>
+                <th scope="col" class="actions"><?= __('file') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('created_at') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('updated_at') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
@@ -28,7 +30,9 @@
             <?php foreach ($categories as $category): ?>
             <tr>
                 <td><?= $this->Number->format($category->id) ?></td>
-                <td><?= $this->Number->format($category->image) ?></td>
+                <td><?= h($category->name) ?></td>
+                <td><?= h($category->description) ?></td>
+                <td><?= $this->Html->image('../files/Categories/image/'.$category->file_name, array('height' => 100, 'width' => 100)) ?></td>
                 <td><?= h($category->created_at) ?></td>
                 <td><?= h($category->updated_at) ?></td>
                 <td class="actions">

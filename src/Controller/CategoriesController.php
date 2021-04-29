@@ -55,23 +55,27 @@ class CategoriesController extends AppController
         $category = $this->Categories->newEntity();
         if ($this->request->is('post')) {
             $category = $this->Categories->patchEntity($category, $this->request->getData());
-            $dir = '../webroot/files/Categories/image/';
+
+//            画像のアップロード処理
+            $uploadFile = $this->request->getData('file_name');
+            $uploadPath = WWW_ROOT . '/files/Categories/image/' . date("YmdHis") . $uploadFile['name'];
+
             $limitFileSize = 1024 * 1024;
             try {
-                $category['file'] = AppUtility::file_upload($this->request->getData('file_name'), $dir, $limitFileSize);
+                $category['file'] = AppUtility::file_upload($this->request->getData('file_name'), $uploadPath, $limitFileSize);
             } catch (RuntimeException $e){
                 $this->Flash->error(__('ファイルのアップロードができませんでした.'));
                 $this->Flash->error(__($e->getMessage()));
             }
 
-//            debug($category);
-//            exit();
-
-//            $fileName = $this->request->getData('photo');
-//            $filetype = $this->request->getData('photo.type');
-//            $filepath = $this->request->getData('photo.dir');
-//            move_uploaded_file($fileName['tmp_name'],'../webroot/img/'.$fileName['name']);
-//            $category = $this->Categories->patchEntity($category, $data);
+            $data = array(
+                'name' => $this->request->getData('name'),
+                'description' => $this->request->getData('description'),
+                'created_at' => $this->request->getData('created_at'),
+                'updated_at' => $this->request->getData('updated_at'),
+                'file_name' => date("YmdHis") . $uploadFile['name'] //同様の形でDBに入れる
+            );
+            $category = $this->Categories->newEntity($data);
 
             if ($this->Categories->save($category)) {
                 $this->Flash->success(__('The category has been saved.'));
@@ -97,6 +101,9 @@ class CategoriesController extends AppController
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $category = $this->Categories->patchEntity($category, $this->request->getData());
+//            画像の編集処理
+
+
             if ($this->Categories->save($category)) {
                 $this->Flash->success(__('The category has been saved.'));
 

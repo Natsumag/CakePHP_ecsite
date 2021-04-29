@@ -72,8 +72,8 @@ class AppUtility
                 throw new RuntimeException('Failed to move uploaded file.');
             }
 
-            // 処理を抜けたら正常終了
-//            echo 'File is uploaded successfully.';
+//             処理を抜けたら正常終了
+            echo 'File is uploaded successfully.';
 
         } catch (RuntimeException $e) {
             throw $e;

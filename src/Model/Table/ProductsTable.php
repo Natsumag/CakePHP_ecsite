@@ -38,10 +38,10 @@ class ProductsTable extends Table
         $this->setDisplayField('id');
         $this->setPrimaryKey('id');
 
-//        $this->belongsTo('Categories', [
-//            'foreignKey' => 'category_id',
-//            'joinType' => 'INNER',
-//        ]);
+        $this->belongsTo('Categories', [
+            'foreignKey' => 'category_id',
+            'joinType' => 'INNER',
+        ]);
 //        $this->belongsTo('IhCorresponds', [
 //            'foreignKey' => 'ih_correspond_id',
 //            'joinType' => 'INNER',
@@ -52,7 +52,7 @@ class ProductsTable extends Table
 //        ]);
         // Upload Plugin
         $this->addBehavior('Josegonzalez/Upload.Upload', [
-            'filename' => [
+            'file_name' => [
                 'fields' => [
                     'type' => 'file_type',
                     'dir'  => 'file_path',
@@ -149,7 +149,7 @@ class ProductsTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
-//        $rules->add($rules->existsIn(['category_id'], 'Categories'));
+        $rules->add($rules->existsIn(['category_id'], 'Categories'));
 //        $rules->add($rules->existsIn(['ih_correspond_id'], 'IhCorresponds'));
 //        $rules->add($rules->existsIn(['material_id'], 'Materials'));
 

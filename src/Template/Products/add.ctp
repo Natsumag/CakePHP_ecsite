@@ -25,7 +25,7 @@
         echo $this->Form->control('description');
         echo $this->Form->control('size');
         echo $this->Form->control('thickness');
-        echo $this->Form->control('filename',["type"=>"file"]);
+        echo $this->Form->control('file_name',["type"=>"file"]);
         ?>
         <div hidden>
             <?php

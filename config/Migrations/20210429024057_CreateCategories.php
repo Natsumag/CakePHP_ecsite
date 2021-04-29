@@ -1,7 +1,7 @@
 <?php
 use Migrations\AbstractMigration;
 
-class CreateProductCategories extends AbstractMigration
+class CreateCategories extends AbstractMigration
 {
     /**
      * Change Method.
@@ -12,13 +12,10 @@ class CreateProductCategories extends AbstractMigration
      */
     public function up()
     {
-        $users = $this->table('product_categories');
-        $users->addColumn('name', 'text')
+        $users = $this->table('categories');
+        $users->addColumn('name', 'string', ['limit' => 50])
             ->addColumn('description', 'text')
-            ->addColumn('filename', 'text')
-            ->addColumn('filetype', 'text')
-            ->addColumn('filepath', 'text')
-            ->addColumn('filesize', 'integer', ['limit' => 11])
+            ->addColumn('file_name', 'text')
             ->addColumn('created_at', 'datetime')
             ->addColumn('updated_at', 'datetime', ['null' => true])
             ->save();

@@ -46,14 +46,7 @@
     <div class="row">
         <h4><?= __('File Name') ?></h4>
         <?= $this->Text->autoParagraph(h($category->file_name)); ?>
-    </div>
-    <div class="row">
-        <h4><?= __('File Type') ?></h4>
-        <?= $this->Text->autoParagraph(h($category->file_type)); ?>
-    </div>
-    <div class="row">
-        <h4><?= __('File Path') ?></h4>
-        <?= $this->Text->autoParagraph(h($category->file_path)); ?>
+        <?= $this->Html->image('../files/Categories/image/'.$category->file_name, array('height' => 100, 'width' => 100)); ?>
     </div>
     <div class="related">
         <h4><?= __('Related Products') ?></h4>

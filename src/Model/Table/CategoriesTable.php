@@ -31,7 +31,14 @@ class CategoriesTable extends Table
     public function initialize(array $config)
     {
         parent::initialize($config);
-
+        $this->addBehavior('Timestamp', [
+            'events' => [
+                'Model.beforeSave' => [
+                    'created_at' => 'new',
+                    'updated_at' => 'always'
+                ]
+            ]
+        ]);
         $this->setTable('categories');
         $this->setDisplayField('name');
         $this->setPrimaryKey('id');
@@ -64,9 +71,8 @@ class CategoriesTable extends Table
             ->notEmptyString('description');
 
         $validator
-//            ->scalar('file_name')
             ->requirePresence('file_name', 'create')
-            ->notEmptyFile('file_name');
+            ->allowEmptyFile('file_name');
 
         $validator
             ->dateTime('created_at')

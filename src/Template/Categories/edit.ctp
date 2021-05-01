@@ -28,14 +28,18 @@
             echo $this->Form->control('description');
             if ($category->file_name){
                 echo $this->Html->image('../files/Categories/image/'.$category->file_name, array('height' => 100, 'width' => 100));
-                $dir = '../webroot/files/Categories/image/';
-                echo $this->Form->control("file_before",["type"=>"hidden", "value"=>$category->file]);
-                echo $this->Form->control("delete",["type"=>"submit", "name"=>"file_delete", "value"=>"delete"]);
+                echo $this->Form->control('file_before',['type'=>'hidden', "value"=>$category->file_name]);
+
             }
             echo $this->Form->control('file_name', ['type' => 'file']);
-            echo $this->Form->control('created_at',['type'=>'hidden']);
-            echo $this->Form->control('updated_at',['type'=>'hidden', 'empty' => true]);
+
         ?>
+        <div hidden>
+            <?php
+            echo $this->Form->control('created_at');
+            echo $this->Form->control('updated_at', ['empty' => true]);
+            ?>
+        </div>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>
     <?= $this->Form->end() ?>

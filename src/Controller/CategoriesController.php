@@ -102,9 +102,9 @@ class CategoriesController extends AppController
 
 //            $category = $this->Categories->newEntity($category, $this->request->getData());
 
-            $uploadFile = $this->request->getData('file_name.error');
+            $uploadFile = $this->request->getData('file_name');
             // 編集の画像ファイルが入力されたときtrue
-            if($uploadFile == 0){
+            if($uploadFile['error'] == 0){
                 $limitFileSize = 1024 * 1024;
                 $uploadPath = WWW_ROOT . '/files/Categories/image/' . date('YmdHis') . $uploadFile['name'];
                 $beforeUploadPath = WWW_ROOT . '/files/Categories/image/';
@@ -126,11 +126,10 @@ class CategoriesController extends AppController
                             'file_name' => date("YmdHis") . $uploadFile['name'] //同様の形でDBに入れる
                         );
 
-                        $category = $this->Categories->patchEntity($category, $data);
+                            $category = $this->Categories->patchEntity($category, $data);
                     }
                 } catch (RuntimeException $e){
-                    // アップロード失敗の時、既登録ファイルを保持
-//                    $category['file'] = $this->request->getData('file_before');
+                    // アップロード失敗時、ファイル更新を行わない
                     $data = array(
                         'name' => $this->request->getData('name'),
                         'description' => $this->request->getData('description'),
@@ -141,7 +140,6 @@ class CategoriesController extends AppController
                     $this->Flash->error(__('ファイルのアップロードができませんでした.'));
                     $this->Flash->error(__($e->getMessage()));
                 }
-
             } else {
                 $data = array(
                     'name' => $this->request->getData('name'),

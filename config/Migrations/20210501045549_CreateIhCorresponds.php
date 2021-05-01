@@ -13,7 +13,7 @@ class CreateIhCorresponds extends AbstractMigration
     public function up()
     {
         $users = $this->table('ih_corresponds');
-        $users->addColumn('type', 'text')
+        $users->addColumn('type', 'string', ['limit' => 50])
             ->addColumn('created_at', 'datetime')
             ->addColumn('updated_at', 'datetime', ['null' => true])
             ->save();

@@ -99,9 +99,6 @@ class CategoriesController extends AppController
             'contain' => [],
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
-
-//            $category = $this->Categories->newEntity($category, $this->request->getData());
-
             $uploadFile = $this->request->getData('file_name');
             // 編集の画像ファイルが入力されたときtrue
             if($uploadFile['error'] == 0){
@@ -150,7 +147,6 @@ class CategoriesController extends AppController
                 $category = $this->Categories->patchEntity($category, $data);
             }
 
-
             if ($this->Categories->save($category)) {
                 $this->Flash->success(__('The category has been saved.'));
 
@@ -175,11 +171,11 @@ class CategoriesController extends AppController
         $fileName = $category->file_name;
 
 //        画像の削除処理
-        $uploadPath = WWW_ROOT . '/files/Categories/image/' . $fileName;
+        $filePath = WWW_ROOT . '/files/Categories/image/' . $fileName;
         try {
-            $del_file = new File($uploadPath);
+            $delFile = new File($filePath);
             // ファイル削除処理実行
-            if($del_file->delete()) {
+            if($delFile->delete()) {
                 $category['file'] = "";
             } else {
                 throw new RuntimeException('ファイルの削除ができませんでした.');
@@ -206,6 +202,6 @@ class CategoriesController extends AppController
     // ログイン認証不要のページ指定（loginの追加不要）、一時的に追加している。
     public function beforeFilter(Event $event){
         parent::beforeFilter($event);
-        $this->Auth->allow(['add','index','edit','view','delete']);
+        $this->Auth->allow(['add','index','edit','view', 'delete']);
     }
 }

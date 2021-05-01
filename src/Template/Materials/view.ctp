@@ -1,52 +1,43 @@
 <?php
 /**
  * @var \App\View\AppView $this
- * @var \App\Model\Entity\Category $category
+ * @var \App\Model\Entity\Material $material
  */
 ?>
 <nav class="large-3 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('Edit Category'), ['action' => 'edit', $category->id]) ?> </li>
-        <li><?= $this->Form->postLink(__('Delete Category'), ['action' => 'delete', $category->id], ['confirm' => __('Are you sure you want to delete # {0}?', $category->id)]) ?> </li>
-        <li><?= $this->Html->link(__('List Categories'), ['action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Category'), ['action' => 'add']) ?> </li>
+        <li><?= $this->Html->link(__('Edit Material'), ['action' => 'edit', $material->id]) ?> </li>
+        <li><?= $this->Form->postLink(__('Delete Material'), ['action' => 'delete', $material->id], ['confirm' => __('Are you sure you want to delete # {0}?', $material->id)]) ?> </li>
+        <li><?= $this->Html->link(__('List Materials'), ['action' => 'index']) ?> </li>
+        <li><?= $this->Html->link(__('New Material'), ['action' => 'add']) ?> </li>
         <li><?= $this->Html->link(__('List Products'), ['controller' => 'Products', 'action' => 'index']) ?> </li>
         <li><?= $this->Html->link(__('New Product'), ['controller' => 'Products', 'action' => 'add']) ?> </li>
     </ul>
 </nav>
-<div class="categories view large-9 medium-8 columns content">
-    <h3><?= h($category->name) ?></h3>
+<div class="materials view large-9 medium-8 columns content">
+    <h3><?= h($material->id) ?></h3>
     <table class="vertical-table">
         <tr>
+            <th scope="row"><?= __('Material') ?></th>
+            <td><?= h($material->material) ?></td>
+        </tr>
+        <tr>
             <th scope="row"><?= __('Id') ?></th>
-            <td><?= $this->Number->format($category->id) ?></td>
+            <td><?= $this->Number->format($material->id) ?></td>
         </tr>
         <tr>
             <th scope="row"><?= __('Created At') ?></th>
-            <td><?= h($category->created_at) ?></td>
+            <td><?= h($material->created_at) ?></td>
         </tr>
         <tr>
             <th scope="row"><?= __('Updated At') ?></th>
-            <td><?= h($category->updated_at) ?></td>
+            <td><?= h($material->updated_at) ?></td>
         </tr>
     </table>
-    <div class="row">
-        <h4><?= __('Name') ?></h4>
-        <?= $this->Text->autoParagraph(h($category->name)); ?>
-    </div>
-    <div class="row">
-        <h4><?= __('Description') ?></h4>
-        <?= $this->Text->autoParagraph(h($category->description)); ?>
-    </div>
-    <div class="row">
-        <h4><?= __('File Name') ?></h4>
-        <?= $this->Text->autoParagraph(h($category->file_name)); ?>
-        <?= $this->Html->image('../files/Categories/image/'.$category->file_name, array('height' => 100, 'width' => 100)); ?>
-    </div>
     <div class="related">
         <h4><?= __('Related Products') ?></h4>
-        <?php if (!empty($category->products)): ?>
+        <?php if (!empty($material->products)): ?>
         <table cellpadding="0" cellspacing="0">
             <tr>
                 <th scope="col"><?= __('Id') ?></th>
@@ -68,7 +59,7 @@
                 <th scope="col"><?= __('Updated At') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
-            <?php foreach ($category->products as $products): ?>
+            <?php foreach ($material->products as $products): ?>
             <tr>
                 <td><?= h($products->id) ?></td>
                 <td><?= h($products->category_id) ?></td>

@@ -13,7 +13,7 @@ class CreateMaterials extends AbstractMigration
     public function up()
     {
         $users = $this->table('materials');
-        $users->addColumn('material', 'text')
+        $users->addColumn('material', 'string', ['limit' => 100])
             ->addColumn('created_at', 'datetime')
             ->addColumn('updated_at', 'datetime', ['null' => true])
             ->save();

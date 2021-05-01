@@ -42,7 +42,7 @@ class MaterialsTable extends Table
         ]);
 
         $this->setTable('materials');
-        $this->setDisplayField('id');
+        $this->setDisplayField('material');
         $this->setPrimaryKey('id');
 
         $this->hasMany('Products', [

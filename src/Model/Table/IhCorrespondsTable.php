@@ -42,7 +42,7 @@ class IhCorrespondsTable extends Table
         ]);
 
         $this->setTable('ih_corresponds');
-        $this->setDisplayField('id');
+        $this->setDisplayField('type');
         $this->setPrimaryKey('id');
 
         $this->hasMany('Products', [

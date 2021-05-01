@@ -19,14 +19,14 @@
     </ul>
 </nav>
 <div class="categories form large-9 medium-8 columns content">
-    <?= $this->Form->create($category, ['type' => 'file']) ?>
+    <?= $this->Form->create($category, ['type' => 'file']); ?>
     <fieldset>
         <legend><?= __('Edit Category') ?></legend>
         <p>ID:<?= $this->Number->format($category->id) ?></p>
         <?php
             echo $this->Form->control('name');
             echo $this->Form->control('description');
-            if ($category->file_name){
+            if ($category->file_name) {
                 echo $this->Html->image('../files/Categories/image/'.$category->file_name, array('height' => 100, 'width' => 100));
                 echo $this->Form->control('file_before',['type'=>'hidden', "value"=>$category->file_name]);
 

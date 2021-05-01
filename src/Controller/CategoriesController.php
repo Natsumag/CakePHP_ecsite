@@ -58,7 +58,7 @@ class CategoriesController extends AppController
 
 //            画像のアップロード処理
             $uploadFile = $this->request->getData('file_name');
-            $uploadPath = WWW_ROOT . '/files/Categories/image/' . date("YmdHis") . $uploadFile['name'];
+            $uploadPath = WWW_ROOT . '/files/Categories/image/' . date('YmdHis') . $uploadFile['name'];
             $limitFileSize = 1024 * 1024;
             try {
                 $category['file'] = AppUtility::file_upload($this->request->getData('file_name'), $uploadPath, $limitFileSize);
@@ -106,14 +106,14 @@ class CategoriesController extends AppController
             // 編集の画像ファイルが入力されたときtrue
             if($uploadFile == 0){
                 $limitFileSize = 1024 * 1024;
-                $uploadPath = WWW_ROOT . '/files/Categories/image/' . date("YmdHis") . $uploadFile['name'];
+                $uploadPath = WWW_ROOT . '/files/Categories/image/' . date('YmdHis') . $uploadFile['name'];
                 $beforeUploadPath = WWW_ROOT . '/files/Categories/image/';
                 try {
                         // 古い画像ファイルの削除
                         if (($this->request->getData('file_before'))){
-                            $del_file = new File( $beforeUploadPath . $this->request->getData('file_before'));
-                            if(!$del_file->delete()) {
-                                $this->log("ファイル更新時に下記ファイルが削除できませんでした。",LOG_DEBUG);
+                            $delFile = new File( $beforeUploadPath . $this->request->getData('file_before'));
+                            if(!$delFile->delete()) {
+                                $this->log('ファイル更新時に下記ファイルが削除できませんでした。',LOG_DEBUG);
                                 $this->log($this->request->getData('file_before'), LOG_DEBUG);
                             }
                         // 更新処理
@@ -129,18 +129,27 @@ class CategoriesController extends AppController
                         $category = $this->Categories->patchEntity($category, $data);
                     }
                 } catch (RuntimeException $e){
-                    // アップロード失敗の時、既登録ファイルを保持（ここ未完成）
-                    $category['file'] = $this->request->getData('file_before');
-//
+                    // アップロード失敗の時、既登録ファイルを保持
+//                    $category['file'] = $this->request->getData('file_before');
+                    $data = array(
+                        'name' => $this->request->getData('name'),
+                        'description' => $this->request->getData('description'),
+                        'created_at' => $this->request->getData('created_at'),
+                        'updated_at' => $this->request->getData('updated_at'),
+                    );
+                    $category = $this->Categories->patchEntity($category, $data);
                     $this->Flash->error(__('ファイルのアップロードができませんでした.'));
                     $this->Flash->error(__($e->getMessage()));
                 }
 
             } else {
-                // ここ未完成
-                $category['file'] = $this->request->getData('file_before');
-                debug($category['file']);
-                exit();
+                $data = array(
+                    'name' => $this->request->getData('name'),
+                    'description' => $this->request->getData('description'),
+                    'created_at' => $this->request->getData('created_at'),
+                    'updated_at' => $this->request->getData('updated_at'),
+                );
+                $category = $this->Categories->patchEntity($category, $data);
             }
 
 

@@ -70,8 +70,6 @@ class CategoriesController extends AppController
             $data = array(
                 'name' => $this->request->getData('name'),
                 'description' => $this->request->getData('description'),
-                'created_at' => $this->request->getData('created_at'),
-                'updated_at' => $this->request->getData('updated_at'),
                 'file_name' => date("YmdHis") . $uploadFile['name'] //同様の形でDBに入れる
             );
             $category = $this->Categories->newEntity($data);
@@ -95,9 +93,7 @@ class CategoriesController extends AppController
      */
     public function edit($id = null)
     {
-        $category = $this->Categories->get($id, [
-            'contain' => [],
-        ]);
+        $category = $this->Categories->get($id);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $uploadFile = $this->request->getData('file_name');
             // 編集の画像ファイルが入力されたときtrue
@@ -118,8 +114,6 @@ class CategoriesController extends AppController
                         $data = array(
                             'name' => $this->request->getData('name'),
                             'description' => $this->request->getData('description'),
-                            'created_at' => $this->request->getData('created_at'),
-                            'updated_at' => $this->request->getData('updated_at'),
                             'file_name' => date("YmdHis") . $uploadFile['name'] //同様の形でDBに入れる
                         );
 
@@ -130,8 +124,6 @@ class CategoriesController extends AppController
                     $data = array(
                         'name' => $this->request->getData('name'),
                         'description' => $this->request->getData('description'),
-                        'created_at' => $this->request->getData('created_at'),
-                        'updated_at' => $this->request->getData('updated_at'),
                     );
                     $category = $this->Categories->patchEntity($category, $data);
                     $this->Flash->error(__('ファイルのアップロードができませんでした.'));
@@ -141,8 +133,6 @@ class CategoriesController extends AppController
                 $data = array(
                     'name' => $this->request->getData('name'),
                     'description' => $this->request->getData('description'),
-                    'created_at' => $this->request->getData('created_at'),
-                    'updated_at' => $this->request->getData('updated_at'),
                 );
                 $category = $this->Categories->patchEntity($category, $data);
             }

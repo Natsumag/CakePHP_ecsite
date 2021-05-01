@@ -19,12 +19,7 @@
             echo $this->Form->control('email');
             echo $this->Form->control('password');
         ?>
-        <div hidden>
-            <?php
-            echo $this->Form->control('created_at');
-            echo $this->Form->control('updated_at', ['empty' => true]);
-            ?>
-        </div>
+
     </fieldset>
 
     <button type=“button” onclick="location.href='/ecsite/admin-users/index'">一覧へ戻る</button>

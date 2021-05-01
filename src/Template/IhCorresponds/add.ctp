@@ -19,11 +19,6 @@
         <?php
             echo $this->Form->control('type');
         ?>
-        <div hidden>
-            <?php
-            echo $this->Form->control('created_at');
-            echo $this->Form->control('updated_at', ['empty' => true]);
-            ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>
     <?= $this->Form->end() ?>

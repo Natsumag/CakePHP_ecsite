@@ -21,12 +21,6 @@
             echo $this->Form->control('description');
             echo $this->Form->control('file_name',['type'=>'file']);
         ?>
-        <div hidden>
-            <?php
-            echo $this->Form->control('created_at');
-            echo $this->Form->control('updated_at', ['empty' => true]);
-            ?>
-        </div>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>
     <?= $this->Form->end() ?>

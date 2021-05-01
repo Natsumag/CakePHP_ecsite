@@ -70,7 +70,6 @@ class IhCorrespondsTable extends Table
 
         $validator
             ->dateTime('created_at')
-            ->requirePresence('created_at', 'create')
             ->notEmptyDateTime('created_at');
 
         $validator

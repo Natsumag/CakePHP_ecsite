@@ -9,6 +9,7 @@
         "cakephp/cakephp": "3.9.*",
         "cakephp/migrations": "@stable",
         "cakephp/plugin-installer": "^1.0",
+        "josegonzalez/cakephp-upload": "3.*",
         "mobiledetect/mobiledetectlib": "2.*"
     },
     "require-dev": {
@@ -37,7 +38,6 @@
     "scripts": {
         "post-install-cmd": "App\\Console\\Installer::postInstall",
         "post-create-project-cmd": "App\\Console\\Installer::postInstall",
-        "post-autoload-dump": "Cake\\Composer\\Installer\\PluginInstaller::postAutoloadDump",
         "check": [
             "@test",
             "@cs-check"

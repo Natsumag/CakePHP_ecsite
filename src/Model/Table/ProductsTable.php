@@ -71,7 +71,7 @@ class ProductsTable extends Table
     {
         $validator
             ->integer('id')
-            ->allowEmptyString('id', null, 'create');
+            ->allowEmptyString('id', 'create');
 
         $validator
             ->scalar('name')
@@ -110,27 +110,27 @@ class ProductsTable extends Table
             ->allowEmptyString('thickness');
 
         $validator
-            ->scalar('file_name1')
+//            ->scalar('file_name1')
             ->allowEmptyFile('file_name1');
 
         $validator
-            ->scalar('file_name2')
+//            ->scalar('file_name2')
             ->allowEmptyFile('file_name2');
 
         $validator
-            ->scalar('file_name3')
+//            ->scalar('file_name3')
             ->allowEmptyFile('file_name3');
 
         $validator
-            ->scalar('file_name4')
+//            ->scalar('file_name4')
             ->allowEmptyFile('file_name4');
 
         $validator
-            ->scalar('file_name5')
+//            ->scalar('file_name5')
             ->allowEmptyFile('file_name5');
 
         $validator
-            ->scalar('file_name6')
+//            ->scalar('file_name6')
             ->allowEmptyFile('file_name6');
 
         $validator

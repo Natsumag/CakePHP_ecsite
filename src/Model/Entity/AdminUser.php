@@ -7,6 +7,8 @@ use Cake\Auth\DefaultPasswordHasher;
 /**
  * AdminUser Entity
  *
+ *
+ *
  * @property int $id
  * @property string $email
  * @property string $password

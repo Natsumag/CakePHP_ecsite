@@ -22,17 +22,13 @@
         <thead>
             <tr>
                 <th scope="col"><?= $this->Paginator->sort('id') ?></th>
+                <th scope="col" class="actions"><?= __('file') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('name') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('category_id') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('ih_correspond_id') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('material_id') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('name') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('price') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('units_in_stock') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('number_of_units_sold') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('size') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('thickness') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('created_at') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('updated_at') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
         </thead>
@@ -40,17 +36,14 @@
             <?php foreach ($products as $product): ?>
             <tr>
                 <td><?= $this->Number->format($product->id) ?></td>
-                <td><?= $product->has('category') ? $this->Html->link($product->category->name, ['controller' => 'Categories', 'action' => 'view', $product->category->id]) : '' ?></td>
-                <td><?= $product->has('ih_correspond') ? $this->Html->link($product->ih_correspond->id, ['controller' => 'IhCorresponds', 'action' => 'view', $product->ih_correspond->id]) : '' ?></td>
-                <td><?= $product->has('material') ? $this->Html->link($product->material->id, ['controller' => 'Materials', 'action' => 'view', $product->material->id]) : '' ?></td>
                 <td><?= h($product->name) ?></td>
-                <td><?= $this->Number->format($product->price) ?></td>
+                <td><?= $this->Html->image('../files/Products/image/'.$product->file_name1, array('height' => 100, 'width' => 100)) ?></td>
+                <td><?= $product->has('category') ? $this->Html->link($product->category->name, ['controller' => 'Categories', 'action' => 'view', $product->category->id]) : '' ?></td>
+                <td><?= $product->has('ih_correspond') ? $this->Html->link($product->ih_correspond->type, ['controller' => 'IhCorresponds', 'action' => 'view', $product->ih_correspond->id]) : '' ?></td>
+                <td><?= $product->has('material') ? $this->Html->link($product->material->material, ['controller' => 'Materials', 'action' => 'view', $product->material->id]) : '' ?></td>
                 <td><?= $this->Number->format($product->units_in_stock) ?></td>
                 <td><?= $this->Number->format($product->number_of_units_sold) ?></td>
-                <td><?= h($product->size) ?></td>
-                <td><?= $this->Number->format($product->thickness) ?></td>
-                <td><?= h($product->created_at) ?></td>
-                <td><?= h($product->updated_at) ?></td>
+
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $product->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $product->id]) ?>

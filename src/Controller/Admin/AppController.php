@@ -12,7 +12,7 @@
  * @since     0.2.9
  * @license   https://opensource.org/licenses/mit-license.php MIT License
  */
-namespace App\Controller;
+namespace App\Controller\Admin;
 
 use Cake\Controller\Controller;
 use Cake\Event\Event;
@@ -25,7 +25,7 @@ use Cake\Event\Event;
  *
  * @link https://book.cakephp.org/3/en/controllers.html#the-app-controller
  */
-class AppController extends Controller
+class AppController extends \App\Controller\AppController
 {
 
     /**
@@ -52,17 +52,17 @@ class AppController extends Controller
          */
         $this->loadComponent('Security');
 
-//        $this->loadComponent('Auth', [
-//            'authorize'      => [ 'Controller'],
-//            'authenticate'   => [ 'Form' => [
-//                'userModel' => 'AdminUsers',
-//                'fields' => ['username' => 'email', 'password' => 'password']
-//            ]
-//            ],
-//            'loginRedirect'  => [ 'controller' => 'AdminUsers' , 'action' => 'index' ],
-//            'logoutRedirect' => [ 'controller' => 'AdminUsers' , 'action' => 'login' ],
-//            'loginAction'    => '/admin/Admin-users/login',
-//            'authError'      => 'ログインしてください'
-//        ]);
+        $this->loadComponent('Auth', [
+            'authorize'      => [ 'Controller'],
+            'authenticate'   => [ 'Form' => [
+                'userModel' => 'AdminUsers',
+                'fields' => ['username' => 'email', 'password' => 'password']
+            ]
+            ],
+            'loginRedirect'  => [ 'controller' => 'AdminUsers' , 'action' => 'index' ],
+            'logoutRedirect' => [ 'controller' => 'AdminUsers' , 'action' => 'login' ],
+            'loginAction'    => '/admin/Admin-users/login',
+            'authError'      => 'ログインしてください'
+        ]);
     }
 }

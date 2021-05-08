@@ -21,7 +21,7 @@ use Cake\Event\Event;
  *
  * Controller used by ExceptionRenderer to render error responses.
  */
-class ErrorController extends AppController
+class ErrorController extends Admin\AppController
 {
     /**
      * Initialization hook method.

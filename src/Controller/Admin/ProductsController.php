@@ -1,7 +1,6 @@
 <?php
-namespace App\Controller\admin;
+namespace App\Controller\Admin;
 
-use App\Controller\AppController;
 use App\Utils\AppUtility;
 use Cake\Event\Event;
 use Cake\Filesystem\File;

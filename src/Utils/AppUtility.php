@@ -35,7 +35,7 @@ class AppUtility
             }
 
             // ファイル情報取得
-            $fileInfo = new File($file["tmp_name"]);
+            $fileInfo = new File($file['tmp_name']);
 
             // ファイルサイズのチェック
             if ($fileInfo->size() > $limitFileSize) {
@@ -43,20 +43,18 @@ class AppUtility
             }
 
             // ファイルタイプのチェックし、拡張子を取得
-            if (false === $ext = array_search($fileInfo->mime(),
-                    [
-                        'jpg' => 'image/jpeg',
-                        'png' => 'image/png',
-                        'gif' => 'image/gif',
-                    ],
-                    true)){
-                throw new RuntimeException('Invalid file format.');
-            }
+//            if (false === $ext = array_search($fileInfo->mime(),
+//                    [
+//                        'jpg' => 'image/jpeg',
+//                        'png' => 'image/png',
+//                        'gif' => 'image/gif',
+//                    ],
+//                    true)){
+//                throw new RuntimeException('aaaaInvalid file format.');
+//            }
 
             // ファイルの移動 move_uploaded_file()だと止まったときエラーが返せないため
-            if (!@move_uploaded_file($file["tmp_name"], $dir)){
-                throw new RuntimeException('Failed to move uploaded file.');
-            }
+            move_uploaded_file($file['tmp_name'], $dir);
 
         } catch (RuntimeException $e) {
             throw $e;

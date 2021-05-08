@@ -1,5 +1,5 @@
 <?php
-namespace App\Controller;
+namespace App\Controller\Admin;
 
 use App\Controller\AppController;
 use Cake\Event\Event;
@@ -59,8 +59,8 @@ class CategoriesController extends AppController
             // 画像のアップロード処理
             $uploadFile = $this->request->getData('file_name');
             AppUtility::file_exist($uploadFile);
-
             $uploadPath = WWW_ROOT . '/files/Categories/image/' . date('YmdHis') . $uploadFile['name'];
+
             $limitFileSize = 1024 * 1024;
             try {
                 $category['file'] = AppUtility::file_upload($this->request->getData('file_name'), $uploadPath, $limitFileSize);

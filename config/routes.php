@@ -90,10 +90,10 @@ Router::scope('/', function (RouteBuilder $routes) {
      */
     $routes->fallbacks(DashedRoute::class);
 
-    $routes->connect('/admin-users/index', ['controller' => 'AdminUsers', 'action' => 'index']);
-    Router::prefix('admin-users', function ($routes) {
-        // この全てのルートは `/admin` によってプレフィックスされます。
-        // そのために、 prefix => admin をルート要素として追加します。
+//    $routes->connect('/Admin-users/index', ['controller' => 'AdminUsers', 'action' => 'index']);
+    Router::prefix('Admin', function ($routes) {
+        // この全てのルートは `/Admin` によってプレフィックスされます。
+        // そのために、 prefix => Admin をルート要素として追加します。
         $routes->fallbacks(DashedRoute::class);
     });
 });

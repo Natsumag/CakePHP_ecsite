@@ -55,13 +55,13 @@ class AppController extends Controller
         $this->loadComponent('Auth', [
             'authorize'      => [ 'Controller'],
             'authenticate'   => [ 'Form' => [
-                'userModel' => 'AdminUsers', // ←ここがミソ
-                'fields' => ['username' => 'email', 'password' => 'password']  // ←ここがミソ
+                'userModel' => 'AdminUsers',
+                'fields' => ['username' => 'email', 'password' => 'password']
             ]
             ],
             'loginRedirect'  => [ 'controller' => 'AdminUsers' , 'action' => 'index' ],
             'logoutRedirect' => [ 'controller' => 'AdminUsers' , 'action' => 'login' ],
-            'loginAction'    => '/admin-users/login',
+            'loginAction'    => '/Admin-users/login',
             'authError'      => 'ログインしてください'
         ]);
     }

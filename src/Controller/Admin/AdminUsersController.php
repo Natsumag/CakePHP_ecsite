@@ -1,5 +1,5 @@
 <?php
-namespace App\Controller;
+namespace App\Controller\Admin;
 
 use App\Controller\AppController;
 use Cake\ORM\TableRegistry;
@@ -53,11 +53,11 @@ class AdminUsersController extends AppController
         if ($this->request->is('post')) {
             $adminUser = $this->AdminUsers->patchEntity($adminUser, $this->request->getData());
             if ($this->AdminUsers->save($adminUser)) {
-                $this->Flash->success(__('The admin user has been saved.'));
+                $this->Flash->success(__('The Admin user has been saved.'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The admin user could not be saved. Please, try again.'));
+            $this->Flash->error(__('The Admin user could not be saved. Please, try again.'));
         }
         $this->set(compact('adminUser'));
     }
@@ -77,11 +77,11 @@ class AdminUsersController extends AppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $adminUser = $this->AdminUsers->patchEntity($adminUser, $this->request->getData());
             if ($this->AdminUsers->save($adminUser)) {
-                $this->Flash->success(__('The admin user has been saved.'));
+                $this->Flash->success(__('The Admin user has been saved.'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The admin user could not be saved. Please, try again.'));
+            $this->Flash->error(__('The Admin user could not be saved. Please, try again.'));
         }
         $this->set(compact('adminUser'));
     }
@@ -98,9 +98,9 @@ class AdminUsersController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $adminUser = $this->AdminUsers->get($id);
         if ($this->AdminUsers->delete($adminUser)) {
-            $this->Flash->success(__('The admin user has been deleted.'));
+            $this->Flash->success(__('The Admin user has been deleted.'));
         } else {
-            $this->Flash->error(__('The admin user could not be deleted. Please, try again.'));
+            $this->Flash->error(__('The Admin user could not be deleted. Please, try again.'));
         }
 
         return $this->redirect(['action' => 'index']);

@@ -1,17 +1,17 @@
 <?php
-namespace App\Controller;
+namespace App\Controller\Admin;
 
 use App\Controller\AppController;
 use Cake\Event\Event;
 
 /**
- * Materials Controller
+ * IhCorresponds Controller
  *
- * @property \App\Model\Table\MaterialsTable $Materials
+ * @property \App\Model\Table\IhCorrespondsTable $IhCorresponds
  *
- * @method \App\Model\Entity\Material[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
+ * @method \App\Model\Entity\IhCorrespond[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
-class MaterialsController extends AppController
+class IhCorrespondsController extends AppController
 {
     /**
      * Index method
@@ -20,25 +20,25 @@ class MaterialsController extends AppController
      */
     public function index()
     {
-        $materials = $this->paginate($this->Materials);
+        $ihCorresponds = $this->paginate($this->IhCorresponds);
 
-        $this->set(compact('materials'));
+        $this->set(compact('ihCorresponds'));
     }
 
     /**
      * View method
      *
-     * @param string|null $id Material id.
+     * @param string|null $id Ih Correspond id.
      * @return \Cake\Http\Response|null
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function view($id = null)
     {
-        $material = $this->Materials->get($id, [
+        $ihCorrespond = $this->IhCorresponds->get($id, [
             'contain' => ['Products'],
         ]);
 
-        $this->set('material', $material);
+        $this->set('ihCorrespond', $ihCorrespond);
     }
 
     /**
@@ -48,64 +48,64 @@ class MaterialsController extends AppController
      */
     public function add()
     {
-        $material = $this->Materials->newEntity();
+        $ihCorrespond = $this->IhCorresponds->newEntity();
         if ($this->request->is('post')) {
-            $material = $this->Materials->patchEntity($material, $this->request->getData());
-            if ($this->Materials->save($material)) {
-                $this->Flash->success(__('The material has been saved.'));
+            $ihCorrespond = $this->IhCorresponds->patchEntity($ihCorrespond, $this->request->getData());
+            if ($this->IhCorresponds->save($ihCorrespond)) {
+                $this->Flash->success(__('The ih correspond has been saved.'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The material could not be saved. Please, try again.'));
+            $this->Flash->error(__('The ih correspond could not be saved. Please, try again.'));
         }
-        $this->set(compact('material'));
+        $this->set(compact('ihCorrespond'));
     }
 
     /**
      * Edit method
      *
-     * @param string|null $id Material id.
+     * @param string|null $id Ih Correspond id.
      * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function edit($id = null)
     {
-        $material = $this->Materials->get($id, [
+        $ihCorrespond = $this->IhCorresponds->get($id, [
             'contain' => [],
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $material = $this->Materials->patchEntity($material, $this->request->getData());
-            if ($this->Materials->save($material)) {
-                $this->Flash->success(__('The material has been saved.'));
+            $ihCorrespond = $this->IhCorresponds->patchEntity($ihCorrespond, $this->request->getData());
+            if ($this->IhCorresponds->save($ihCorrespond)) {
+                $this->Flash->success(__('The ih correspond has been saved.'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The material could not be saved. Please, try again.'));
+            $this->Flash->error(__('The ih correspond could not be saved. Please, try again.'));
         }
-        $this->set(compact('material'));
+        $this->set(compact('ihCorrespond'));
     }
 
     /**
      * Delete method
      *
-     * @param string|null $id Material id.
+     * @param string|null $id Ih Correspond id.
      * @return \Cake\Http\Response|null Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function delete($id = null)
     {
         $this->request->allowMethod(['post', 'delete']);
-        $material = $this->Materials->get($id);
-        if ($this->Materials->delete($material)) {
-            $this->Flash->success(__('The material has been deleted.'));
+        $ihCorrespond = $this->IhCorresponds->get($id);
+        if ($this->IhCorresponds->delete($ihCorrespond)) {
+            $this->Flash->success(__('The ih correspond has been deleted.'));
         } else {
-            $this->Flash->error(__('The material could not be deleted. Please, try again.'));
+            $this->Flash->error(__('The ih correspond could not be deleted. Please, try again.'));
         }
 
         return $this->redirect(['action' => 'index']);
     }
 
-    public function isAuthorized($material = null)
+    public function isAuthorized($ihCorrespond = null)
     {
         return true;
     }

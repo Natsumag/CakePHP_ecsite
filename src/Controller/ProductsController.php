@@ -54,14 +54,35 @@ class ProductsController extends AppController
     {
         $product = $this->Products->newEntity();
         if ($this->request->is('post')) {
+            $array = ['file_name1', 'file_name2', 'file_name3', 'file_name4', 'file_name5'];
+            $uploadFile = array();
 
-            $uploadFile1 = $this->request->getData('file_name1');
-            $uploadFile2 = $this->request->getData('file_name2');
-            $uploadFile3 = $this->request->getData('file_name3');
-            $uploadFile4 = $this->request->getData('file_name4');
-            $uploadFile5 = $this->request->getData('file_name5');
-            $uploadFile6 = $this->request->getData('file_name6');
 
+            foreach ($array as $value) {
+                $uploadFile[] = $this->request->getData($value);
+            }
+            $key = array_search( 0, array_column( $uploadFile, 'error'));
+//                $keys = array_keys($array, 'error');
+                debug($uploadFile); // ここに配列で画像ファイルが溜まっているはず。
+                exit();
+
+//                if ($value['error']  0) {
+//                    foreach ($array2 as $value) {
+//                        $uploadFile2[] = $this->request->getData($value);
+//                    }
+//                }
+
+//            foreach ($uploadFile as $upload) {
+//                if ($upload['error'] !== 0) {
+//                    var_dump($station);
+//                }
+//            }
+
+            debug($uploadFile2); // ここに配列で画像ファイルが溜まっているはず。
+            exit();
+
+
+            // UploadFileでfile_name.error == 0 のもののみ以下の処理を進めたい
             $uploadPath = WWW_ROOT . '/files/Products/image/' . date('YmdHis');
             $uploadPath1 = $uploadPath . $uploadFile1['name'];
             $uploadPath2 = $uploadPath . $uploadFile2['name'];
@@ -71,9 +92,12 @@ class ProductsController extends AppController
             $uploadPath6 = $uploadPath . $uploadFile6['name'];
             $limitFileSize = 1024 * 1024;
 
+
             try {
                 $category['file1'] = AppUtility::file_upload($this->request->getData('file_name1'), $uploadPath1, $limitFileSize);
                 $category['file2'] = AppUtility::file_upload($this->request->getData('file_name2'), $uploadPath2, $limitFileSize);
+                debug($category['file2']);
+                exit();
                 $category['file3'] = AppUtility::file_upload($this->request->getData('file_name3'), $uploadPath3, $limitFileSize);
                 $category['file4'] = AppUtility::file_upload($this->request->getData('file_name4'), $uploadPath4, $limitFileSize);
                 $category['file5'] = AppUtility::file_upload($this->request->getData('file_name5'), $uploadPath5, $limitFileSize);

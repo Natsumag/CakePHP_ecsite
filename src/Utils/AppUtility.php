@@ -42,19 +42,21 @@ class AppUtility
                 throw new RuntimeException('Exceeded filesize limit.');
             }
 
-            // ファイルタイプのチェックし、拡張子を取得
-//            if (false === $ext = array_search($fileInfo->mime(),
-//                    [
-//                        'jpg' => 'image/jpeg',
-//                        'png' => 'image/png',
-//                        'gif' => 'image/gif',
-//                    ],
-//                    true)){
-//                throw new RuntimeException('aaaaInvalid file format.');
-//            }
+//             ファイルタイプのチェックし、拡張子を取得
+            if (false === $ext = array_search($fileInfo->mime(),
+                    [
+                        'jpg' => 'image/jpeg',
+                        'png' => 'image/png',
+                        'gif' => 'image/gif',
+                    ],
+                    true)){
+                throw new RuntimeException('aaaaInvalid file format.');
+            }
 
             // ファイルの移動 move_uploaded_file()だと止まったときエラーが返せないため
-            move_uploaded_file($file['tmp_name'], $dir);
+            if (!@move_uploaded_file($file["tmp_name"], $dir)){
+                throw new RuntimeException('Failed to move uploaded file.');
+            }
 
         } catch (RuntimeException $e) {
             throw $e;

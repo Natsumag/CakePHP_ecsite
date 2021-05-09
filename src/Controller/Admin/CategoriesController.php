@@ -99,15 +99,15 @@ class CategoriesController extends AppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $uploadFile = $this->request->getData('file_name');
             // 編集の画像ファイルが入力されたときtrue
-            if($uploadFile['error'] == 0){
-                $limitFileSize = 1024 * 1024;
+            if ($uploadFile['error'] == 0) {
                 $uploadPath = WWW_ROOT . '/files/Categories/image/' . date('YmdHis') . $uploadFile['name'];
                 $beforeUploadPath = WWW_ROOT . '/files/Categories/image/';
+                $limitFileSize = 1024 * 1024;
                 try {
                         // 古い画像ファイルの削除
-                        if (($this->request->getData('file_before'))){
+                        if (($this->request->getData('file_before'))) {
                             $delFile = new File( $beforeUploadPath . $this->request->getData('file_before'));
-                            if(!$delFile->delete()) {
+                            if (!$delFile->delete()) {
                                 $this->log('ファイル更新時に下記ファイルが削除できませんでした。',LOG_DEBUG);
                                 $this->log($this->request->getData('file_before'), LOG_DEBUG);
                             }
@@ -121,7 +121,7 @@ class CategoriesController extends AppController
 
                             $category = $this->Categories->patchEntity($category, $data);
                     }
-                } catch (RuntimeException $e){
+                } catch (RuntimeException $e) {
                     // アップロード失敗時、ファイル更新を行わない
                     $data = array(
                         'name' => $this->request->getData('name'),
@@ -162,12 +162,12 @@ class CategoriesController extends AppController
         $category = $this->Categories->get($id);
         $fileName = $category->file_name;
 
-//        画像の削除処理
+        // 画像の削除処理
         $filePath = WWW_ROOT . '/files/Categories/image/' . $fileName;
         try {
             $delFile = new File($filePath);
             // ファイル削除処理実行
-            if($delFile->delete()) {
+            if ($delFile->delete()) {
                 $category['file'] = "";
             } else {
                 throw new RuntimeException('ファイルの削除ができませんでした.');

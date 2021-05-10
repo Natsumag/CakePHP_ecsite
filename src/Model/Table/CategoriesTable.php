@@ -71,8 +71,24 @@ class CategoriesTable extends Table
             ->notEmptyString('description');
 
         $validator
-            ->requirePresence('file_name', 'create')
-            ->allowEmptyFile('file_name');
+            ->requirePresence('file_name1', 'create')
+            ->allowEmptyFile('file_name1');
+
+        $validator
+            ->requirePresence('file_name2', 'create')
+            ->allowEmptyFile('file_name2');
+
+        $validator
+            ->requirePresence('file_name3', 'create')
+            ->allowEmptyFile('file_name3');
+
+        $validator
+            ->requirePresence('file_name4', 'create')
+            ->allowEmptyFile('file_name4');
+
+        $validator
+            ->requirePresence('file_name5', 'create')
+            ->allowEmptyFile('file_name5');
 
         $validator
             ->dateTime('created_at')

@@ -40,9 +40,29 @@
         <?= $this->Text->autoParagraph(h($category->description)); ?>
     </div>
     <div class="row">
-        <h4><?= __('File Name') ?></h4>
-        <?= $this->Text->autoParagraph(h($category->file_name)); ?>
-        <?= $this->Html->image('../files/Categories/image/'.$category->file_name, array('height' => 100, 'width' => 100)); ?>
+        <h4><?= __('File Name1') ?></h4>
+        <?= $this->Text->autoParagraph(h($category->file_name1)); ?>
+        <?= $this->Html->image('../files/Categories/image/'.$category->file_name1, array('height' => 100, 'width' => 100)); ?>
+    </div>
+    <div class="row">
+        <h4><?= __('File Name2') ?></h4>
+        <?= $this->Text->autoParagraph(h($category->file_name2)); ?>
+        <?= $this->Html->image('../files/Categories/image/'.$category->file_name2, array('height' => 100, 'width' => 100)); ?>
+    </div>
+    <div class="row">
+        <h4><?= __('File Name3') ?></h4>
+        <?= $this->Text->autoParagraph(h($category->file_name3)); ?>
+        <?= $this->Html->image('../files/Categories/image/'.$category->file_name3, array('height' => 100, 'width' => 100)); ?>
+    </div>
+    <div class="row">
+        <h4><?= __('File Name4') ?></h4>
+        <?= $this->Text->autoParagraph(h($category->file_name4)); ?>
+        <?= $this->Html->image('../files/Categories/image/'.$category->file_name4, array('height' => 100, 'width' => 100)); ?>
+    </div>
+    <div class="row">
+        <h4><?= __('File Name5') ?></h4>
+        <?= $this->Text->autoParagraph(h($category->file_name5)); ?>
+        <?= $this->Html->image('../files/Categories/image/'.$category->file_name5, array('height' => 100, 'width' => 100)); ?>
     </div>
     <div class="related">
         <h4><?= __('Related Products') ?></h4>

@@ -30,7 +30,11 @@ class Category extends Entity
     protected $_accessible = [
         'name' => true,
         'description' => true,
-        'file_name' => true,
+        'file_name1' => true,
+        'file_name2' => true,
+        'file_name3' => true,
+        'file_name4' => true,
+        'file_name5' => true,
         'created_at' => true,
         'updated_at' => true,
         'products' => true,

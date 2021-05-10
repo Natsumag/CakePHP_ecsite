@@ -15,14 +15,10 @@ use Cake\ORM\Entity;
  * @property int $units_in_stock
  * @property int $number_of_units_sold
  * @property string $description
- * @property string $size
+ * @property string $size_circle
+ * @property string $size_rectangle
  * @property int|null $thickness
- * @property string|null $file_name1
- * @property string|null $file_name2
- * @property string|null $file_name3
- * @property string|null $file_name4
- * @property string|null $file_name5
- * @property string|null $file_name6
+ * @property int|null $height
  * @property \Cake\I18n\FrozenTime $created_at
  * @property \Cake\I18n\FrozenTime|null $updated_at
  *
@@ -50,14 +46,10 @@ class Product extends Entity
         'units_in_stock' => true,
         'number_of_units_sold' => true,
         'description' => true,
-        'size' => true,
+        'size_circle' => true,
+        'size_rectangle' => true,
         'thickness' => true,
-        'file_name1' => true,
-        'file_name2' => true,
-        'file_name3' => true,
-        'file_name4' => true,
-        'file_name5' => true,
-        'file_name6' => true,
+        'height' => true,
         'created_at' => true,
         'updated_at' => true,
         'category' => true,

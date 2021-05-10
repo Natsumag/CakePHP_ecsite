@@ -17,7 +17,7 @@
     </ul>
 </nav>
 <div class="products form large-9 medium-8 columns content">
-    <?= $this->Form->create($product, ['type' => 'file']); ?>
+    <?= $this->Form->create($product); ?>
     <fieldset>
         <legend><?= __('Add Product') ?></legend>
         <?php
@@ -29,14 +29,10 @@
             echo $this->Form->control('units_in_stock');
             echo $this->Form->control('number_of_units_sold');
             echo $this->Form->control('description');
-            echo $this->Form->control('size');
+            echo $this->Form->control('size_circle');
+            echo $this->Form->control('size_rectangle');
             echo $this->Form->control('thickness');
-            echo $this->Form->control('file_name1', ['type'=>'file']);
-            echo $this->Form->control('file_name2', ['type'=>'file']);
-            echo $this->Form->control('file_name3', ['type'=>'file']);
-            echo $this->Form->control('file_name4', ['type'=>'file']);
-            echo $this->Form->control('file_name5', ['type'=>'file']);
-            echo $this->Form->control('file_name6', ['type'=>'file']);
+            echo $this->Form->control('height');
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>

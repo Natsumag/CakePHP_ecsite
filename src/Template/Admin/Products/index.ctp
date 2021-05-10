@@ -22,8 +22,9 @@
         <thead>
             <tr>
                 <th scope="col"><?= $this->Paginator->sort('id') ?></th>
-                <th scope="col" class="actions"><?= __('file') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('name') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('size_circle') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('size_rectangle') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('category_id') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('ih_correspond_id') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('material_id') ?></th>
@@ -37,7 +38,8 @@
             <tr>
                 <td><?= $this->Number->format($product->id) ?></td>
                 <td><?= h($product->name) ?></td>
-                <td><?= $this->Html->image('../files/Products/image/'.$product->file_name1, array('height' => 100, 'width' => 100)) ?></td>
+                <td><?= h($product->size_circle) ?></td>
+                <td><?= h($product->size_rectangle) ?></td>
                 <td><?= $product->has('category') ? $this->Html->link($product->category->name, ['controller' => 'Categories', 'action' => 'view', $product->category->id]) : '' ?></td>
                 <td><?= $product->has('ih_correspond') ? $this->Html->link($product->ih_correspond->type, ['controller' => 'IhCorresponds', 'action' => 'view', $product->ih_correspond->id]) : '' ?></td>
                 <td><?= $product->has('material') ? $this->Html->link($product->material->material, ['controller' => 'Materials', 'action' => 'view', $product->material->id]) : '' ?></td>

@@ -32,7 +32,7 @@
                 <td><?= $this->Number->format($category->id) ?></td>
                 <td><?= h($category->name) ?></td>
                 <td><?= h($category->description) ?></td>
-                <td><?= $this->Html->image('../files/Categories/image/'.$category->file_name, array('height' => 100, 'width' => 100)) ?></td>
+                <td><?= $this->Html->image('../files/Categories/image/'.$category->file_name1, array('height' => 100, 'width' => 100)) ?></td>
                 <td><?= h($category->created_at) ?></td>
                 <td><?= h($category->updated_at) ?></td>
                 <td class="actions">

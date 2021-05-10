@@ -40,10 +40,7 @@
         </tr>
         <tr>
             <th scope="row"><?= __('Size') ?></th>
-            <td><?= h($product->size_circle) ?></td>
-        </tr><tr>
-            <th scope="row"><?= __('Size') ?></th>
-            <td><?= h($product->size_rectangle) ?></td>
+            <td><?= h($product->size) ?></td>
         </tr>
         <tr>
             <th scope="row"><?= __('Id') ?></th>
@@ -66,10 +63,6 @@
             <td><?= $this->Number->format($product->thickness) ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('Height') ?></th>
-            <td><?= $this->Number->format($product->height) ?></td>
-        </tr>
-        <tr>
             <th scope="row"><?= __('Created At') ?></th>
             <td><?= h($product->created_at) ?></td>
         </tr>
@@ -82,5 +75,34 @@
         <h4><?= __('Description') ?></h4>
         <?= $this->Text->autoParagraph(h($product->description)); ?>
     </div>
-
+    <div class="row">
+        <h4><?= __('File Name1') ?></h4>
+        <?= $this->Text->autoParagraph(h($product->file_name1)); ?>
+        <?= $this->Html->image('../files/Products/image/'.$product->file_name1, array('height' => 100, 'width' => 100)); ?>
+    </div>
+    <div class="row">
+        <h4><?= __('File Name2') ?></h4>
+        <?= $this->Text->autoParagraph(h($product->file_name2)); ?>
+        <?= $this->Html->image('../files/Products/image/'.$product->file_name2, array('height' => 100, 'width' => 100)); ?>
+    </div>
+    <div class="row">
+        <h4><?= __('File Name3') ?></h4>
+        <?= $this->Text->autoParagraph(h($product->file_name3)); ?>
+        <?= $this->Html->image('../files/Products/image/'.$product->file_name3, array('height' => 100, 'width' => 100)); ?>
+    </div>
+    <div class="row">
+        <h4><?= __('File Name4') ?></h4>
+        <?= $this->Text->autoParagraph(h($product->file_name4)); ?>
+        <?= $this->Html->image('../files/Products/image/'.$product->file_name4, array('height' => 100, 'width' => 100)); ?>
+    </div>
+    <div class="row">
+        <h4><?= __('File Name5') ?></h4>
+        <?= $this->Text->autoParagraph(h($product->file_name5)); ?>
+        <?= $this->Html->image('../files/Products/image/'.$product->file_name5, array('height' => 100, 'width' => 100)); ?>
+    </div>
+    <div class="row">
+        <h4><?= __('File Name6') ?></h4>
+        <?= $this->Text->autoParagraph(h($product->file_name6)); ?>
+        <?= $this->Html->image('../files/Products/image/'.$product->file_name6, array('height' => 100, 'width' => 100)); ?>
+    </div>
 </div>

@@ -81,16 +81,19 @@ class ProductsTable extends Table
 
         $validator
             ->integer('price')
+            ->maxLength('price', 7)
             ->requirePresence('price', 'create')
             ->notEmptyString('price');
 
         $validator
             ->integer('units_in_stock')
+            ->maxLength('units_in_stock', 4)
             ->requirePresence('units_in_stock', 'create')
             ->notEmptyString('units_in_stock');
 
         $validator
             ->integer('number_of_units_sold')
+            ->maxLength('number_of_units_sold', 5)
             ->requirePresence('number_of_units_sold', 'create')
             ->notEmptyString('number_of_units_sold');
 
@@ -100,38 +103,24 @@ class ProductsTable extends Table
             ->notEmptyString('description');
 
         $validator
-            ->scalar('size')
-            ->maxLength('size', 10)
-            ->requirePresence('size', 'create')
-            ->notEmptyString('size');
+            ->scalar('size_circle')
+            ->maxLength('size_circle', 5)
+            ->allowEmptyString('size_circle');
+
+        $validator
+            ->scalar('size_rectangle')
+            ->maxLength('size_rectangle', 5)
+            ->allowEmptyString('size_rectangle');
 
         $validator
             ->integer('thickness')
+            ->maxLength('thickness', 3)
             ->allowEmptyString('thickness');
 
         $validator
-            ->scalar('file_name1')
-            ->allowEmptyFile('file_name1');
-
-        $validator
-            ->scalar('file_name2')
-            ->allowEmptyFile('file_name2');
-
-        $validator
-            ->scalar('file_name3')
-            ->allowEmptyFile('file_name3');
-
-        $validator
-            ->scalar('file_name4')
-            ->allowEmptyFile('file_name4');
-
-        $validator
-            ->scalar('file_name5')
-            ->allowEmptyFile('file_name5');
-
-        $validator
-            ->scalar('file_name6')
-            ->allowEmptyFile('file_name6');
+            ->integer('height')
+            ->maxLength('height', 3)
+            ->allowEmptyString('height');
 
         $validator
             ->dateTime('created_at')
@@ -151,7 +140,7 @@ class ProductsTable extends Table
      * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
      * @return \Cake\ORM\RulesChecker
      */
-//    後で変更する
+
 //    public function buildRules(RulesChecker $rules)
 //    {
 //        $rules->add($rules->existsIn(['category_id'], 'Categories'));

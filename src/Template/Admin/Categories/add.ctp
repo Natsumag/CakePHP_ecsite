@@ -19,7 +19,11 @@
         <?php
             echo $this->Form->control('name');
             echo $this->Form->control('description');
-            echo $this->Form->control('file_name', ['type'=>'file']);
+        echo $this->Form->control('file_name1', ['type'=>'file']);
+        echo $this->Form->control('file_name2', ['type'=>'file']);
+        echo $this->Form->control('file_name3', ['type'=>'file']);
+        echo $this->Form->control('file_name4', ['type'=>'file']);
+        echo $this->Form->control('file_name5', ['type'=>'file']);
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>

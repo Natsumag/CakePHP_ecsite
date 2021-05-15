@@ -10,7 +10,6 @@ use Cake\Validation\Validator;
  * Products Model
  *
  * @property \App\Model\Table\CategoriesTable&\Cake\ORM\Association\BelongsTo $Categories
- * @property \App\Model\Table\IhCorrespondsTable&\Cake\ORM\Association\BelongsTo $IhCorresponds
  * @property \App\Model\Table\MaterialsTable&\Cake\ORM\Association\BelongsTo $Materials
  *
  * @method \App\Model\Entity\Product get($primaryKey, $options = [])
@@ -51,10 +50,6 @@ class ProductsTable extends Table
             'foreignKey' => 'category_id',
             'joinType' => 'INNER',
         ]);
-        $this->belongsTo('IhCorresponds', [
-            'foreignKey' => 'ih_correspond_id',
-            'joinType' => 'INNER',
-        ]);
         $this->belongsTo('Materials', [
             'foreignKey' => 'material_id',
             'joinType' => 'INNER',
@@ -72,6 +67,11 @@ class ProductsTable extends Table
         $validator
             ->integer('id')
             ->allowEmptyString('id', null, 'create');
+
+        $validator
+            ->integer('ih_correspond_id')
+            ->requirePresence('ih_correspond_id', 'create')
+            ->notEmptyString('ih_correspond_id');
 
         $validator
             ->scalar('name')

@@ -42,6 +42,7 @@ class CategoriesController extends AppController
             'contain' => ['Products'],
         ]);
 
+        $this->set('ihCorrespods', IH_CORRESPOND);
         $this->set('category', $category);
     }
 

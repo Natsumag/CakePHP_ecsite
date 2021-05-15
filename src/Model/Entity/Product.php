@@ -21,9 +21,7 @@ use Cake\ORM\Entity;
  * @property int|null $height
  * @property \Cake\I18n\FrozenTime $created_at
  * @property \Cake\I18n\FrozenTime|null $updated_at
- *
  * @property \App\Model\Entity\Category $category
- * @property \App\Model\Entity\IhCorrespond $ih_correspond
  * @property \App\Model\Entity\Material $material
  */
 class Product extends Entity
@@ -53,7 +51,6 @@ class Product extends Entity
         'created_at' => true,
         'updated_at' => true,
         'category' => true,
-        'ih_correspond' => true,
         'material' => true,
     ];
 }

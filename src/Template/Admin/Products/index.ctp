@@ -10,8 +10,6 @@
         <li><?= $this->Html->link(__('New Product'), ['action' => 'add']) ?></li>
         <li><?= $this->Html->link(__('List Categories'), ['controller' => 'Categories', 'action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('New Category'), ['controller' => 'Categories', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Ih Corresponds'), ['controller' => 'IhCorresponds', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Ih Correspond'), ['controller' => 'IhCorresponds', 'action' => 'add']) ?></li>
         <li><?= $this->Html->link(__('List Materials'), ['controller' => 'Materials', 'action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('New Material'), ['controller' => 'Materials', 'action' => 'add']) ?></li>
     </ul>
@@ -41,7 +39,17 @@
                 <td><?= h($product->size_circle) ?></td>
                 <td><?= h($product->size_rectangle) ?></td>
                 <td><?= $product->has('category') ? $this->Html->link($product->category->name, ['controller' => 'Categories', 'action' => 'view', $product->category->id]) : '' ?></td>
-                <td><?= $product->has('ih_correspond') ? $this->Html->link($product->ih_correspond->type, ['controller' => 'IhCorresponds', 'action' => 'view', $product->ih_correspond->id]) : '' ?></td>
+
+                <?php if(h($product->ih_correspond_id) === 1): ?>
+                    <td><?= $ihCorrespods[1] ?></td>
+                <?php elseif(h($product->ih_correspond_id) === 2): ?>
+                    <td><?= $ihCorrespods[2] ?></td>
+                <?php elseif(h($product->ih_correspond_id) === 3): ?>
+                    <td><?= $ihCorrespods[3] ?></td>
+                <?php else: ?>
+                    <td><?= $ihCorrespods[4] ?></td>
+                <?php endif; ?>
+
                 <td><?= $product->has('material') ? $this->Html->link($product->material->material, ['controller' => 'Materials', 'action' => 'view', $product->material->id]) : '' ?></td>
                 <td><?= $this->Number->format($product->units_in_stock) ?></td>
                 <td><?= $this->Number->format($product->number_of_units_sold) ?></td>

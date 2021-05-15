@@ -10,8 +10,6 @@
         <li><?= $this->Html->link(__('List Products'), ['action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('List Categories'), ['controller' => 'Categories', 'action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('New Category'), ['controller' => 'Categories', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Ih Corresponds'), ['controller' => 'IhCorresponds', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Ih Correspond'), ['controller' => 'IhCorresponds', 'action' => 'add']) ?></li>
         <li><?= $this->Html->link(__('List Materials'), ['controller' => 'Materials', 'action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('New Material'), ['controller' => 'Materials', 'action' => 'add']) ?></li>
     </ul>
@@ -22,7 +20,8 @@
         <legend><?= __('Add Product') ?></legend>
         <?php
             echo $this->Form->control('category_id', ['options' => $categories]);
-            echo $this->Form->control('ih_correspond_id', ['options' => $ihCorresponds]);
+            echo $this->Form->control('ih_correspond_id', ['options' => $ihCorrespods]);
+
             echo $this->Form->control('material_id', ['options' => $materials]);
             echo $this->Form->control('name');
             echo $this->Form->control('price');

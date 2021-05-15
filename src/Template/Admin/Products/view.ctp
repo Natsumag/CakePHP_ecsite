@@ -28,7 +28,16 @@
         </tr>
         <tr>
             <th scope="row"><?= __('Ih Correspond') ?></th>
-            <td><?= $product->has('ih_correspond') ? $this->Html->link($product->ih_correspond->type, ['controller' => 'IhCorresponds', 'action' => 'view', $product->ih_correspond->id]) : '' ?></td>
+            <?php if(h($product->ih_correspond_id) === 1): ?>
+                <td><?= $ihCorrespods[1] ?></td>
+            <?php elseif(h($product->ih_correspond_id) === 2): ?>
+                <td><?= $ihCorrespods[2] ?></td>
+            <?php elseif(h($product->ih_correspond_id) === 3): ?>
+                <td><?= $ihCorrespods[3] ?></td>
+            <?php else: ?>
+                <td><?= $ihCorrespods[4] ?></td>
+            <?php endif; ?>
+
         </tr>
         <tr>
             <th scope="row"><?= __('Material') ?></th>

@@ -1,40 +1,45 @@
 <?php
 namespace App\Controller;
-
-use App\Controller\AppController;
-use App\Utils\AppUtility;
 use Cake\Event\Event;
-use Cake\ORM\TableRegistry;
 
 
-
-class GeneralProductsController extends AppController
+class GeneralCategoriesController extends AppController
 {
     public function initialize() {
         parent::initialize();
         // モデルの読み込み
         $this->loadModel('Products');
         $this->loadModel('Categories');
+
     }
 
+    /**
+     * Index method
+     *
+     * @return \Cake\Http\Response|null
+     */
     public function index()
     {
-        $this->paginate = [
-            'contain' => ['Categories', 'IhCorresponds', 'Materials'],
-        ];
-        $products = $this->paginate($this->Products);
+        $categories = $this->paginate($this->Categories);
 
-        $this->set(compact('products'));
-
+        $this->set(compact('categories'));
     }
 
+    /**
+     * View method
+     *
+     * @param string|null $id Category id.
+     * @return \Cake\Http\Response|null
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     */
     public function view($id = null)
     {
-        $generalProduct = $this->Products->get($id, [
-            'contain' => ['Categories', 'IhCorresponds', 'Materials'],
+        $category = $this->Categories->get($id, [
+            'contain' => ['Products'],
         ]);
 
-        $this->set('product', $generalProduct);
+        $this->set('ihCorrespods', IH_CORRESPOND);
+        $this->set('category', $category);
     }
 
     public function isAuthorized($product = null)

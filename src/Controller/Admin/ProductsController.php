@@ -2,10 +2,7 @@
 namespace App\Controller\admin;
 
 use App\Controller\AppController;
-use App\Utils\AppUtility;
 use Cake\Event\Event;
-use Cake\Filesystem\File;
-use RuntimeException;
 
 /**
  * Products Controller
@@ -24,10 +21,11 @@ class ProductsController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['Categories', 'IhCorresponds', 'Materials'],
+            'contain' => ['Categories', 'Materials'],
         ];
         $products = $this->paginate($this->Products);
 
+        $this->set('ihCorrespods', IH_CORRESPOND);
         $this->set(compact('products'));
     }
 
@@ -41,9 +39,9 @@ class ProductsController extends AppController
     public function view($id = null)
     {
         $product = $this->Products->get($id, [
-            'contain' => ['Categories', 'IhCorresponds', 'Materials'],
+            'contain' => ['Categories', 'Materials'],
         ]);
-
+        $this->set('ihCorrespods', IH_CORRESPOND);
         $this->set('product', $product);
     }
 
@@ -65,9 +63,10 @@ class ProductsController extends AppController
             $this->Flash->error(__('The product could not be saved. Please, try again.'));
         }
             $categories = $this->Products->Categories->find('list', ['limit' => 20]);
-            $ihCorresponds = $this->Products->IhCorresponds->find('list', ['limit' => 10]);
             $materials = $this->Products->Materials->find('list', ['limit' => 20]);
-            $this->set(compact('product', 'categories', 'ihCorresponds', 'materials'));
+
+            $this->set('ihCorrespods', IH_CORRESPOND);
+            $this->set(compact('product', 'categories', 'materials'));
     }
 
     /**
@@ -91,9 +90,10 @@ class ProductsController extends AppController
             $this->Flash->error(__('The product could not be saved. Please, try again.'));
         }
         $categories = $this->Products->Categories->find('list', ['limit' => 20]);
-        $ihCorresponds = $this->Products->IhCorresponds->find('list', ['limit' => 10]);
         $materials = $this->Products->Materials->find('list', ['limit' => 20]);
-        $this->set(compact('product', 'categories', 'ihCorresponds', 'materials'));
+
+        $this->set('ihCorrespods', IH_CORRESPOND);
+        $this->set(compact('product', 'categories', 'materials'));
     }
 
     /**

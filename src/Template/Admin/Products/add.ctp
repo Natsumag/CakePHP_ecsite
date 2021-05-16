@@ -20,14 +20,10 @@
         <legend><?= __('Add Product') ?></legend>
         <?php
             echo $this->Form->control('category_id', ['options' => $categories]);
-            echo $this->Form->control('ih_correspond_id', ['options' => $ihCorrespods]);
-
-            echo $this->Form->control('material_id', ['options' => $materials]);
             echo $this->Form->control('name');
             echo $this->Form->control('price');
             echo $this->Form->control('units_in_stock');
             echo $this->Form->control('number_of_units_sold');
-            echo $this->Form->control('description');
             echo $this->Form->control('size_circle');
             echo $this->Form->control('size_rectangle');
             echo $this->Form->control('thickness');

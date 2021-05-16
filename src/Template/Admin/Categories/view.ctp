@@ -26,6 +26,22 @@ use Cake\Core\Configure;
             <td><?= $this->Number->format($category->id) ?></td>
         </tr>
         <tr>
+            <th scope="row"><?= __('Ih Correspond') ?></th>
+            <?php if(h($category->ih_correspond_id) === 1): ?>
+                <td><?= $ihCorrespods[1] ?></td>
+            <?php elseif(h($category->ih_correspond_id) === 2): ?>
+                <td><?= $ihCorrespods[2] ?></td>
+            <?php elseif(h($category->ih_correspond_id) === 3): ?>
+                <td><?= $ihCorrespods[3] ?></td>
+            <?php else: ?>
+                <td><?= $ihCorrespods[4] ?></td>
+            <?php endif; ?>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('Material') ?></th>
+            <td><?= $category->has('material') ? $this->Html->link($category->material->material, ['controller' => 'Materials', 'action' => 'view', $category->material->id]) : '' ?></td>
+        </tr>
+        <tr>
             <th scope="row"><?= __('Created At') ?></th>
             <td><?= h($category->created_at) ?></td>
         </tr>
@@ -88,18 +104,6 @@ use Cake\Core\Configure;
             <?php foreach ($category->products as $products): ?>
             <tr>
                 <td><?= h($products->id) ?></td>
-
-                <?php if(h($products->ih_correspond_id) === 1): ?>
-                    <td><?= $ihCorrespods[1] ?></td>
-                <?php elseif(h($products->ih_correspond_id) === 2): ?>
-                    <td><?= $ihCorrespods[2] ?></td>
-                <?php elseif(h($products->ih_correspond_id) === 3): ?>
-                    <td><?= $ihCorrespods[3] ?></td>
-                <?php else: ?>
-                    <td><?= $ihCorrespods[4] ?></td>
-                <?php endif; ?>
-
-                <td><?= h($products->material_id) ?></td>
                 <td><?= h($products->name) ?></td>
                 <td><?= h($products->units_in_stock) ?></td>
                 <td><?= h($products->number_of_units_sold) ?></td>

@@ -14,13 +14,10 @@ class CreateProducts extends AbstractMigration
     {
         $users = $this->table('products');
         $users->addColumn('category_id', 'integer', ['limit' => 3])
-            ->addColumn('ih_correspond_id', 'integer', ['limit' => 2])
-            ->addColumn('material_id', 'integer', ['limit' => 3])
             ->addColumn('name', 'string', ['limit' => 50])
             ->addColumn('price', 'integer', ['limit' => 7])
             ->addColumn('units_in_stock', 'integer', ['limit' => 4])
             ->addColumn('number_of_units_sold', 'integer', ['limit' => 5])
-            ->addColumn('description', 'text')
             ->addColumn('size_circle', 'string', ['limit' => 5, 'null' => true])
             ->addColumn('size_rectangle', 'string', ['limit' => 10, 'null' => true])
             ->addColumn('thickness', 'integer', ['limit' => 3, 'null' => true])

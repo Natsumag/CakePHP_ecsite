@@ -13,7 +13,9 @@ class CreateCategories extends AbstractMigration
     public function up()
     {
         $users = $this->table('categories');
-        $users->addColumn('name', 'string', ['limit' => 50])
+        $users->addColumn('material_id', 'integer', ['limit' => 3])
+            ->addColumn('ih_correspond_id', 'integer')
+            ->addColumn('name', 'string', ['limit' => 50])
             ->addColumn('description', 'text')
             ->addColumn('file_name1', 'text')
             ->addColumn('file_name2', 'text')

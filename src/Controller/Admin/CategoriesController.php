@@ -24,8 +24,11 @@ class CategoriesController extends AppController
      */
     public function index()
     {
+        $this->paginate = [
+            'contain' => ['Materials'],
+        ];
         $categories = $this->paginate($this->Categories);
-
+        $this->set('ihCorrespods', IH_CORRESPOND);
         $this->set(compact('categories'));
     }
 
@@ -39,7 +42,7 @@ class CategoriesController extends AppController
     public function view($id = null)
     {
         $category = $this->Categories->get($id, [
-            'contain' => ['Products'],
+            'contain' => ['Products', 'Materials'],
         ]);
 
         $this->set('ihCorrespods', IH_CORRESPOND);
@@ -77,6 +80,8 @@ class CategoriesController extends AppController
                 $num++;
             }
             $data = array(
+                'ih_correspond_id' => $this->request->getData('ih_correspond_id'),
+                'material_id' => $this->request->getData('material_id'),
                 'name' => $this->request->getData('name'),
                 'description' => $this->request->getData('description'),
                 'file_name1' => array_key_exists('file_name1', $array2) ? $array2['file_name1'] : '',
@@ -88,6 +93,7 @@ class CategoriesController extends AppController
 
             $category= $this->Categories->newEntity($data);
 
+
             if ($this->Categories->save($category)) {
                 $this->Flash->success(__('The category has been saved.'));
 
@@ -95,7 +101,9 @@ class CategoriesController extends AppController
             }
             $this->Flash->error(__('The category could not be saved. Please, try again.'));
         }
-        $this->set(compact('category'));
+        $materials = $this->Categories->Materials->find('list', ['limit' => 20]);
+        $this->set('ihCorrespods', IH_CORRESPOND);
+        $this->set(compact('category', 'materials'));
     }
 
     /**
@@ -253,6 +261,8 @@ class CategoriesController extends AppController
             }
 
             $data = array(
+                'ih_correspond_id' => $this->request->getData('ih_correspond_id'),
+                'material_id' => $this->request->getData('material_id'),
                 'name' => $this->request->getData('name'),
                 'description' => $this->request->getData('description'),
                 'file_name1' => $array['file_name1'],
@@ -271,7 +281,9 @@ class CategoriesController extends AppController
             }
             $this->Flash->error(__('The category could not be saved. Please, try again.'));
         }
-        $this->set(compact('category'));
+        $materials = $this->Categories->Materials->find('list', ['limit' => 20]);
+        $this->set('ihCorrespods', IH_CORRESPOND);
+        $this->set(compact('category', 'materials'));
     }
 
     /**
@@ -283,10 +295,9 @@ class CategoriesController extends AppController
      */
     public function delete($id = null)
     {
-
-
         $this->request->allowMethod(['post', 'delete']);
         $category = $this->Categories->get($id);
+
         $fileName1 = $category->file_name1;
         $fileName2 = $category->file_name2;
         $fileName3 = $category->file_name3;

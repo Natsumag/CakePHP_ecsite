@@ -10,6 +10,8 @@
         <li><?= $this->Html->link(__('List Categories'), ['action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('List Products'), ['controller' => 'Products', 'action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('New Product'), ['controller' => 'Products', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Materials'), ['controller' => 'Materials', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Material'), ['controller' => 'Materials', 'action' => 'add']) ?></li>
     </ul>
 </nav>
 <div class="categories form large-9 medium-8 columns content">
@@ -17,8 +19,10 @@
     <fieldset>
         <legend><?= __('Add Category') ?></legend>
         <?php
-            echo $this->Form->control('name');
-            echo $this->Form->control('description');
+        echo $this->Form->control('ih_correspond_id', ['options' => $ihCorrespods]);
+        echo $this->Form->control('material_id', ['options' => $materials]);
+        echo $this->Form->control('name');
+        echo $this->Form->control('description');
         echo $this->Form->control('file_name1', ['type'=>'file']);
         echo $this->Form->control('file_name2', ['type'=>'file']);
         echo $this->Form->control('file_name3', ['type'=>'file']);

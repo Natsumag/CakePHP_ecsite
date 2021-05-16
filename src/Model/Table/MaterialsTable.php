@@ -45,7 +45,7 @@ class MaterialsTable extends Table
         $this->setDisplayField('material');
         $this->setPrimaryKey('id');
 
-        $this->hasMany('Products', [
+        $this->hasMany('Categories', [
             'foreignKey' => 'material_id',
         ]);
     }

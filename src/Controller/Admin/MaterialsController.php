@@ -35,7 +35,7 @@ class MaterialsController extends AppController
     public function view($id = null)
     {
         $material = $this->Materials->get($id, [
-            'contain' => ['Products'],
+            'contain' => ['Categories'],
         ]);
 
         $this->set('material', $material);

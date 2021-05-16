@@ -20,7 +20,17 @@ class GeneralCategoriesController extends AppController
      */
     public function index()
     {
-        $categories = $this->paginate($this->Categories);
+
+//        $categories = $this->paginate($this->Categories);
+        $query = $this->Categories
+            ->find()
+            ->contain(['Products' => function($query){
+                return $query->select(['id', 'category_id', 'name', 'ih_correspond_id', 'material_id', 'price', 'units_in_stock', 'description', 'size_circle', 'size_rectangle', 'thickness', 'height']); // ここで設定
+            }]);
+        $categories = $query->all();
+
+        debug($categories);
+        exit();
 
         $this->set(compact('categories'));
     }
@@ -41,6 +51,7 @@ class GeneralCategoriesController extends AppController
         $this->set('ihCorrespods', IH_CORRESPOND);
         $this->set('category', $category);
     }
+
 
     public function isAuthorized($product = null)
     {

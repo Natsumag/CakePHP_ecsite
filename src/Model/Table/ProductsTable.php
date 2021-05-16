@@ -10,7 +10,7 @@ use Cake\Validation\Validator;
  * Products Model
  *
  * @property \App\Model\Table\CategoriesTable&\Cake\ORM\Association\BelongsTo $Categories
- * @property \App\Model\Table\MaterialsTable&\Cake\ORM\Association\BelongsTo $Materials
+
  *
  * @method \App\Model\Entity\Product get($primaryKey, $options = [])
  * @method \App\Model\Entity\Product newEntity($data = null, array $options = [])
@@ -50,10 +50,6 @@ class ProductsTable extends Table
             'foreignKey' => 'category_id',
             'joinType' => 'INNER',
         ]);
-        $this->belongsTo('Materials', [
-            'foreignKey' => 'material_id',
-            'joinType' => 'INNER',
-        ]);
     }
 
     /**
@@ -67,11 +63,6 @@ class ProductsTable extends Table
         $validator
             ->integer('id')
             ->allowEmptyString('id', null, 'create');
-
-        $validator
-            ->integer('ih_correspond_id')
-            ->requirePresence('ih_correspond_id', 'create')
-            ->notEmptyString('ih_correspond_id');
 
         $validator
             ->scalar('name')
@@ -96,11 +87,6 @@ class ProductsTable extends Table
             ->maxLength('number_of_units_sold', 5)
             ->requirePresence('number_of_units_sold', 'create')
             ->notEmptyString('number_of_units_sold');
-
-        $validator
-            ->scalar('description')
-            ->requirePresence('description', 'create')
-            ->notEmptyString('description');
 
         $validator
             ->scalar('size_circle')
@@ -132,21 +118,4 @@ class ProductsTable extends Table
 
         return $validator;
     }
-
-    /**
-     * Returns a rules checker object that will be used for validating
-     * application integrity.
-     *
-     * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
-     * @return \Cake\ORM\RulesChecker
-     */
-
-//    public function buildRules(RulesChecker $rules)
-//    {
-//        $rules->add($rules->existsIn(['category_id'], 'Categories'));
-//        $rules->add($rules->existsIn(['ih_correspond_id'], 'IhCorresponds'));
-//        $rules->add($rules->existsIn(['material_id'], 'Materials'));
-//
-//        return $rules;
-//    }
 }

@@ -10,6 +10,7 @@ use Cake\Validation\Validator;
  * Categories Model
  *
  * @property \App\Model\Table\ProductsTable&\Cake\ORM\Association\HasMany $Products
+ * @property \App\Model\Table\MaterialsTable&\Cake\ORM\Association\BelongsTo $Materials
  *
  * @method \App\Model\Entity\Category get($primaryKey, $options = [])
  * @method \App\Model\Entity\Category newEntity($data = null, array $options = [])
@@ -46,6 +47,12 @@ class CategoriesTable extends Table
         $this->hasMany('Products', [
             'foreignKey' => 'category_id',
         ]);
+
+        $this->belongsTo('Materials', [
+            'foreignKey' => 'material_id',
+            'joinType' => 'INNER',
+        ]);
+
     }
 
     /**
@@ -59,6 +66,11 @@ class CategoriesTable extends Table
         $validator
             ->integer('id')
             ->allowEmptyString('id', null, 'create');
+
+        $validator
+            ->integer('ih_correspond_id')
+            ->requirePresence('ih_correspond_id', 'create')
+            ->notEmptyString('ih_correspond_id');
 
         $validator
             ->scalar('name')

@@ -28,6 +28,8 @@ class Category extends Entity
      * @var array
      */
     protected $_accessible = [
+        'material_id' => true,
+        'ih_correspond_id' => true,
         'name' => true,
         'description' => true,
         'file_name1' => true,
@@ -38,5 +40,6 @@ class Category extends Entity
         'created_at' => true,
         'updated_at' => true,
         'products' => true,
+        'material' => true,
     ];
 }

@@ -37,13 +37,10 @@ class Product extends Entity
      */
     protected $_accessible = [
         'category_id' => true,
-        'ih_correspond_id' => true,
-        'material_id' => true,
         'name' => true,
         'price' => true,
         'units_in_stock' => true,
         'number_of_units_sold' => true,
-        'description' => true,
         'size_circle' => true,
         'size_rectangle' => true,
         'thickness' => true,
@@ -51,6 +48,5 @@ class Product extends Entity
         'created_at' => true,
         'updated_at' => true,
         'category' => true,
-        'material' => true,
     ];
 }

@@ -10,8 +10,6 @@
         <li><?= $this->Html->link(__('New Product'), ['action' => 'add']) ?></li>
         <li><?= $this->Html->link(__('List Categories'), ['controller' => 'Categories', 'action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('New Category'), ['controller' => 'Categories', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Materials'), ['controller' => 'Materials', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Material'), ['controller' => 'Materials', 'action' => 'add']) ?></li>
     </ul>
 </nav>
 <div class="products index large-9 medium-8 columns content">
@@ -24,8 +22,6 @@
                 <th scope="col"><?= $this->Paginator->sort('size_circle') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('size_rectangle') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('category_id') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('ih_correspond_id') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('material_id') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('units_in_stock') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('number_of_units_sold') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
@@ -39,21 +35,8 @@
                 <td><?= h($product->size_circle) ?></td>
                 <td><?= h($product->size_rectangle) ?></td>
                 <td><?= $product->has('category') ? $this->Html->link($product->category->name, ['controller' => 'Categories', 'action' => 'view', $product->category->id]) : '' ?></td>
-
-                <?php if(h($product->ih_correspond_id) === 1): ?>
-                    <td><?= $ihCorrespods[1] ?></td>
-                <?php elseif(h($product->ih_correspond_id) === 2): ?>
-                    <td><?= $ihCorrespods[2] ?></td>
-                <?php elseif(h($product->ih_correspond_id) === 3): ?>
-                    <td><?= $ihCorrespods[3] ?></td>
-                <?php else: ?>
-                    <td><?= $ihCorrespods[4] ?></td>
-                <?php endif; ?>
-
-                <td><?= $product->has('material') ? $this->Html->link($product->material->material, ['controller' => 'Materials', 'action' => 'view', $product->material->id]) : '' ?></td>
                 <td><?= $this->Number->format($product->units_in_stock) ?></td>
                 <td><?= $this->Number->format($product->number_of_units_sold) ?></td>
-
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $product->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $product->id]) ?>

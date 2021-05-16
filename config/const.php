@@ -10,6 +10,6 @@ return [
         IH_AND_FIRE => 'IHと加熱',
         FIRE_ONLY   => '加熱のみ',
         IH_ONLY   => 'IHのみ',
-        IH_CORRESPOND   => '関係なし',
+        UNRELATED   => '関係なし',
     ]),
 ];

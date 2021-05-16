@@ -21,11 +21,9 @@ class ProductsController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['Categories', 'Materials'],
+            'contain' => ['Categories'],
         ];
         $products = $this->paginate($this->Products);
-
-        $this->set('ihCorrespods', IH_CORRESPOND);
         $this->set(compact('products'));
     }
 
@@ -39,9 +37,8 @@ class ProductsController extends AppController
     public function view($id = null)
     {
         $product = $this->Products->get($id, [
-            'contain' => ['Categories', 'Materials'],
+            'contain' => ['Categories'],
         ]);
-        $this->set('ihCorrespods', IH_CORRESPOND);
         $this->set('product', $product);
     }
 
@@ -63,10 +60,7 @@ class ProductsController extends AppController
             $this->Flash->error(__('The product could not be saved. Please, try again.'));
         }
             $categories = $this->Products->Categories->find('list', ['limit' => 20]);
-            $materials = $this->Products->Materials->find('list', ['limit' => 20]);
-
-            $this->set('ihCorrespods', IH_CORRESPOND);
-            $this->set(compact('product', 'categories', 'materials'));
+            $this->set(compact('product', 'categories'));
     }
 
     /**
@@ -90,10 +84,7 @@ class ProductsController extends AppController
             $this->Flash->error(__('The product could not be saved. Please, try again.'));
         }
         $categories = $this->Products->Categories->find('list', ['limit' => 20]);
-        $materials = $this->Products->Materials->find('list', ['limit' => 20]);
-
-        $this->set('ihCorrespods', IH_CORRESPOND);
-        $this->set(compact('product', 'categories', 'materials'));
+        $this->set(compact('product', 'categories'));
     }
 
     /**

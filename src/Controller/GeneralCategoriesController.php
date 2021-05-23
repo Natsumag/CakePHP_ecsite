@@ -20,18 +20,11 @@ class GeneralCategoriesController extends AppController
      */
     public function index()
     {
-
-//        $categories = $this->paginate($this->Categories);
         $query = $this->Categories
             ->find()
-            ->contain(['Products' => function($query){
-                return $query->select(['id', 'category_id', 'name', 'ih_correspond_id', 'material_id', 'price', 'units_in_stock', 'description', 'size_circle', 'size_rectangle', 'thickness', 'height']); // ここで設定
-            }]);
+            ->contain(['Products', 'Materials']);
         $categories = $query->all();
-
-        debug($categories);
-        exit();
-
+        $this->set('ihCorrespods', IH_CORRESPOND);
         $this->set(compact('categories'));
     }
 
@@ -45,7 +38,7 @@ class GeneralCategoriesController extends AppController
     public function view($id = null)
     {
         $category = $this->Categories->get($id, [
-            'contain' => ['Products'],
+            'contain' => ['Products', 'Materials'],
         ]);
 
         $this->set('ihCorrespods', IH_CORRESPOND);

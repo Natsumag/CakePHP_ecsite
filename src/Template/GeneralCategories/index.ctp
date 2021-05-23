@@ -9,43 +9,41 @@
     <h3><?= __('Categories') ?></h3>
     <table cellpadding="0" cellspacing="0">
         <thead>
-        <tr>
-            <th scope="col"><?= $this->Paginator->sort('id') ?></th>
-            <th scope="col"><?= $this->Paginator->sort('name') ?></th>
-            <th scope="col"><?= $this->Paginator->sort('description') ?></th>
-            <th scope="col" class="actions"><?= __('file') ?></th>
-            <th scope="col"><?= $this->Paginator->sort('created_at') ?></th>
-            <th scope="col"><?= $this->Paginator->sort('updated_at') ?></th>
-            <th scope="col" class="actions"><?= __('Actions') ?></th>
-        </tr>
+            <tr>
+                <th scope="col" class="actions"><?= __('商品イメージ') ?></th>
+                <th scope="col" class="actions"><?= __('商品名') ?></th>
+                <th scope="col" class="actions"><?= __('価格') ?></th>
+                <th scope="col" class="actions"><?= __('対応熱源') ?></th>
+                <th scope="col" class="actions"><?= __('サイズ') ?></th>
+                <th scope="col" class="actions"><?= __('素材') ?></th>
+                <th scope="col" class="actions"><?= __('特徴') ?></th>
+                <th scope="col" class="actions"><?= __('Actions') ?></th>
+            </tr>
         </thead>
         <tbody>
-
-        <?php foreach ($categories as $category): ?>
-            <tr>
-                <td><?= $this->Number->format($category->id) ?></td>
-                <?= $a = $this->Number->format($category->id); ?>
-                <td><?= h($category->name) ?></td>
-                <td><?= h($category->description) ?></td>
-                <td><?= $this->Html->image('../files/Categories/image/'.$category->file_name1, array('height' => 100, 'width' => 100)) ?></td>
-                <td><?= h($category->created_at) ?></td>
-                <td><?= h($category->updated_at) ?></td>
-
-                <td class="actions">
-                    <?= $this->Html->link(__('View'), ['action' => 'view', $category->id]) ?>
-                </td>
-            </tr>
-        <?php endforeach; ?>
+            <?php $categories_arrays = $categories->toArray(); ?>
+            <?php foreach ($categories_arrays as $categories_array): ?>
+                <tr>
+                    <td><?= $this->Html->image('../files/Categories/image/'.$categories_array->file_name1, array('height' => 100, 'width' => 100)) ?></td>
+                    <td><?= h($categories_array->name) ?></td>
+                    <td><?= $categories_array->products[0]->price; ?></td>
+                    <?php if(h($categories_array->ih_correspond_id) === 1): ?>
+                        <td><?= $ihCorrespods[1] ?></td>
+                    <?php elseif(h($categories_array->ih_correspond_id) === 2): ?>
+                        <td><?= $ihCorrespods[2] ?></td>
+                    <?php elseif(h($categories_array->ih_correspond_id) === 3): ?>
+                        <td><?= $ihCorrespods[3] ?></td>
+                    <?php else: ?>
+                        <td><?= $ihCorrespods[4] ?></td>
+                    <?php endif; ?>
+                    <td><?= $categories_array->products[0]->size_circle[0]; ?></td>
+                    <td><?= $categories_array->material->material ?></td>
+                    <td><?= h($categories_array->description) ?></td>
+                    <td class="actions">
+                        <?= $this->Html->link(__('View'), ['action' => 'view', $categories_array->id]) ?>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
         </tbody>
     </table>
-<!--    <div class="paginator">-->
-<!--        <ul class="pagination">-->
-<!--            --><?//= $this->Paginator->first('<< ' . __('first')) ?>
-<!--            --><?//= $this->Paginator->prev('< ' . __('previous')) ?>
-<!--            --><?//= $this->Paginator->numbers() ?>
-<!--            --><?//= $this->Paginator->next(__('next') . ' >') ?>
-<!--            --><?//= $this->Paginator->last(__('last') . ' >>') ?>
-<!--        </ul>-->
-<!--        <p>--><?//= $this->Paginator->counter(['format' => __('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')]) ?><!--</p>-->
-<!--    </div>-->
 </div>

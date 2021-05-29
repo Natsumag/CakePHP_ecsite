@@ -10,7 +10,7 @@ class GeneralCategoriesController extends AppController
         // モデルの読み込み
         $this->loadModel('Products');
         $this->loadModel('Categories');
-
+//        $this->load->library('cart');
     }
 
     /**

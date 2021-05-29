@@ -41,14 +41,7 @@ use Cake\Core\Configure;
             <th scope="row"><?= __('Material') ?></th>
             <td><?= $category->has('material') ? $this->Html->link($category->material->material, ['controller' => 'Materials', 'action' => 'view', $category->material->id]) : '' ?></td>
         </tr>
-        <tr>
-            <th scope="row"><?= __('Created At') ?></th>
-            <td><?= h($category->created_at) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Updated At') ?></th>
-            <td><?= h($category->updated_at) ?></td>
-        </tr>
+
     </table>
     <div class="row">
         <h4><?= __('Name') ?></h4>
@@ -87,36 +80,26 @@ use Cake\Core\Configure;
     <div class="related">
         <h4><?= __('Related Products') ?></h4>
         <?php if (!empty($category->products)): ?>
-        <table cellpadding="0" cellspacing="0">
-            <tr>
-                <th scope="col"><?= __('Id') ?></th>
-                <th scope="col"><?= __('Ih Correspond Id') ?></th>
-                <th scope="col"><?= __('Material Id') ?></th>
-                <th scope="col"><?= __('Name') ?></th>
-                <th scope="col"><?= __('Units In Stock') ?></th>
-                <th scope="col"><?= __('Number Of Units Sold') ?></th>
-
-                <th scope="col"><?= __('Size') ?></th>
-
-                <th scope="col"><?= __('File') ?></th>
-                <th scope="col" class="actions"><?= __('Actions') ?></th>
-            </tr>
-            <?php foreach ($category->products as $products): ?>
-            <tr>
-                <td><?= h($products->id) ?></td>
-                <td><?= h($products->name) ?></td>
-                <td><?= h($products->units_in_stock) ?></td>
-                <td><?= h($products->number_of_units_sold) ?></td>
-                <td><?= h($products->size_circle) ?></td>
-                <td><?= $this->Html->image('../files/Categories/image/'.$products->file_name1, array('height' => 100, 'width' => 100)); ?></td>
-                <td class="actions">
-                    <?= $this->Html->link(__('View'), ['controller' => 'Products', 'action' => 'view', $products->id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['controller' => 'Products', 'action' => 'edit', $products->id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'Products', 'action' => 'delete', $products->id], ['confirm' => __('Are you sure you want to delete # {0}?', $products->id)]) ?>
-                </td>
-            </tr>
-            <?php endforeach; ?>
-        </table>
+            <table cellpadding="0" cellspacing="0">
+                <tr>
+                    <th scope="col"><?= __('Name') ?></th>
+                    <th scope="col"><?= __('Units In Stock') ?></th>
+                    <th scope="col"><?= __('Number Of Units Sold') ?></th>
+                    <th scope="col"><?= __('Size') ?></th>
+                    <th scope="col" class="actions"><?= __('Actions') ?></th>
+                </tr>
+                <?php foreach ($category->products as $products): ?>
+                    <tr>
+                        <td><?= h($products->name) ?></td>
+                        <td><?= h($products->units_in_stock) ?></td>
+                        <td><?= h($products->number_of_units_sold) ?></td>
+                        <td><?= h($products->size_circle) ?></td>
+                        <td class="actions">
+                            <?= $this->Html->link(__('View'), ['controller' => 'Products', 'action' => 'view', $products->id]) ?>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </table>
         <?php endif; ?>
     </div>
 </div>

@@ -1,7 +1,6 @@
 <?php
 namespace App\Controller\Admin;
 
-use App\Controller\AppController;
 use Cake\Event\Event;
 
 /**
@@ -35,7 +34,7 @@ class MaterialsController extends AppController
     public function view($id = null)
     {
         $material = $this->Materials->get($id, [
-            'contain' => ['Products'],
+            'contain' => ['Categories'],
         ]);
 
         $this->set('material', $material);

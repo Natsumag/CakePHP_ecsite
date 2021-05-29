@@ -10,8 +10,7 @@ use Cake\Validation\Validator;
  * Products Model
  *
  * @property \App\Model\Table\CategoriesTable&\Cake\ORM\Association\BelongsTo $Categories
- * @property \App\Model\Table\IhCorrespondsTable&\Cake\ORM\Association\BelongsTo $IhCorresponds
- * @property \App\Model\Table\MaterialsTable&\Cake\ORM\Association\BelongsTo $Materials
+
  *
  * @method \App\Model\Entity\Product get($primaryKey, $options = [])
  * @method \App\Model\Entity\Product newEntity($data = null, array $options = [])
@@ -51,14 +50,6 @@ class ProductsTable extends Table
             'foreignKey' => 'category_id',
             'joinType' => 'INNER',
         ]);
-        $this->belongsTo('IhCorresponds', [
-            'foreignKey' => 'ih_correspond_id',
-            'joinType' => 'INNER',
-        ]);
-        $this->belongsTo('Materials', [
-            'foreignKey' => 'material_id',
-            'joinType' => 'INNER',
-        ]);
     }
 
     /**
@@ -81,57 +72,41 @@ class ProductsTable extends Table
 
         $validator
             ->integer('price')
+            ->maxLength('price', 7)
             ->requirePresence('price', 'create')
             ->notEmptyString('price');
 
         $validator
             ->integer('units_in_stock')
+            ->maxLength('units_in_stock', 4)
             ->requirePresence('units_in_stock', 'create')
             ->notEmptyString('units_in_stock');
 
         $validator
             ->integer('number_of_units_sold')
+            ->maxLength('number_of_units_sold', 5)
             ->requirePresence('number_of_units_sold', 'create')
             ->notEmptyString('number_of_units_sold');
 
         $validator
-            ->scalar('description')
-            ->requirePresence('description', 'create')
-            ->notEmptyString('description');
+            ->scalar('size_circle')
+            ->maxLength('size_circle', 5)
+            ->allowEmptyString('size_circle');
 
         $validator
-            ->scalar('size')
-            ->maxLength('size', 10)
-            ->requirePresence('size', 'create')
-            ->notEmptyString('size');
+            ->scalar('size_rectangle')
+            ->maxLength('size_rectangle', 5)
+            ->allowEmptyString('size_rectangle');
 
         $validator
             ->integer('thickness')
+            ->maxLength('thickness', 3)
             ->allowEmptyString('thickness');
 
         $validator
-//            ->scalar('file_name1')
-            ->allowEmptyFile('file_name1');
-
-        $validator
-//            ->scalar('file_name2')
-            ->allowEmptyFile('file_name2');
-
-        $validator
-//            ->scalar('file_name3')
-            ->allowEmptyFile('file_name3');
-
-        $validator
-//            ->scalar('file_name4')
-            ->allowEmptyFile('file_name4');
-
-        $validator
-//            ->scalar('file_name5')
-            ->allowEmptyFile('file_name5');
-
-        $validator
-//            ->scalar('file_name6')
-            ->allowEmptyFile('file_name6');
+            ->integer('height')
+            ->maxLength('height', 3)
+            ->allowEmptyString('height');
 
         $validator
             ->dateTime('created_at')
@@ -143,21 +118,4 @@ class ProductsTable extends Table
 
         return $validator;
     }
-
-    /**
-     * Returns a rules checker object that will be used for validating
-     * application integrity.
-     *
-     * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
-     * @return \Cake\ORM\RulesChecker
-     */
-//    後で変更する
-//    public function buildRules(RulesChecker $rules)
-//    {
-//        $rules->add($rules->existsIn(['category_id'], 'Categories'));
-//        $rules->add($rules->existsIn(['ih_correspond_id'], 'IhCorresponds'));
-//        $rules->add($rules->existsIn(['material_id'], 'Materials'));
-//
-//        return $rules;
-//    }
 }

@@ -10,6 +10,8 @@
         <li><?= $this->Html->link(__('New Category'), ['action' => 'add']) ?></li>
         <li><?= $this->Html->link(__('List Products'), ['controller' => 'Products', 'action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('New Product'), ['controller' => 'Products', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Materials'), ['controller' => 'Materials', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Material'), ['controller' => 'Materials', 'action' => 'add']) ?></li>
     </ul>
 </nav>
 <div class="categories index large-9 medium-8 columns content">
@@ -18,6 +20,8 @@
         <thead>
             <tr>
                 <th scope="col"><?= $this->Paginator->sort('id') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('ih_correspond_id') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('material_id') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('name') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('description') ?></th>
                 <th scope="col" class="actions"><?= __('file') ?></th>
@@ -30,9 +34,20 @@
             <?php foreach ($categories as $category): ?>
             <tr>
                 <td><?= $this->Number->format($category->id) ?></td>
+                <?php if(h($category->ih_correspond_id) === 1): ?>
+                    <td><?= $ihCorrespods[1] ?></td>
+                <?php elseif(h($category->ih_correspond_id) === 2): ?>
+                    <td><?= $ihCorrespods[2] ?></td>
+                <?php elseif(h($category->ih_correspond_id) === 3): ?>
+                    <td><?= $ihCorrespods[3] ?></td>
+                <?php else: ?>
+                    <td><?= $ihCorrespods[4] ?></td>
+                <?php endif; ?>
+
+                <td><?= $category->has('material') ? $this->Html->link($category->material->material, ['controller' => 'Materials', 'action' => 'view', $category->material->id]) : '' ?></td>
                 <td><?= h($category->name) ?></td>
                 <td><?= h($category->description) ?></td>
-                <td><?= $this->Html->image('../files/Categories/image/'.$category->file_name, array('height' => 100, 'width' => 100)) ?></td>
+                <td><?= $this->Html->image('../files/Categories/image/'.$category->file_name1, array('height' => 100, 'width' => 100)) ?></td>
                 <td><?= h($category->created_at) ?></td>
                 <td><?= h($category->updated_at) ?></td>
                 <td class="actions">

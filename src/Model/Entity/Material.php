@@ -28,6 +28,6 @@ class Material extends Entity
         'material' => true,
         'created_at' => true,
         'updated_at' => true,
-        'products' => true,
+        'category' => true,
     ];
 }

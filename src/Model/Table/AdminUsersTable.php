@@ -9,6 +9,8 @@ use Cake\Validation\Validator;
 /**
  * AdminUsers Model
  *
+ * @property \App\Model\Table\NoticesTable&\Cake\ORM\Association\HasMany $Notices
+ *
  * @method \App\Model\Entity\AdminUser get($primaryKey, $options = [])
  * @method \App\Model\Entity\AdminUser newEntity($data = null, array $options = [])
  * @method \App\Model\Entity\AdminUser[] newEntities(array $data, array $options = [])
@@ -41,6 +43,10 @@ class AdminUsersTable extends Table
         $this->setTable('admin_users');
         $this->setDisplayField('name');
         $this->setPrimaryKey('id');
+
+        $this->hasMany('Notices', [
+            'foreignKey' => 'admin_user_id',
+        ]);
     }
 
     /**

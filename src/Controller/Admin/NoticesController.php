@@ -28,8 +28,7 @@ class NoticesController extends AppController
         $notice = $this->Notices->newEntity();
         if ($this->request->is('post')) {
             $notice = $this->Notices->patchEntity($notice, $this->request->getData());
-//            debug($notice);
-//            exit();
+
             if ($this->Notices->save($notice)) {
                 $this->Flash->success(__('saved.'));
 

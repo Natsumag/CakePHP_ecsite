@@ -40,6 +40,7 @@ class CategoriesTable extends Table
                 ]
             ]
         ]);
+
         $this->setTable('categories');
         $this->setDisplayField('name');
         $this->setPrimaryKey('id');
@@ -104,7 +105,7 @@ class CategoriesTable extends Table
 
         $validator
             ->dateTime('created_at')
-            ->notEmptyDateTime('created_at');
+            ->allowEmptyDateTime('created_at');
 
         $validator
             ->dateTime('updated_at')

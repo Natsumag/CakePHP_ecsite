@@ -96,6 +96,13 @@ Router::scope('/', function (RouteBuilder $routes) {
         // そのために、 prefix => Admin をルート要素として追加します。
         $routes->fallbacks(DashedRoute::class);
     });
+
+    Router::prefix('Member', function ($routes) {
+        // この全てのルートは `/Member` によってプレフィックスされます。
+        // そのために、 prefix => Member をルート要素として追加します。
+        $routes->fallbacks(DashedRoute::class);
+    });
+
 });
 
 /*

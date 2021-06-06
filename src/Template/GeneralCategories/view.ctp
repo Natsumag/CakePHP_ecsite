@@ -82,6 +82,7 @@ use Cake\Core\Configure;
         <?php if (!empty($category->products)): ?>
             <table cellpadding="0" cellspacing="0">
                 <tr>
+                    <th scope="col"><?= __('id') ?></th>
                     <th scope="col"><?= __('Name') ?></th>
                     <th scope="col"><?= __('Units In Stock') ?></th>
                     <th scope="col"><?= __('Number Of Units Sold') ?></th>
@@ -90,12 +91,24 @@ use Cake\Core\Configure;
                 </tr>
                 <?php foreach ($category->products as $products): ?>
                     <tr>
+                        <td><?= h($products->id) ?></td>
                         <td><?= h($products->name) ?></td>
                         <td><?= h($products->units_in_stock) ?></td>
                         <td><?= h($products->number_of_units_sold) ?></td>
                         <td><?= h($products->size_circle) ?></td>
                         <td class="actions">
-                            <?= $this->Html->link(__('View'), ['controller' => 'Products', 'action' => 'view', $products->id]) ?>
+                            <?= $this->Form->create('null', [ 'type' => 'post', 'url' => ['controller' => 'Member/Carts', 'action' => 'add']]); ?>
+                            <!-- セキュリティコンポーネントのハッシュプロセスを通過しないようにするためunlockedFieldを設定 -->
+                            <?php $this->Form->unlockField('product_id'); ?>
+                            <input type="hidden" name="product_id" value="<?= h($products->id) ?>">
+                            <?php $this->Form->unlockField('product_num'); ?>
+                            <select name="product_num">
+                                <?php for($i = 1; $i <= 9; $i++) {
+                                   echo "<option value='{$i}'>$i</option>";
+                                 } ?>
+                            </select>
+                            <?= $this->Form->button(__('カートに入れる')) ?>
+                            <?= $this->Form->end() ?>
                         </td>
                     </tr>
                 <?php endforeach; ?>

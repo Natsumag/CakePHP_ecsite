@@ -5,16 +5,20 @@ use Cake\ORM\Entity;
 use Cake\Auth\DefaultPasswordHasher;
 
 /**
- * AdminUser Entity
+ * MemberUser Entity
  *
  * @property int $id
+ * @property string $name
  * @property string $email
  * @property string $password
+ * @property int $zip_code
+ * @property string $address
+ * @property string $tel
+ * @property bool|null $delete_flag
  * @property \Cake\I18n\FrozenTime $created_at
  * @property \Cake\I18n\FrozenTime|null $updated_at
- * @property string $name
  */
-class AdminUser extends Entity
+class MemberUser extends Entity
 {
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().
@@ -26,11 +30,15 @@ class AdminUser extends Entity
      * @var array
      */
     protected $_accessible = [
+        'name' => true,
         'email' => true,
         'password' => true,
+        'zip_code' => true,
+        'address' => true,
+        'tel' => true,
+        'delete_flag' => true,
         'created_at' => true,
         'updated_at' => true,
-        'name' => true,
     ];
 
     /**

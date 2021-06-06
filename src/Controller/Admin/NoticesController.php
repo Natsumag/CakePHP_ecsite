@@ -1,7 +1,6 @@
 <?php
-namespace App\Controller;
+namespace App\Controller\Admin;
 
-use App\Controller\AppController;
 use Cake\Event\Event;
 
 /**
@@ -29,8 +28,7 @@ class NoticesController extends AppController
         $notice = $this->Notices->newEntity();
         if ($this->request->is('post')) {
             $notice = $this->Notices->patchEntity($notice, $this->request->getData());
-//            debug($notice);
-//            exit();
+
             if ($this->Notices->save($notice)) {
                 $this->Flash->success(__('saved.'));
 
@@ -73,5 +71,11 @@ class NoticesController extends AppController
     public function isAuthorized($notices = null)
     {
         return true;
+    }
+
+    // ログイン認証不要のページ指定（loginの追加不要）、一時的に追加している。
+    public function beforeFilter(Event $event){
+        parent::beforeFilter($event);
+        $this->Auth->allow(['add','index','edit','view', 'delete']);
     }
 }

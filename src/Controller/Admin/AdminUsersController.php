@@ -105,19 +105,6 @@ class AdminUsersController extends AppController
         return $this->redirect(['action' => 'index']);
     }
 
-// ログイン認証不要のページ指定（loginの追加不要）
-    public function beforeFilter(Event $event){
-        parent::beforeFilter($event);
-        $this->Auth->allow(['logout']);
-    }
-
-    /**
-     * role別にアクセスを制御したい場合はここに記述。全ロールに許可する場合はreturn trueとだけ書く
-     */
-    public function isAuthorized($adminUser = null)
-    {
-        return true;
-    }
 
     public function login()
     {
@@ -136,5 +123,19 @@ class AdminUsersController extends AppController
         // セッションを破棄
          $this->request->session()->destroy();
         return $this->redirect($this->Auth->logout());
+    }
+
+    /**
+     * role別にアクセスを制御したい場合はここに記述。全ロールに許可する場合はreturn trueとだけ書く
+     */
+    public function isAuthorized($adminUser = null)
+    {
+        return true;
+    }
+
+    // ログイン認証不要のページ指定（loginの追加不要）
+    public function beforeFilter(Event $event){
+        parent::beforeFilter($event);
+        $this->Auth->allow(['logout']);
     }
 }

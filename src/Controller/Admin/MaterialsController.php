@@ -69,9 +69,7 @@ class MaterialsController extends AppController
      */
     public function edit($id = null)
     {
-        $material = $this->Materials->get($id, [
-            'contain' => [],
-        ]);
+        $material = $this->Materials->get($id);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $material = $this->Materials->patchEntity($material, $this->request->getData());
             if ($this->Materials->save($material)) {

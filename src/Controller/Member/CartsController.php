@@ -73,17 +73,37 @@ class CartsController extends AppController
 
     public function edit()
     {
-        $carts = $this->paginate($this->Carts);
+        $product_id = $this->request->getData('product_id');
+        $product_num = $this->request->getData('product_num');
 
-        $this->set(compact('carts'));
+        $cart = $this->Carts->get($product_id);
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $data = array(
+                'product_num' => $product_num
+            );
+            $cart = $this->Carts->patchEntity($cart, $data);
+            if ($this->Carts->save($cart)) {
+                $this->Flash->success(__('The Cart has been updated.'));
+                return $this->redirect(['action' => 'index']);
+            }
+            $this->Flash->error(__('The cart could not be updated. Please, try again.'));
+        }
+        return $this->redirect(['action' => 'index']);
     }
 
-    public function delete()
+    public function delete($id = null)
     {
-        $carts = $this->paginate($this->Carts);
+        $this->request->allowMethod(['post', 'delete']);
+        $cart = $this->Carts->get($id);
+        if ($this->Carts->delete($cart)) {
+            $this->Flash->success(__('The cart has been deleted.'));
+        } else {
+            $this->Flash->error(__('The cart could not be deleted. Please, try again.'));
+        }
 
-        $this->set(compact('carts'));
+        return $this->redirect(['action' => 'index']);
     }
+
 
     public function isAuthorized($categories = null)
     {

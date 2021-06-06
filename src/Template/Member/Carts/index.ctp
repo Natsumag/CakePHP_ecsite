@@ -30,9 +30,25 @@
                 <td><?= $cart->has('product') ? $this->Html->link($cart->product->name, ['controller' => '../generalCategories', 'action' => 'view', $cart->product->id]) : '' ?></td>
                 <td><?= h($cart->product->price) ?></td>
                 <td><?= h($cart->product_num) ?></td>
+
+                <td class="actions">
+                    <?= $this->Form->create('null', [ 'type' => 'post', 'url' => ['controller' => 'Carts', 'action' => 'edit']]); ?>
+                    <!-- セキュリティコンポーネントのハッシュプロセスを通過しないようにするためunlockedFieldを設定 -->
+                    <?php $this->Form->unlockField('product_id'); ?>
+                    <input type="hidden" name="product_id" value="<?= h($cart->id) ?>">
+                    <?php $this->Form->unlockField('product_num'); ?>
+                    <select name="product_num">
+                        <?php for($i = 1; $i <= 9; $i++) {
+                            //   {$i} = $cart->product_num ? selected : だと初期値の設定うまくいかなかった
+                            echo "<option value='{$i}'>$i</option>";
+                        } ?>
+                    </select>
+                    <?= $this->Form->button(__('Edit')) ?>
+                    <?= $this->Form->end() ?>
+                </td>
+
                 <td><?= h(($cart->product->price) * ($cart->product_num)) ?></td>
                 <td class="actions">
-                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $cart->id]) ?>
                     <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $cart->id], ['confirm' => __('Are you sure you want to delete # {0}?', $cart->id)]) ?>
                 </td>
                 <?php $total += ($cart->product->price) * ($cart->product_num);?>

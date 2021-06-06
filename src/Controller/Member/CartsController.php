@@ -14,31 +14,56 @@ class CartsController extends AppController
 {
     public function index()
     {
+        $this->paginate = [
+            'contain' => ['Products'],
+        ];
+
         $carts = $this->paginate($this->Carts);
 
         $this->set(compact('carts'));
+        $this->set('total');
     }
 
     public function add()
     {
         $cart = $this->Carts->newEntity();
         if ($this->request->is('post')) {
+            $login_id = $this->Auth->user('id');
+            $product_id = $this->request->getData('product_id');
+            $product_num = $this->request->getData('product_num');
             // ログインしていない場合
-            if (!($this->Auth->user('id'))) {
-                $this->Flash->error(__('ログインしてください'));
-                return $this->redirect(['controller' => '../generalCategories', 'action' => 'index']);
+            if (!($login_id)) {
+                return $this->redirect(['controller' => 'memberUsers', 'action' => 'login']);
             }
             // 同じproduct_idがあるか検索し、あった場合、そこにnumを追加する
             $data = array(
-                'member_user_id' => $this->Auth->user('id'),
-                'product_id' => $this->request->getData('product_id'),
-                'product_num' => $this->request->getData('product_num')
+                'member_user_id' => $login_id,
+                'product_id' => $product_id,
+                'product_num' => $product_num
             );
+            // ログイン者かつ商品IDが一致するもの
+            $query = $this->Carts->find()->where(['member_user_id' => $login_id, 'product_id' => $product_id])->first();
+            // product_idが一致するレコードがあったとき更新する
+            if (isset($query)) {
+                // product_numの更新
+                $product_num_old = $query->product_num;
+                $product_num_update = $product_num + $product_num_old;
+                $data = array(
+                    'member_user_id' => $login_id,
+                    'product_id' => $product_id,
+                    'product_num' => $product_num_update
+                );
+                $product_num_up = $this->Carts->patchEntity($query, $data);
+                if ($this->Carts->save($product_num_up)) {
+                    $this->Flash->success(__('The cart has been updated.'));
+                    return $this->redirect(['action' => 'index']);
+                }
+                $this->Flash->error(__('The cart could not be updated. Please, try again.'));
+            }
 
             $cart = $this->Carts->patchEntity($cart, $data);
             if ($this->Carts->save($cart)) {
                 $this->Flash->success(__('The cart has been saved.'));
-
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The cart could not be saved. Please, try again.'));

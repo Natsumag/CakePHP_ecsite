@@ -98,20 +98,14 @@ use Cake\Core\Configure;
                         <td><?= h($products->size_circle) ?></td>
                         <td class="actions">
                             <?= $this->Form->create('null', [ 'type' => 'post', 'url' => ['controller' => 'Member/Carts', 'action' => 'add']]); ?>
-                            <!-- セキュリティコンポーネントのハッシュプロセスを通過しないフィールドスルーを許可する場合unlockedFieldを設定 -->
+                            <!-- セキュリティコンポーネントのハッシュプロセスを通過しないようにするためunlockedFieldを設定 -->
                             <?php $this->Form->unlockField('product_id'); ?>
                             <input type="hidden" name="product_id" value="<?= h($products->id) ?>">
                             <?php $this->Form->unlockField('product_num'); ?>
                             <select name="product_num">
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                                <option value="6">6</option>
-                                <option value="7">7</option>
-                                <option value="8">8</option>
-                                <option value="9">9</option>
+                                <?php for($i = 1; $i <= 9; $i++) {
+                                   echo "<option value='{$i}'>$i</option>";
+                                 } ?>
                             </select>
                             <?= $this->Form->button(__('カートに入れる')) ?>
                             <?= $this->Form->end() ?>

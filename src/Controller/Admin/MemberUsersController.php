@@ -1,5 +1,5 @@
 <?php
-namespace App\Controller\Member;
+namespace App\Controller\Admin;
 
 use Cake\Event\Event;
 
@@ -33,23 +33,33 @@ class MemberUsersController extends AppController
         $this->set(compact('memberUser'));
     }
 
-    public function login()
+    public function edit($id = null)
     {
-        if ($this->request->is('post')) {
-            $memberUser = $this->Auth->identify();
-            if ($memberUser) {
-                $this->Auth->setUser($memberUser);
-                return $this->redirect(['controller' => '../generalCategories', 'action' => 'index']);
+        $memberUser = $this->MemberUsers->get($id);
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $memberUser = $this->MemberUsers->patchEntity($memberUser, $this->request->getData());
+            if ($this->MemberUsers->save($memberUser)) {
+                $this->Flash->success(__('The Member user has been saved.'));
+
+                return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('not Login'));
+            $this->Flash->error(__('The Member user could not be saved. Please, try again.'));
         }
+        $this->set(compact('memberUser'));
     }
 
-    public function logout()
+    public function delete($id = null)
     {
-        $this->request->session()->destroy();
-        return $this->redirect($this->Auth->logout());
+        $this->request->allowMethod(['post', 'delete']);
+        $memberUser = $this->MemberUsers->get($id);
+        if ($this->MemberUsers->delete($memberUser)) {
+            $this->Flash->success(__('The Member user has been deleted.'));
+        } else {
+            $this->Flash->error(__('The Member user could not be deleted. Please, try again.'));
+        }
+        return $this->redirect(['action' => 'index']);
     }
+
 
     public function isAuthorized($categories = null)
     {

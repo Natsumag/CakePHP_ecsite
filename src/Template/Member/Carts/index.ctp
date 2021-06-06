@@ -27,9 +27,8 @@
         <?php foreach ($carts as $cart): ?>
             <tr>
                 <td><?= $this->Number->format($cart->id) ?></td>
-                <td><?= $cart->has('product') ? $this->Html->link($cart->product->name, ['controller' => '../generalCategories', 'action' => 'view', $cart->product->id]) : '' ?></td>
+                <td><?= $cart->has('product') ? $this->Html->link($cart->product->name, ['controller' => '../generalCategories', 'action' => 'view', $cart->product->category_id]) : '' ?></td>
                 <td><?= h($cart->product->price) ?></td>
-                <td><?= h($cart->product_num) ?></td>
 
                 <td class="actions">
                     <?= $this->Form->create('null', [ 'type' => 'post', 'url' => ['controller' => 'Carts', 'action' => 'edit']]); ?>
@@ -38,11 +37,11 @@
                     <input type="hidden" name="product_id" value="<?= h($cart->id) ?>">
                     <?php $this->Form->unlockField('product_num'); ?>
                     <select name="product_num">
-                        <?php for($i = 1; $i <= 9; $i++) {
-                            //   {$i} = $cart->product_num ? selected : だと初期値の設定うまくいかなかった
-                            echo "<option value='{$i}'>$i</option>";
-                        } ?>
+                        <?php for($i = 1; $i <= 9; $i++): ?>
+                            <option value='<?= $i ?>' <?= $i== $cart->product_num ? 'selected' : '' ?>><?= $i; ?></option>
+                        <?php endfor; ?>
                     </select>
+
                     <?= $this->Form->button(__('Edit')) ?>
                     <?= $this->Form->end() ?>
                 </td>
@@ -56,16 +55,21 @@
         <?php endforeach; ?>
         </tbody>
     </table>
-    <p>合計金額：<?= $total; ?></p>
+    <p>合計金額：<?= $this->Number->currency($total, "JPY"); ?></p>
 
-    <div class="paginator">
-        <ul class="pagination">
-            <?= $this->Paginator->first('<< ' . __('first')) ?>
-            <?= $this->Paginator->prev('< ' . __('previous')) ?>
-            <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next(__('next') . ' >') ?>
-            <?= $this->Paginator->last(__('last') . ' >>') ?>
-        </ul>
-        <p><?= $this->Paginator->counter(['format' => __('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')]) ?></p>
-    </div>
+    <?= $this->Form->create('null', [ 'type' => 'post', 'url' => ['controller' => 'PurchaseHistories', 'action' => 'add']]); ?>
+    <?php $this->Form->unlockField('total_fee'); ?>
+    <input type="hidden" name="total_fee" value="<?= h($total) ?>">
+    <?php
+    foreach ($carts as $key => $cart):
+        $product_id = 'product_id_' . $key;
+        $product_num = 'product_num_' . $key;
+        $this->Form->unlockField( $product_id );
+        $this->Form->unlockField( $product_num );
+    ?>
+        <input type="hidden" name="<?= $product_id; ?>" value="<?= h( $cart->id ) ?>">
+        <input type="hidden" name="<?= $product_num; ?>" value="<?= h($cart->product_num) ?>">
+    <?php endforeach; ?>
+    <?= $this->Form->button(__('購入')) ?>
+    <?= $this->Form->end() ?>
 </div>

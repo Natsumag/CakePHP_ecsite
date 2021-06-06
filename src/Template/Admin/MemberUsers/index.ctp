@@ -4,12 +4,7 @@
  * @var \App\Model\Entity\MemberUser[]|\Cake\Collection\CollectionInterface $memberUsers
  */
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('New Member User'), ['action' => 'add']) ?></li>
-    </ul>
-</nav>
+
 <div class="memberUsers index large-9 medium-8 columns content">
     <h3><?= __('Member Users') ?></h3>
     <table cellpadding="0" cellspacing="0">
@@ -39,6 +34,10 @@
                 <td><?= h($memberUser->delete_flag) ?></td>
                 <td><?= h($memberUser->created_at) ?></td>
                 <td><?= h($memberUser->updated_at) ?></td>
+                <td class="actions">
+                    <?= $this->Html->link(__('編集'), ['action' => 'edit', $memberUser->id], ['class' => 'button']) ?>
+                    <?= $this->Form->postLink(__('削除'), ['action' => 'delete', $memberUser->id], ['class' => 'button', 'confirm' => __('Are you sure you want to delete # {0}?', $memberUser->id)]) ?>
+                </td>
             </tr>
             <?php endforeach; ?>
         </tbody>

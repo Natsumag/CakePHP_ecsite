@@ -15,9 +15,16 @@
     <fieldset>
         <legend><?= __('Edit Admin User') ?></legend>
         <?php
+            echo 'ID<br>';
+            echo $this->Number->format($adminUser->id);
+            echo '<br>';
             echo $this->Form->control('name');
             echo $this->Form->control('email');
-            echo $this->Form->control('password');
+            echo 'Created At<br>';
+            echo h($adminUser->created_at);
+            echo '<br>';
+            echo 'Updated At<br>';
+            echo h($adminUser->updated_at);
         ?>
     </fieldset>
     <button type=“button” onclick="location.href='/ecsite/Admin-users/index'">一覧へ戻る</button>

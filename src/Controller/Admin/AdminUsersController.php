@@ -26,22 +26,6 @@ class AdminUsersController extends AppController
     }
 
     /**
-     * View method
-     *
-     * @param string|null $id Admin User id.
-     * @return \Cake\Http\Response|null
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function view($id = null)
-    {
-        $adminUser = $this->AdminUsers->get($id, [
-            'contain' => [],
-        ]);
-
-        $this->set('adminUser', $adminUser);
-    }
-
-    /**
      * Add method
      *
      * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
@@ -70,9 +54,7 @@ class AdminUsersController extends AppController
      */
     public function edit($id = null)
     {
-        $adminUser = $this->AdminUsers->get($id, [
-            'contain' => [],
-        ]);
+        $adminUser = $this->AdminUsers->get($id);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $adminUser = $this->AdminUsers->patchEntity($adminUser, $this->request->getData());
             if ($this->AdminUsers->save($adminUser)) {

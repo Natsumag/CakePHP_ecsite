@@ -27,8 +27,8 @@
             echo h($adminUser->updated_at);
         ?>
     </fieldset>
-    <button type=“button” onclick="location.href='/ecsite/Admin-users/index'">一覧へ戻る</button>
+    <?= $this->Form->postLink(__('削除'), ['action' => 'delete', $adminUser->id], ['class' => 'button', 'confirm' => __('Are you sure you want to delete # {0}?', $adminUser->id)]) ?>
+    <?= $this->Html->link(__('一覧へ戻る'), ['action' => 'index']) ?>
     <?= $this->Form->button(__('Submit')) ?>
     <?= $this->Form->end() ?>
 </div>
-<?= $this->Form->postLink(__('削除'), ['action' => 'delete', $adminUser->id], ['class' => 'button', 'confirm' => __('Are you sure you want to delete # {0}?', $adminUser->id)]) ?>

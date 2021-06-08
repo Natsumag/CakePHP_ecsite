@@ -50,16 +50,24 @@ class MemberUsersController extends AppController
 
     public function delete($id = null)
     {
-        $this->request->allowMethod(['post', 'delete']);
+        $this->request->allowMethod(['post']);
         $memberUser = $this->MemberUsers->get($id);
-        if ($this->MemberUsers->delete($memberUser)) {
-            $this->Flash->success(__('The Member user has been deleted.'));
+        $memberUser_flag = $memberUser->delete_flag;
+        if ($memberUser_flag == false) {
+            $delete_flag = true;
+            $data = array('delete_flag' => $delete_flag);
         } else {
-            $this->Flash->error(__('The Member user could not be deleted. Please, try again.'));
+            $delete_flag = false;
+            $data = array('delete_flag' => $delete_flag);
         }
-        return $this->redirect(['action' => 'index']);
-    }
 
+        $memberUser = $this->MemberUsers->patchEntity($memberUser, $data);
+        if ($this->MemberUsers->save($memberUser)) {
+            $this->Flash->success(__('The category has been saved.'));
+            return $this->redirect(['action' => 'index']);
+        }
+        $this->Flash->error(__('The category could not be saved. Please, try again.'));
+    }
 
     public function isAuthorized($categories = null)
     {

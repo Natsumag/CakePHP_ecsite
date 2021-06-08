@@ -37,6 +37,10 @@ class MemberUsersController extends AppController
     {
         if ($this->request->is('post')) {
             $memberUser = $this->Auth->identify();
+            $memberUser_flag = $memberUser['delete_flag'];
+            if ($memberUser_flag == true) {
+                return $this->redirect(['action' => 'login']);
+            }
             if ($memberUser) {
                 $this->Auth->setUser($memberUser);
                 return $this->redirect(['controller' => '../generalCategories', 'action' => 'index']);

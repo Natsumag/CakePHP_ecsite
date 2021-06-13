@@ -57,7 +57,7 @@
     </table>
     <p>合計金額：<?= $this->Number->currency($total, "JPY"); ?></p>
 
-    <?= $this->Form->create('null', [ 'type' => 'post', 'url' => ['controller' => 'PurchaseHistories', 'action' => 'add']]); ?>
+    <?= $this->Form->create('null', [ 'type' => 'post', 'url' => ['controller' => 'MemberPurchaseHistories', 'action' => 'add']]); ?>
     <?php $this->Form->unlockField('total_fee'); ?>
     <input type="hidden" name="total_fee" value="<?= h($total) ?>">
     <?php

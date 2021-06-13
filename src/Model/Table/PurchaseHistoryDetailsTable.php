@@ -9,7 +9,7 @@ use Cake\Validation\Validator;
 /**
  * PurchaseHistoryDetails Model
  *
- * @property \App\Model\Table\PurchaseHistoriesTable&\Cake\ORM\Association\BelongsTo $PurchaseHistories
+ * @property \App\Model\Table\PurchaseHistoriesTable&\Cake\ORM\Association\BelongsTo $MemberPurchaseHistories
  * @property \App\Model\Table\ProductsTable&\Cake\ORM\Association\BelongsTo $Products
  *
  * @method \App\Model\Entity\PurchaseHistoryDetail get($primaryKey, $options = [])
@@ -46,7 +46,7 @@ class PurchaseHistoryDetailsTable extends Table
         $this->setDisplayField('id');
         $this->setPrimaryKey('id');
 
-        $this->belongsTo('PurchaseHistories', [
+        $this->belongsTo('MemberPurchaseHistories', [
             'foreignKey' => 'purchase_history_id',
             'joinType' => 'INNER',
         ]);
@@ -93,7 +93,7 @@ class PurchaseHistoryDetailsTable extends Table
      */
 //    public function buildRules(RulesChecker $rules)
 //    {
-//        $rules->add($rules->existsIn(['purchase_history_id'], 'PurchaseHistories'));
+//        $rules->add($rules->existsIn(['purchase_history_id'], 'MemberPurchaseHistories'));
 //        $rules->add($rules->existsIn(['product_id'], 'Products'));
 //
 //        return $rules;

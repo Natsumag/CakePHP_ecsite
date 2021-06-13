@@ -70,6 +70,8 @@
         <input type="hidden" name="<?= $product_id; ?>" value="<?= h( $cart->id ) ?>">
         <input type="hidden" name="<?= $product_num; ?>" value="<?= h($cart->product_num) ?>">
     <?php endforeach; ?>
-    <?= $this->Form->button(__('購入')) ?>
+    <?php if ($this->Number->currency($total, "JPY") !== '¥0'): ?>
+        <?= $this->Form->button(__('購入')) ?>
+    <?php endif; ?>
     <?= $this->Form->end() ?>
 </div>

@@ -20,59 +20,71 @@ class MemberContactsController extends AppController
     }
 
     /**
-     * Index method
-     *
-     * @return \Cake\Http\Response|null
-     */
-    public function index()
-    {
-        $this->paginate = [
-            'contain' => ['MemberUsers'],
-        ];
-        $contacts = $this->paginate($this->Contacts);
-
-        $this->set(compact('contacts'));
-    }
-
-    /**
-     * View method
-     *
-     */
-    public function view($id = null)
-    {
-        $material = $this->Contacts->get($id, [
-            'contain' => ['MemberUsers'],
-        ]);
-
-        $this->set('material', $material);
-    }
-
-    /**
      * Add method
      *
      * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
      */
+//    public function add()
+//    {
+//        $contact = $this->Contacts->newEntity();
+//        if ($this->request->is('post')) {
+//            if ($this->Auth->user('id')) {
+//                $contact = $this->Contacts->patchEntity($contact, $this->request->getData());
+//                debug($contact);
+//                exit();
+//                if (!$contact->errors()) {
+//                    $this->request->getSession();
+//                    return $this->redirect(['action' => 'confirm']);
+//                }
+//                $this->Flash->error('入力内容を確認してください。');
+//            }
+//            $this->Flash->error(__('not login.'));
+//        }
+//        if ($this->request->getSession()->check('session.contact_add')) {
+//            $user = $this->request->getSession()->consume('session.contact_add');
+//        }
+//        $this->set(compact('contact'));
+//    }
+
     public function add()
     {
         $contact = $this->Contacts->newEntity();
         if ($this->request->is('post')) {
             if ($this->Auth->user('id')) {
-                $contact = $this->Contacts->patchEntity($contact, $this->request->getData());
-                if ($this->Contacts->save($contact)) {
-                    $this->Flash->success(__('The contact has been saved.'));
+                if (!($this->getRequest()->getSession()->check('hogehoge'))) {
+                    $this->getRequest()->getSession()->write('hogehoge', $this->getRequest()->getSession()->read());
+                    $this->set(compact('contact'));
 
-                    return $this->redirect(['action' => 'index']);
+                    $this->render("confirm");
+                } else {
+                    $this->getRequest()->getSession()->delete('hogehoge');
+                    $getdata = $this->request->getData();
+                    $contact = $this->Contacts->patchEntity($contact, $getdata);
+                    if ($this->Contacts->save($contact)) {
+                        $this->Flash->success(__('saved.'));
+
+                        $this->render("complete");
+
+                    } else {
+                        $this->Flash->error(__('not saved.'));
+                    }
+
                 }
             }
-            $this->Flash->error(__('The contact could not be saved. Please, try again.'));
+            $this->Flash->error(__('not post.'));
         }
         $this->set(compact('contact'));
     }
 
-    /**
-     * Edit method
-     *
-     */
+
+    public function edit()
+    {
+        $this->getRequest()->getSession()->delete('hogehoge');
+
+        $this->redirect($this->request->referer());
+    }
+
+
     public function reply($id = null)
     {
         $contact = $this->Contacts->get($id);
@@ -88,23 +100,6 @@ class MemberContactsController extends AppController
         $this->set(compact('contact'));
     }
 
-    /**
-     * Delete method
-     *
-     */
-    public function delete($id = null)
-    {
-        $this->request->allowMethod(['post', 'delete']);
-        $contact = $this->Contacts->get($id);
-        if ($this->Contacts->delete($contact)) {
-            $this->Flash->success(__('The material has been deleted.'));
-        } else {
-            $this->Flash->error(__('The material could not be deleted. Please, try again.'));
-        }
-
-        return $this->redirect(['action' => 'index']);
-    }
-
     public function isAuthorized($material = null)
     {
         return true;
@@ -113,6 +108,6 @@ class MemberContactsController extends AppController
     // ログイン認証不要のページ指定（loginの追加不要）、一時的に追加している。
     public function beforeFilter(Event $event){
         parent::beforeFilter($event);
-        $this->Auth->allow(['add','index','edit','view', 'delete']);
+        $this->Auth->allow(['add', 'confirm', 'complete']);
     }
 }

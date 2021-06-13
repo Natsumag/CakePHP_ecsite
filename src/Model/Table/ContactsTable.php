@@ -106,10 +106,8 @@ class ContactsTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
-        $rules->add($rules->isUnique(['email']));
         $rules->add($rules->existsIn(['admin_user_id'], 'AdminUsers'));
         $rules->add($rules->existsIn(['member_user_id'], 'MemberUsers'));
-
         return $rules;
     }
 }

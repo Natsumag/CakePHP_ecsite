@@ -34,8 +34,8 @@ class MemberPurchaseHistoriesController extends AppController
         ];
         // members_user_idが$login_idと一致するもののみ表示
         $login_id = $this->Auth->user('id');
-        $result = $this->PurchaseHistories->find()->where(['member_user_id' => $login_id]);
-        $purchaseHistories = $this->paginate($result);
+        $only_my_purchase_histories = $this->PurchaseHistories->find()->where(['member_user_id' => $login_id]);
+        $purchaseHistories = $this->paginate($only_my_purchase_histories);
 
         $this->set(compact('purchaseHistories'));
     }
@@ -92,12 +92,20 @@ class MemberPurchaseHistoriesController extends AppController
                     ->send('My message');
 
                 // 購入しましたページに飛ばす　コントローラをadmin配下に移動する。
-                return $this->redirect(['controller' => '../Member/Carts', 'action' => 'index']);
+                return $this->redirect(['action' => 'thanks']);
             }
         }
         $this->Flash->error(__('not Saved'));
         return $this->redirect(['controller' => '../Member/Carts', 'action' => 'index']);
     }
+
+    public function thanks()
+    {
+        $login_id = $this->Auth->user('name');
+        $this->set(compact('login_id'));
+    }
+
+
 
     public function isAuthorized($categories = null)
     {

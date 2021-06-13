@@ -6,7 +6,7 @@
 ?>
 
 <div class="purchaseHistories form large-9 medium-8 columns content">
-    <?= $this->Form->create($contact) ?>
+    <?= $this->Form->create($contact, ['type' => 'post']) ?>
     <fieldset>
         <legend><?= __('Add Contact') ?></legend>
         <?php
@@ -19,10 +19,9 @@
             echo $this->Form->control('name');
             echo $this->Form->control('email');
         endif;
-
         echo $this->Form->control('content');
         ?>
     </fieldset>
-    <?= $this->Form->button(__('Submit')) ?>
+    <?= $this->Form->button(__('確認画面へ')) ?>
     <?= $this->Form->end() ?>
 </div>

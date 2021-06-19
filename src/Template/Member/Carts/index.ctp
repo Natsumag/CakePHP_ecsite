@@ -4,12 +4,7 @@
  * @var \App\Model\Entity\Cart[]|\Cake\Collection\CollectionInterface $carts
  */
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('商品一覧'), ['controller' => '../generalCategories', 'action' => 'index']) ?></li>
-    </ul>
-</nav>
+
 <div class="products index large-9 medium-8 columns content">
     <h3><?= __('Carts') ?></h3>
     <table cellpadding="0" cellspacing="0">
@@ -20,7 +15,6 @@
             <th scope="col"><?= $this->Paginator->sort('price') ?></th>
             <th scope="col"><?= $this->Paginator->sort('product_num') ?></th>
             <th scope="col"><?= $this->Paginator->sort('total') ?></th>
-            <th scope="col" class="actions"><?= __('Actions') ?></th>
         </tr>
         </thead>
         <tbody>
@@ -70,6 +64,7 @@
         <input type="hidden" name="<?= $product_id; ?>" value="<?= h( $cart->id ) ?>">
         <input type="hidden" name="<?= $product_num; ?>" value="<?= h($cart->product_num) ?>">
     <?php endforeach; ?>
+    <?= $this->Html->link(__('商品一覧'), ['controller' => '../generalCategories', 'action' => 'index']) ?>
     <?php if ($this->Number->currency($total, "JPY") !== '¥0'): ?>
         <?= $this->Form->button(__('購入')) ?>
     <?php endif; ?>

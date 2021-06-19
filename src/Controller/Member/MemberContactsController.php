@@ -24,28 +24,6 @@ class MemberContactsController extends AppController
      *
      * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
      */
-//    public function add()
-//    {
-//        $contact = $this->Contacts->newEntity();
-//        if ($this->request->is('post')) {
-//            if ($this->Auth->user('id')) {
-//                $contact = $this->Contacts->patchEntity($contact, $this->request->getData());
-//                debug($contact);
-//                exit();
-//                if (!$contact->errors()) {
-//                    $this->request->getSession();
-//                    return $this->redirect(['action' => 'confirm']);
-//                }
-//                $this->Flash->error('入力内容を確認してください。');
-//            }
-//            $this->Flash->error(__('not login.'));
-//        }
-//        if ($this->request->getSession()->check('session.contact_add')) {
-//            $user = $this->request->getSession()->consume('session.contact_add');
-//        }
-//        $this->set(compact('contact'));
-//    }
-
     public function add()
     {
         $contact = $this->Contacts->newEntity();
@@ -64,17 +42,27 @@ class MemberContactsController extends AppController
                         $this->Flash->success(__('saved.'));
 
                         $this->render("complete");
-
                     } else {
                         $this->Flash->error(__('not saved.'));
                     }
 
                 }
+//                $this->Flash->error(__('not post.'));
             }
-            $this->Flash->error(__('not post.'));
+
         }
         $this->set(compact('contact'));
     }
+
+    public function confirm()
+    {
+        if (!($this->getRequest()->getSession()->check('hogehoge'))) {
+            return $this->redirect(['action' => 'add']);
+        }
+
+        $this->redirect($this->request->referer());
+    }
+
 
 
     public function edit()

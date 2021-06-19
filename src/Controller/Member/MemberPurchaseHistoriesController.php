@@ -25,6 +25,7 @@ class MemberPurchaseHistoriesController extends AppController
         $this->loadModel('PurchaseHistories');
         $this->loadModel('PurchaseHistoryDetails');
         $this->loadModel('Carts');
+        $this->loadModel('Products');
     }
 
     public function index()
@@ -62,6 +63,7 @@ class MemberPurchaseHistoriesController extends AppController
                 $result_id = $result['id'];
 
                 $count = count($product_num) / 2;
+                $hoge = array();
                 for ($i = 1; $i <= $count; $i++) {
                     // 「purchase_history_details」に入れるデータ
                     $product_id = array_shift($product_num);
@@ -73,7 +75,21 @@ class MemberPurchaseHistoriesController extends AppController
                     );
                     $purchaseHistoryDetails = $this->PurchaseHistoryDetails->newEntity($data_detail);
                     $this->PurchaseHistoryDetails->save($purchaseHistoryDetails);
+                    // 配列に入れ直す（メールのため）、idからnameとpriceを取得する
+                    array_push($hoge, $product_id, $product_number);
                 }
+
+                // メール送信
+                $email = new Email('default');
+                $email->setFrom(['cakephp0906@gmail.com' => 'PHP Cake'])
+                    ->setTo('ntmg0906@gmail.com')
+                    ->setSubject('ご購入ありがとうございます')
+                    ->viewVars([
+                        // 合計金額、商品名、
+                        'total_fee'=>$total_fee,
+                    ])
+                    ->send('My message');
+
 
                 // カートのデータ削除　$login_idに一致するものをすべて物理削除
                 $delete_data = $this->Carts->find('all');
@@ -82,14 +98,6 @@ class MemberPurchaseHistoriesController extends AppController
                 } else {
                     $this->Flash->error(__('The carts could not be deleted. Please, try again.'));
                 }
-
-
-                // メール送信
-                $email = new Email('default');
-                $email->setFrom(['cakephp0906@gmail.com' => 'PHP Cake'])
-                    ->setTo('ntmg0906@gmail.com')
-                    ->setSubject('About')
-                    ->send('My message');
 
                 // 購入しましたページに飛ばす　コントローラをadmin配下に移動する。
                 return $this->redirect(['action' => 'thanks']);

@@ -39,6 +39,7 @@ class MemberUsersController extends AppController
             $memberUser = $this->Auth->identify();
             $memberUser_flag = $memberUser['delete_flag'];
             if ($memberUser_flag == true) {
+                $this->Flash->error(__('delete_flag is true'));
                 return $this->redirect(['action' => 'login']);
             }
             if ($memberUser) {

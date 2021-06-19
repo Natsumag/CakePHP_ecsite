@@ -26,11 +26,12 @@ class AdminUser extends Entity
      * @var array
      */
     protected $_accessible = [
+        'name' => true,
         'email' => true,
         'password' => true,
         'created_at' => true,
         'updated_at' => true,
-        'name' => true,
+        'delete_flag' => true,
     ];
 
     /**

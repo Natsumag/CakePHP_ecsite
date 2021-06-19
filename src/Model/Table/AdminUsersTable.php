@@ -82,6 +82,10 @@ class AdminUsersTable extends Table
             ->allowEmptyDateTime('updated_at');
 
         $validator
+            ->boolean('delete_flag')
+            ->allowEmptyString('delete_flag');
+
+        $validator
             ->scalar('name')
             ->maxLength('name', 40)
             ->requirePresence('name', 'create')

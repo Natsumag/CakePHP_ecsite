@@ -9,6 +9,7 @@
         "cakephp/cakephp": "3.9.*",
         "cakephp/migrations": "@stable",
         "cakephp/plugin-installer": "^1.0",
+        "friendsofcake/bootstrap-ui": "*",
         "josegonzalez/cakephp-upload": "3.*",
         "mobiledetect/mobiledetectlib": "2.*"
     },

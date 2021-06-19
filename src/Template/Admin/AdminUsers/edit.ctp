@@ -4,12 +4,6 @@
  * @var \App\Model\Entity\AdminUser $adminUser
  */
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Menu') ?></li>
-        <li><?= $this->Html->link(__('管理者ユーザ一覧'), ['action' => 'index']) ?></li>
-    </ul>
-</nav>
 <div class="adminUsers form large-9 medium-8 columns content">
     <?= $this->Form->create($adminUser) ?>
     <fieldset>
@@ -27,7 +21,11 @@
             echo h($adminUser->updated_at);
         ?>
     </fieldset>
-    <?= $this->Form->postLink(__('削除'), ['action' => 'delete', $adminUser->id], ['class' => 'button', 'confirm' => __('Are you sure you want to delete # {0}?', $adminUser->id)]) ?>
+    <?php if (h($adminUser->delete_flag) == false) {
+        echo $this->Form->postLink(__('削除'), ['action' => 'delete', $adminUser->id], ['class' => 'button', 'confirm' => __('Are you sure you want to delete # {0}?', $adminUser->id)]);
+    } else {
+        echo $this->Form->postLink(__('削除取り消し'), ['action' => 'delete', $adminUser->id], ['class' => 'button', 'confirm' => __('Are you sure you want to delete # {0}?', $adminUser->id)]);
+    } ?>
     <?= $this->Html->link(__('一覧へ戻る'), ['action' => 'index']) ?>
     <?= $this->Form->button(__('Submit')) ?>
     <?= $this->Form->end() ?>

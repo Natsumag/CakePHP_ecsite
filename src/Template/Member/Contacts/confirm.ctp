@@ -6,7 +6,7 @@
 ?>
 
 <div class="purchaseHistories form large-9 medium-8 columns content">
-    <?= $this->Form->create($contact, ['type' => 'post', 'url' => ['controller' => 'MemberContacts', 'action' => 'add']]) ?>
+    <?= $this->Form->create($contact, ['type' => 'post', 'url' => ['controller' => 'Contacts', 'action' => 'add']]) ?>
     <fieldset>
         <legend><?= __('お問い合わせ内容の確認') ?></legend>
         <?= $this->Form->value('content', ['type' => 'textarea']) ?>
@@ -19,7 +19,7 @@
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>
 
-    <?= $this->Html->link(__('修正する'), ['controller' => 'MemberContacts', 'action' => 'edit']) ?>
+    <?= $this->Html->link(__('修正する'), ['controller' => 'Contacts', 'action' => 'edit']) ?>
     <?= $this->Form->end() ?>
 </div>
 

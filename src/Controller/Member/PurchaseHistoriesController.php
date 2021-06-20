@@ -1,20 +1,20 @@
 <?php
 namespace App\Controller\Member;
 
-//use App\Controller\Member\MemberPurchaseHistoriesController;
+//use App\Controller\Member\PurchaseHistoriesController;
 use Cake\Event\Event;
 use Cake\Mailer\Email;
 
 /**
  * AdminUsers Controller
  *
- * @property \App\Model\Table\PurchaseHistoriesTable $MemberPurchaseHistories
+ * @property \App\Model\Table\PurchaseHistoriesTable $PurchaseHistories
  * @property \App\Model\Table\PurchaseHistoryDetailsTable $PurchaseHistoryDetails
  * @property \App\Model\Table\CartsTable $Carts
  *
  * @method \App\Model\Entity\PurchaseHistory[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
-class MemberPurchaseHistoriesController extends AppController
+class PurchaseHistoriesController extends AppController
 {
     /**
      * @var bool|object
@@ -57,8 +57,7 @@ class MemberPurchaseHistoriesController extends AppController
                 $purchaseHistories = $this->PurchaseHistories->newEntity($data);
                 $this->PurchaseHistories->save($purchaseHistories);
 
-                // 上の処理で保存した「MemberPurchaseHistories」テーブルのレコードのidを取得
-//                $result = $this->PurchaseHistories->find('all')->last();
+                // 上の処理で保存した「PurchaseHistories」テーブルのレコードのidを取得
                 $result = $this->PurchaseHistories->find()->last();
                 $result_id = $result['id'];
 
@@ -109,8 +108,8 @@ class MemberPurchaseHistoriesController extends AppController
 
     public function thanks()
     {
-        $login_id = $this->Auth->user('name');
-        $this->set(compact('login_id'));
+        $login_username = $this->Auth->user('name');
+        $this->set(compact('login_username'));
     }
 
 

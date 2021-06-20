@@ -1,20 +1,20 @@
 <?php
 namespace App\Controller\Admin;
 
-//use App\Controller\Member\MemberPurchaseHistoriesController;
+//use App\Controller\Member\PurchaseHistoriesController;
 use Cake\Event\Event;
 use Cake\Mailer\Email;
 
 /**
  * AdminUsers Controller
  *
- * @property \App\Model\Table\PurchaseHistoriesTable $MemberPurchaseHistories
+ * @property \App\Model\Table\PurchaseHistoriesTable $PurchaseHistories
  * @property \App\Model\Table\PurchaseHistoryDetailsTable $PurchaseHistoryDetails
  * @property \App\Model\Table\CartsTable $Carts
  *
  * @method \App\Model\Entity\PurchaseHistory[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
-class MemberPurchaseHistoriesController extends AppController
+class PurchaseHistoriesController extends AppController
 {
     /**
      * @var bool|object
@@ -22,7 +22,7 @@ class MemberPurchaseHistoriesController extends AppController
     public function initialize() {
         parent::initialize();
         // モデルの読み込み
-        $this->loadModel('MemberPurchaseHistories');
+        $this->loadModel('PurchaseHistories');
     }
 
     public function index()

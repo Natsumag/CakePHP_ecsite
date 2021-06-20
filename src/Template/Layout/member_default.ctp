@@ -59,19 +59,19 @@ $cakeDescription = 'ユーザ会員画面';
                         Contact
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="<?= $this->Url->build(['controller' => 'MemberContacts', 'action' => 'index']) ?>">
+                        <a class="dropdown-item" href="<?= $this->Url->build(['controller' => 'Contacts', 'action' => 'index']) ?>">
                             Index
                         </a>
-                        <a class="dropdown-item" href="<?= $this->Url->build(['controller' => 'MemberContacts', 'action' => 'add']) ?>">
+                        <a class="dropdown-item" href="<?= $this->Url->build(['controller' => 'Contacts', 'action' => 'add']) ?>">
                             Add
                         </a>
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<?= $this->Url->build(['controller' => '../GeneralCategories', 'action' => 'index']) ?>">Category</a>
+                    <a class="nav-link" href="<?= $this->Url->build(['controller' => '../Categories', 'action' => 'index']) ?>">Category</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<?= $this->Url->build(['controller' => 'MemberPurchaseHistories', 'action' => 'index']) ?>">PurchaseHistoryDetail</a>
+                    <a class="nav-link" href="<?= $this->Url->build(['controller' => 'PurchaseHistories', 'action' => 'index']) ?>">PurchaseHistoryDetail</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="<?= $this->Url->build(['action' => 'logout']) ?>">Logout</a>

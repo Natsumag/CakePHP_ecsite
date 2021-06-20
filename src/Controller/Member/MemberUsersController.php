@@ -44,7 +44,7 @@ class MemberUsersController extends AppController
             }
             if ($memberUser) {
                 $this->Auth->setUser($memberUser);
-                return $this->redirect(['controller' => '../generalCategories', 'action' => 'index']);
+                return $this->redirect(['controller' => '../Categories', 'action' => 'index']);
             }
             $this->Flash->error(__('not Login'));
         }

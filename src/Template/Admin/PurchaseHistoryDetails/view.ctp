@@ -11,8 +11,8 @@
         <li><?= $this->Form->postLink(__('Delete Purchase History Detail'), ['action' => 'delete', $purchaseHistoryDetail->id], ['confirm' => __('Are you sure you want to delete # {0}?', $purchaseHistoryDetail->id)]) ?> </li>
         <li><?= $this->Html->link(__('List Purchase History Details'), ['action' => 'index']) ?> </li>
         <li><?= $this->Html->link(__('New Purchase History Detail'), ['action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Purchase Histories'), ['controller' => 'MemberPurchaseHistories', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Purchase History'), ['controller' => 'MemberPurchaseHistories', 'action' => 'add']) ?> </li>
+        <li><?= $this->Html->link(__('List Purchase Histories'), ['controller' => 'PurchaseHistories', 'action' => 'index']) ?> </li>
+        <li><?= $this->Html->link(__('New Purchase History'), ['controller' => 'PurchaseHistories', 'action' => 'add']) ?> </li>
         <li><?= $this->Html->link(__('List Products'), ['controller' => 'Products', 'action' => 'index']) ?> </li>
         <li><?= $this->Html->link(__('New Product'), ['controller' => 'Products', 'action' => 'add']) ?> </li>
     </ul>
@@ -22,7 +22,7 @@
     <table class="vertical-table">
         <tr>
             <th scope="row"><?= __('Purchase History') ?></th>
-            <td><?= $purchaseHistoryDetail->has('purchase_history') ? $this->Html->link($purchaseHistoryDetail->purchase_history->id, ['controller' => 'MemberPurchaseHistories', 'action' => 'view', $purchaseHistoryDetail->purchase_history->id]) : '' ?></td>
+            <td><?= $purchaseHistoryDetail->has('purchase_history') ? $this->Html->link($purchaseHistoryDetail->purchase_history->id, ['controller' => 'PurchaseHistories', 'action' => 'view', $purchaseHistoryDetail->purchase_history->id]) : '' ?></td>
         </tr>
         <tr>
             <th scope="row"><?= __('Product') ?></th>

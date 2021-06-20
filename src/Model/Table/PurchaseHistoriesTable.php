@@ -7,7 +7,7 @@ use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
 /**
- * MemberPurchaseHistories Model
+ * PurchaseHistories Model
  *
  * @property \App\Model\Table\MemberUsersTable&\Cake\ORM\Association\BelongsTo $MemberUsers
  * @property \App\Model\Table\PurchaseHistoryDetailsTable&\Cake\ORM\Association\HasMany $PurchaseHistoryDetails

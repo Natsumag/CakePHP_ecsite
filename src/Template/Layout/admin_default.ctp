@@ -69,10 +69,10 @@ $cakeDescription = '管理画面';
                     AdminContact
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="<?= $this->Url->build(['controller' => 'AdminContacts', 'action' => 'index']) ?>">
+                    <a class="dropdown-item" href="<?= $this->Url->build(['controller' => 'Contacts', 'action' => 'index']) ?>">
                         Index
                     </a>
-                    <a class="dropdown-item" href="<?= $this->Url->build(['controller' => 'AdminContacts', 'action' => 'add']) ?>">
+                    <a class="dropdown-item" href="<?= $this->Url->build(['controller' => 'Contacts', 'action' => 'add']) ?>">
                         Add
                     </a>
                 </div>

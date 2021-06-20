@@ -8,8 +8,8 @@
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
         <li><?= $this->Html->link(__('New Purchase History Detail'), ['action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Purchase Histories'), ['controller' => 'MemberPurchaseHistories', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Purchase History'), ['controller' => 'MemberPurchaseHistories', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Purchase Histories'), ['controller' => 'PurchaseHistories', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Purchase History'), ['controller' => 'PurchaseHistories', 'action' => 'add']) ?></li>
         <li><?= $this->Html->link(__('List Products'), ['controller' => 'Products', 'action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('New Product'), ['controller' => 'Products', 'action' => 'add']) ?></li>
     </ul>
@@ -32,7 +32,7 @@
             <?php foreach ($purchaseHistoryDetails as $purchaseHistoryDetail): ?>
             <tr>
                 <td><?= $this->Number->format($purchaseHistoryDetail->id) ?></td>
-                <td><?= $purchaseHistoryDetail->has('purchase_history') ? $this->Html->link($purchaseHistoryDetail->purchase_history->id, ['controller' => 'MemberPurchaseHistories', 'action' => 'view', $purchaseHistoryDetail->purchase_history->id]) : '' ?></td>
+                <td><?= $purchaseHistoryDetail->has('purchase_history') ? $this->Html->link($purchaseHistoryDetail->purchase_history->id, ['controller' => 'PurchaseHistories', 'action' => 'view', $purchaseHistoryDetail->purchase_history->id]) : '' ?></td>
                 <td><?= $purchaseHistoryDetail->has('product') ? $this->Html->link($purchaseHistoryDetail->product->name, ['controller' => 'Products', 'action' => 'view', $purchaseHistoryDetail->product->id]) : '' ?></td>
                 <td><?= $this->Number->format($purchaseHistoryDetail->product_num) ?></td>
                 <td><?= h($purchaseHistoryDetail->created_at) ?></td>

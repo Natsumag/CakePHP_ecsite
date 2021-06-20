@@ -6,11 +6,11 @@ use Cake\Event\Event;
 /**
  * Materials Controller
  *
- * @property \App\Model\Table\ContactsTable $MemberContacts
+ * @property \App\Model\Table\ContactsTable $Contacts
  *
  * @method \App\Model\Entity\Contact[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
-class MemberContactsController extends AppController
+class ContactsController extends AppController
 {
     public function initialize()
     {

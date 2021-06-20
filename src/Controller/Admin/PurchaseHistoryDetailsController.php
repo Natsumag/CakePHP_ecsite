@@ -6,7 +6,7 @@ use Cake\Event\Event;
  * AdminUsers Controller
  *
  * @property \App\Model\Table\PurchaseHistoryDetailsTable $PurchaseHistoryDetails
- * @property \App\Model\Table\PurchaseHistoriesTable $MemberPurchaseHistories
+ * @property \App\Model\Table\PurchaseHistoriesTable $PurchaseHistories
  *
  * @method \App\Model\Entity\PurchaseHistoryDetail[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
@@ -24,7 +24,7 @@ class PurchaseHistoryDetailsController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['Products', 'MemberPurchaseHistories'],
+            'contain' => ['Products', 'PurchaseHistories'],
         ];
         $purchaseHistoryDetails = $this->paginate($this->PurchaseHistoryDetails);
         $this->set(compact('purchaseHistoryDetails'));

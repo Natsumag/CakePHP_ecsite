@@ -11,7 +11,7 @@ use Cake\Event\Event;
  * @method \App\Model\Entity\Notice[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
 
-class GeneralNoticesController extends AppController
+class NoticesController extends AppController
 {
     public function initialize() {
         parent::initialize();

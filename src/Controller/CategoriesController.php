@@ -3,7 +3,7 @@ namespace App\Controller;
 use Cake\Event\Event;
 
 
-class GeneralCategoriesController extends AppController
+class CategoriesController extends AppController
 {
     public function initialize() {
         parent::initialize();

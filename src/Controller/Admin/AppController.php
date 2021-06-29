@@ -64,5 +64,7 @@ class AppController extends Controller
             'loginAction'    => '/admin/adminUsers/login',
             'authError'      => 'ログインしてください'
         ]);
+
+        $this->viewBuilder()->setLayout('admin_default');
     }
 }

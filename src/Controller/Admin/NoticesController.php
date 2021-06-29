@@ -28,16 +28,13 @@ class NoticesController extends AppController
         $notice = $this->Notices->newEntity();
         if ($this->request->is('post')) {
             $notice = $this->Notices->patchEntity($notice, $this->request->getData());
-
             if ($this->Notices->save($notice)) {
                 $this->Flash->success(__('saved.'));
-
                 return $this->redirect(['action'=>'index']);
             }
             $this->Flash->error(__('not saved.'));
         }
-        $adminUsers = $this->Notices->AdminUsers->find('list', ['limit' => 100]);
-        $this->set(compact('notice', 'adminUsers'));
+        $this->set(compact('notice'));
     }
 
     public function edit($id = null)

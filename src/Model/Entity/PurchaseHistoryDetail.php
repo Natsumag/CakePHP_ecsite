@@ -2,19 +2,21 @@
 namespace App\Model\Entity;
 
 use Cake\ORM\Entity;
-use Cake\Auth\DefaultPasswordHasher;
 
 /**
- * AdminUser Entity
+ * PurchaseHistoryDetail Entity
  *
  * @property int $id
- * @property string $email
- * @property string $password
+ * @property int $purchase_history_id
+ * @property int $product_id
+ * @property int $product_num
  * @property \Cake\I18n\FrozenTime $created_at
  * @property \Cake\I18n\FrozenTime|null $updated_at
- * @property string $name
+ *
+ * @property \App\Model\Entity\PurchaseHistory $purchase_history
+ * @property \App\Model\Entity\Product $product
  */
-class AdminUser extends Entity
+class PurchaseHistoryDetail extends Entity
 {
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().
@@ -26,27 +28,12 @@ class AdminUser extends Entity
      * @var array
      */
     protected $_accessible = [
-        'name' => true,
-        'email' => true,
-        'password' => true,
+        'purchase_history_id' => true,
+        'product_id' => true,
+        'product_num' => true,
         'created_at' => true,
         'updated_at' => true,
-        'delete_flag' => true,
+        'purchase_history' => true,
+        'product' => true,
     ];
-
-    /**
-     * Fields that are excluded from JSON versions of the entity.
-     *
-     * @var array
-     */
-    protected $_hidden = [
-        'password',
-    ];
-
-    // パスワードのハッシュ化
-    protected function _setPassword($password) {
-        if (strlen($password) > 0) {
-            return (new DefaultPasswordHasher)->hash($password);
-        }
-    }
 }

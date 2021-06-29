@@ -3,14 +3,13 @@ namespace App\Controller;
 use Cake\Event\Event;
 
 
-class GeneralCategoriesController extends AppController
+class CategoriesController extends AppController
 {
     public function initialize() {
         parent::initialize();
         // モデルの読み込み
         $this->loadModel('Products');
         $this->loadModel('Categories');
-//        $this->load->library('cart');
     }
 
     /**

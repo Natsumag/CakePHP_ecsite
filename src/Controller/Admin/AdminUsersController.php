@@ -26,22 +26,6 @@ class AdminUsersController extends AppController
     }
 
     /**
-     * View method
-     *
-     * @param string|null $id Admin User id.
-     * @return \Cake\Http\Response|null
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function view($id = null)
-    {
-        $adminUser = $this->AdminUsers->get($id, [
-            'contain' => [],
-        ]);
-
-        $this->set('adminUser', $adminUser);
-    }
-
-    /**
      * Add method
      *
      * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
@@ -70,9 +54,7 @@ class AdminUsersController extends AppController
      */
     public function edit($id = null)
     {
-        $adminUser = $this->AdminUsers->get($id, [
-            'contain' => [],
-        ]);
+        $adminUser = $this->AdminUsers->get($id);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $adminUser = $this->AdminUsers->patchEntity($adminUser, $this->request->getData());
             if ($this->AdminUsers->save($adminUser)) {
@@ -85,31 +67,39 @@ class AdminUsersController extends AppController
         $this->set(compact('adminUser'));
     }
 
-    /**
-     * Delete method
-     *
-     * @param string|null $id Admin User id.
-     * @return \Cake\Http\Response|null Redirects to index.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
     public function delete($id = null)
     {
-        $this->request->allowMethod(['post', 'delete']);
+        $this->request->allowMethod(['post']);
         $adminUser = $this->AdminUsers->get($id);
-        if ($this->AdminUsers->delete($adminUser)) {
-            $this->Flash->success(__('The Admin user has been deleted.'));
+//        debug($adminUser);
+//        exit();
+        $adminUser_flag = $adminUser->delete_flag;
+
+        if ($adminUser_flag == false) {
+            $delete_flag = true;
+            $data = array('delete_flag' => $delete_flag);
         } else {
-            $this->Flash->error(__('The Admin user could not be deleted. Please, try again.'));
+            $delete_flag = false;
+            $data = array('delete_flag' => $delete_flag);
         }
 
-        return $this->redirect(['action' => 'index']);
+        $adminUser = $this->AdminUsers->patchEntity($adminUser, $data);
+        if ($this->AdminUsers->save($adminUser)) {
+            $this->Flash->success(__('The category has been saved.'));
+            return $this->redirect(['action' => 'index']);
+        }
+        $this->Flash->error(__('The category could not be saved. Please, try again.'));
     }
-
 
     public function login()
     {
         if ($this->request->is('post')) {
             $adminUser = $this->Auth->identify();
+            $adminUser_flag = $adminUser['delete_flag'];
+            if ($adminUser_flag == true) {
+                $this->Flash->error(__('delete_flag is true'));
+                return $this->redirect(['action' => 'login']);
+            }
             if ($adminUser) {
                 $this->Auth->setUser($adminUser);
                 return $this->redirect($this->Auth->redirectUrl());

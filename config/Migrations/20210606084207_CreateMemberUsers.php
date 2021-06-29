@@ -19,7 +19,7 @@ class CreateMemberUsers extends AbstractMigration
             ->addColumn('zip_code', 'integer', ['limit' => 8])
             ->addColumn('address', 'string', ['limit' => 200])
             ->addColumn('tel', 'string', ['limit' => 21])
-            ->addColumn('delete_flag', 'boolean', ['null' => true])
+            ->addColumn('delete_flag', 'boolean', ['default' => false])
             ->addColumn('created_at', 'datetime')
             ->addColumn('updated_at', 'datetime', ['null' => true])
             ->save();

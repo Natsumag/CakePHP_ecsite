@@ -29,61 +29,38 @@ class ContactsController extends AppController
         $contact = $this->Contacts->newEntity();
         if ($this->request->is('post')) {
             if ($this->Auth->user('id')) {
-                if (!($this->getRequest()->getSession()->check('hogehoge'))) {
-                    $this->getRequest()->getSession()->write('hogehoge', $this->getRequest()->getSession()->read());
-                    $this->set(compact('contact'));
-
-                    $this->render("confirm");
-                } else {
-                    $this->getRequest()->getSession()->delete('hogehoge');
-                    $getdata = $this->request->getData();
-                    $contact = $this->Contacts->patchEntity($contact, $getdata);
-                    if ($this->Contacts->save($contact)) {
-                        $this->Flash->success(__('saved.'));
-
-                        $this->render("complete");
-                    } else {
-                        $this->Flash->error(__('not saved.'));
-                    }
-
+                $contact = $this->Contacts->patchEntity($contact, $this->request->getData());
+                if (($this->getRequest()->getSession()->check('hogehoge2'))) {
+                    $this->getRequest()->getSession()->consume('hogehoge2');
                 }
-//                $this->Flash->error(__('not post.'));
+                if (!($this->getRequest()->getSession()->check('hogehoge1'))) {
+                    $this->getRequest()->getSession()->write('hogehoge', $contact);
+                    return $this->redirect(['action' => 'confirm']);
+                } else {
+                    $contact = $this->getRequest()->getSession()->consume('hogehoge1');
+                }
             }
-
+            $this->Flash->error(__('not post.'));
         }
         $this->set(compact('contact'));
     }
 
     public function confirm()
     {
-        if (!($this->getRequest()->getSession()->check('hogehoge'))) {
-            return $this->redirect(['action' => 'add']);
-        }
-
-        $this->redirect($this->request->referer());
-    }
-
-
-
-    public function edit()
-    {
-        $this->getRequest()->getSession()->delete('hogehoge');
-
-        $this->redirect($this->request->referer());
-    }
-
-
-    public function reply($id = null)
-    {
-        $contact = $this->Contacts->get($id);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $contact = $this->Contacts->patchEntity($contact, $this->request->getData());
-            if ($this->Contacts->save($contact)) {
-                $this->Flash->success(__('The material has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
+        if (!($this->getRequest()->getSession()->check('hogehoge2'))) {
+            if (($this->getRequest()->getSession()->check('hogehoge'))) {
+                $contact = $this->request->getSession()->read('hogehoge');
+                $this->getRequest()->getSession()->write('hogehoge2', $contact);
+                $this->set(compact('contact'));
+            } else {
+                return $this->redirect(['action' => 'add']);
             }
-            $this->Flash->error(__('The material could not be saved. Please, try again.'));
+        } else {
+            $contact = $this->getRequest()->getSession()->consume('hogehoge2');
+            if ($this->Contacts->save($contact)) {
+                $this->Flash->success(__('saved.'));
+                $this->render("complete");
+            }
         }
         $this->set(compact('contact'));
     }

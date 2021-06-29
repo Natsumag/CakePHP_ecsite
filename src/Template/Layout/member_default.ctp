@@ -74,7 +74,7 @@ $cakeDescription = 'ユーザ会員画面';
                     <a class="nav-link" href="<?= $this->Url->build(['controller' => 'PurchaseHistories', 'action' => 'index']) ?>">PurchaseHistoryDetail</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<?= $this->Url->build(['action' => 'logout']) ?>">Logout</a>
+                    <a class="nav-link" href="<?= $this->Url->build(['controller' => 'MemberUsers', 'action' => 'logout']) ?>">Logout</a>
                 </li>
             </ul>
         </div>

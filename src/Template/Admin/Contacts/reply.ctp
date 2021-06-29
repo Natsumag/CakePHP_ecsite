@@ -4,29 +4,22 @@
  * @var \App\Model\Entity\Contact $contact
  */
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Form->postLink(
-                __('Delete'),
-                ['action' => 'delete', $contact->id],
-                ['confirm' => __('Are you sure you want to delete # {0}?', $contact->id)]
-            )
-            ?></li>
-        <li><?= $this->Html->link(__('List Notices'), ['action' => 'index']) ?></li>
-    </ul>
-</nav>
+
 <div class="products form large-9 medium-8 columns content">
     <?= $this->Form->create($contact); ?>
     <fieldset>
         <legend><?= __('Reply Contact') ?></legend>
-        <?php
-        echo $this->Form->control('name');
-        echo $this->Form->control('email');
-        echo $this->Form->control('content');
-        ?>
-
+        <ul>
+            <li>Name:<?= h($contact->name); ?><br></li>
+            <li>Email:<?= h($contact->email); ?><br></li>
+            <li>Content:<?= h($contact->content); ?></li>
+            <li>
+                Reply_content
+                <?= $this->Form->value('reply_content', ['type' => 'textarea']) ?>
+            </li>
+        </ul>
     </fieldset>
+    <?= $this->Form->button('戻る', ['onclick' => 'history.back()', 'type' => 'button']) ?>
     <?= $this->Form->button(__('Submit')) ?>
     <?= $this->Form->end() ?>
 </div>

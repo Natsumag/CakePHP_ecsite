@@ -30,7 +30,6 @@ class NoticesController extends AppController
             $notice = $this->Notices->patchEntity($notice, $this->request->getData());
             if ($this->Notices->save($notice)) {
                 $this->Flash->success(__('saved.'));
-
                 return $this->redirect(['action'=>'index']);
             }
             $this->Flash->error(__('not saved.'));

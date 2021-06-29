@@ -48,11 +48,11 @@ class PurchaseHistoriesController extends AppController
 
             // 「purchase_histories」に入れるデータ
             $total_fee = array_shift($product_num);
-            $login_id = $this->Auth->user('id');
-            if ($login_id) {
+            $login_user = $this->Auth->user();
+            if ($login_user['id']) {
                 $data = array(
                     'total_fee' => $total_fee,
-                    'member_user_id' => $login_id
+                    'member_user_id' => $login_user['id']
                 );
                 $purchaseHistories = $this->PurchaseHistories->newEntity($data);
                 $this->PurchaseHistories->save($purchaseHistories);
@@ -81,18 +81,17 @@ class PurchaseHistoriesController extends AppController
                 // メール送信
                 $email = new Email('default');
                 $email->setFrom(['cakephp0906@gmail.com' => 'PHP Cake'])
-                    ->setTo('ntmg0906@gmail.com')
+                    ->setTo($login_user['email'])
                     ->setSubject('ご購入ありがとうございます')
-                    ->viewVars([
-                        // 合計金額、商品名、
-                        'total_fee'=>$total_fee,
-                    ])
-                    ->send('My message');
-
+                    ->viewBuilder()
+                        ->setTemplate('purchase_thanks')
+                        ->setVar('total_fee', $total_fee)
+                        ->setVar('username', $login_user['name'])
+                ;
 
                 // カートのデータ削除　$login_idに一致するものをすべて物理削除
                 $delete_data = $this->Carts->find('all');
-                if ($this->Carts->deleteAll(['member_user_id' => $login_id])) {
+                if ($this->Carts->deleteAll(['member_user_id' => $login_user['id']])) {
                     $this->Flash->success(__('購入しました。'));
                 } else {
                     $this->Flash->error(__('The carts could not be deleted. Please, try again.'));

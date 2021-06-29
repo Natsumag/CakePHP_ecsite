@@ -6,20 +6,14 @@
 ?>
 
 <div class="purchaseHistories form large-9 medium-8 columns content">
-    <?= $this->Form->create($contact, ['type' => 'post', 'url' => ['controller' => 'Contacts', 'action' => 'add']]) ?>
+    <?= $this->Form->create($contact, ['type' => 'post', 'url' => ['controller' => 'Contacts', 'action' => 'confirm']]) ?>
     <fieldset>
         <legend><?= __('お問い合わせ内容の確認') ?></legend>
-        <?= $this->Form->value('content', ['type' => 'textarea']) ?>
-        <?php
-        echo $this->Form->hidden('member_user_id', ['value' => $contact['id']]);
-        echo $this->Form->hidden('name', ['value' => $contact['name']]);
-        echo $this->Form->hidden('email', ['value' => $contact['email']]);
-        echo $this->Form->hidden('content', ['value' => $contact['content']]);
-        ?>
+        <p>name:<?= h($contact->content) ?></p>
+        <p>email:<?= h($contact->name) ?></p>
+        <p>content:<?= h($contact->email) ?></p>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>
-
-    <?= $this->Html->link(__('修正する'), ['controller' => 'Contacts', 'action' => 'edit']) ?>
+    <?= $this->Form->button('修正する', ['onclick' => 'history.back()', 'type' => 'button']) ?>
     <?= $this->Form->end() ?>
 </div>
-

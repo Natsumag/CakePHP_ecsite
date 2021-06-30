@@ -11,7 +11,7 @@
         <thead>
         <tr>
             <th scope="col"><?= $this->Paginator->sort('id') ?></th>
-            <th scope="col"><?= $this->Paginator->sort('member_user_id') ?></th>
+            <th scope="col"><?= $this->Paginator->sort('admin') ?></th>
             <th scope="col"><?= $this->Paginator->sort('name') ?></th>
             <th scope="col"><?= $this->Paginator->sort('email') ?></th>
             <th scope="col"><?= $this->Paginator->sort('content') ?></th>
@@ -25,8 +25,7 @@
         <?php foreach ($contacts as $contact): ?>
             <tr>
                 <td><?= $this->Number->format($contact->id) ?></td>
-                <td><?= $contact->has('member_user') ? $this->Html->link($contact->member_user->name, ['controller' => 'AdminUsers', 'action' => 'view', $contact->member_user->id]) : '' ?></td>
-
+                <td><?= $contact->has('admin_user') ? $this->Html->link($contact->admin_user->name, ['controller' => 'AdminUsers', 'action' => 'view', $contact->admin_user->id]) : '' ?></td>
                 <td><?= h($contact->name) ?></td>
                 <td><?= h($contact->email) ?></td>
                 <td>

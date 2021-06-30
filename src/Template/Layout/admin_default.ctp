@@ -48,108 +48,107 @@ $cakeDescription = '管理画面';
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    AdminUser
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="<?= $this->Url->build(['controller' => 'AdminUsers', 'action' => 'index']) ?>">
-                        Index
+<!--    --><?php //if ($this->request->getSession()->read('Auth.User')): ?>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        AdminUser
                     </a>
-                    <a class="dropdown-item" href="<?= $this->Url->build(['controller' => 'AdminUsers', 'action' => 'add']) ?>">
-                        Add
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="<?= $this->Url->build(['controller' => 'AdminUsers', 'action' => 'index']) ?>">
+                            Index
+                        </a>
+                        <a class="dropdown-item" href="<?= $this->Url->build(['controller' => 'AdminUsers', 'action' => 'add']) ?>">
+                            Add
+                        </a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Category
                     </a>
-                </div>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    AdminContact
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="<?= $this->Url->build(['controller' => 'Contacts', 'action' => 'index']) ?>">
-                        Index
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="<?= $this->Url->build(['controller' => 'Categories', 'action' => 'index']) ?>">
+                            Index
+                        </a>
+                        <a class="dropdown-item" href="<?= $this->Url->build(['controller' => 'Categories', 'action' => 'add']) ?>">
+                            Add
+                        </a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="<?= $this->Url->build(['controller' => 'Contacts', 'action' => 'index']) ?>">Contact</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Material
                     </a>
-                    <a class="dropdown-item" href="<?= $this->Url->build(['controller' => 'Contacts', 'action' => 'add']) ?>">
-                        Add
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="<?= $this->Url->build(['controller' => 'Materials', 'action' => 'index']) ?>">
+                            Index
+                        </a>
+                        <a class="dropdown-item" href="<?= $this->Url->build(['controller' => 'Materials', 'action' => 'add']) ?>">
+                            Add
+                        </a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        MemberUser
                     </a>
-                </div>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Category
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="<?= $this->Url->build(['controller' => 'Categories', 'action' => 'index']) ?>">
-                        Index
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="<?= $this->Url->build(['controller' => 'MemberUsers', 'action' => 'index']) ?>">
+                            Index
+                        </a>
+                        <a class="dropdown-item" href="<?= $this->Url->build(['controller' => 'MemberUsers', 'action' => 'add']) ?>">
+                            Add
+                        </a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Notice
                     </a>
-                    <a class="dropdown-item" href="<?= $this->Url->build(['controller' => 'Categories', 'action' => 'add']) ?>">
-                        Add
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="<?= $this->Url->build(['controller' => 'Notices', 'action' => 'index']) ?>">
+                            Index
+                        </a>
+                        <a class="dropdown-item" href="<?= $this->Url->build(['controller' => 'Notices', 'action' => 'add']) ?>">
+                            Add
+                        </a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Product
                     </a>
-                </div>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Material
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="<?= $this->Url->build(['controller' => 'Materials', 'action' => 'index']) ?>">
-                        Index
-                    </a>
-                    <a class="dropdown-item" href="<?= $this->Url->build(['controller' => 'Materials', 'action' => 'add']) ?>">
-                        Add
-                    </a>
-                </div>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    MemberUser
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="<?= $this->Url->build(['controller' => 'MemberUsers', 'action' => 'index']) ?>">
-                        Index
-                    </a>
-                    <a class="dropdown-item" href="<?= $this->Url->build(['controller' => 'MemberUsers', 'action' => 'add']) ?>">
-                        Add
-                    </a>
-                </div>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Notice
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="<?= $this->Url->build(['controller' => 'Notices', 'action' => 'index']) ?>">
-                        Index
-                    </a>
-                    <a class="dropdown-item" href="<?= $this->Url->build(['controller' => 'Notices', 'action' => 'add']) ?>">
-                        Add
-                    </a>
-                </div>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Product
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="<?= $this->Url->build(['controller' => 'Products', 'action' => 'index']) ?>">
-                        Index
-                    </a>
-                    <a class="dropdown-item" href="<?= $this->Url->build(['controller' => 'Products', 'action' => 'add']) ?>">
-                        Add
-                    </a>
-                </div>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="<?= $this->Url->build(['controller' => 'PurchaseHistoryDetails', 'action' => 'index']) ?>">PurchaseHistoryDetail</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="<?= $this->Url->build(['action' => 'logout']) ?>">Logout</a>
-            </li>
-        </ul>
-    </div>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="<?= $this->Url->build(['controller' => 'Products', 'action' => 'index']) ?>">
+                            Index
+                        </a>
+                        <a class="dropdown-item" href="<?= $this->Url->build(['controller' => 'Products', 'action' => 'add']) ?>">
+                            Add
+                        </a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="<?= $this->Url->build(['controller' => 'PurchaseHistoryDetails', 'action' => 'index']) ?>">PurchaseHistoryDetail</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="<?= $this->Url->build(['controller' => 'AdminUsers', 'action' => 'logout']) ?>">Logout</a>
+                </li>
+            </ul>
+        </div>
+<!--    --><?php //else: ?>
+<!--        <ul class="navbar-nav mr-auto">-->
+<!--            <li class="nav-item">-->
+<!--                <a class="nav-link" href="--><?//= $this->Url->build(['controller' => 'AdminUsers', 'action' => 'login']) ?><!--">Login</a>-->
+<!--            </li>-->
+<!--        </ul>-->
+<!--    --><?php //endif; ?>
 </nav>
 <?= $this->Flash->render() ?>
 <div class="container clearfix">

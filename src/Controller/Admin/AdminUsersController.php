@@ -71,8 +71,6 @@ class AdminUsersController extends AppController
     {
         $this->request->allowMethod(['post']);
         $adminUser = $this->AdminUsers->get($id);
-//        debug($adminUser);
-//        exit();
         $adminUser_flag = $adminUser->delete_flag;
 
         if ($adminUser_flag == false) {
@@ -93,19 +91,23 @@ class AdminUsersController extends AppController
 
     public function login()
     {
-        if ($this->request->is('post')) {
-            $adminUser = $this->Auth->identify();
-            $adminUser_flag = $adminUser['delete_flag'];
-            if ($adminUser_flag == true) {
-                $this->Flash->error(__('delete_flag is true'));
-                return $this->redirect(['action' => 'login']);
+        if (!$this->Auth->user()) {
+            if ($this->request->is('post')) {
+                $adminUser = $this->Auth->identify();
+                $adminUser_flag = $adminUser['delete_flag'];
+                if ($adminUser_flag == true) {
+                    $this->Flash->error(__('delete_flag is true'));
+                    return $this->redirect(['action' => 'login']);
+                }
+                if ($adminUser) {
+                    $this->Auth->setUser($adminUser);
+                    return $this->redirect($this->Auth->redirectUrl());
+                }
+                $this->Flash->error(__('メールアドレスまたはパスワードに誤りがあります。'));
             }
-            if ($adminUser) {
-                $this->Auth->setUser($adminUser);
-                return $this->redirect($this->Auth->redirectUrl());
-            }
-            $this->Flash->error(__('メールアドレスまたはパスワードに誤りがあります。'));
         }
+        $this->Flash->error(__('すでにログインしています'));
+        return $this->redirect(['controller' => '../Categories', 'action' => 'index']);
     }
 
     public function logout()

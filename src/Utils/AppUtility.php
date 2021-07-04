@@ -16,24 +16,30 @@ class AppUtility
      */
     public function file_upload($file = null,$dir = null, $limitFileSize = 1024 * 1024)
     {
+        $category = new CategoriesController();
         try {
-
             // 未定義、複数ファイル、破損攻撃のいずれかの場合は無効処理
+            $file_up = true;
             if (!isset($file['error']) || is_array($file['error'])){
-                throw new RuntimeException('Invalid parameters.');
+                $file_up = false;
+                $message[] = '未定義、複数ファイル、破損攻撃です';
             }
-
             // エラーのチェック
             switch ($file['error']) {
                 case UPLOAD_ERR_OK:
                     break;
                 case UPLOAD_ERR_NO_FILE:
-                    throw new RuntimeException('No file sent.');
+                    $file_up = false;
+                    $message[] = 'ファイルはアップロードされませんでした。';
                 case UPLOAD_ERR_INI_SIZE:
+                    $file_up = false;
+                    $message[] = 'ファイルは２Mより大きいためアップロードされませんでした。';
                 case UPLOAD_ERR_FORM_SIZE:
-                    throw new RuntimeException('Exceeded filesize limit.');
+                    $file_up = false;
+                    $message[] = 'アップロードされたファイルは、HTML フォームで指定された MAX_FILE_SIZE を超えています。';
                 default:
-                    throw new RuntimeException('Unknown errors.');
+                    $file_up = false;
+                    $message[] = 'Unknown errors.';
             }
 
             // ファイル情報取得
@@ -41,7 +47,8 @@ class AppUtility
 
             // ファイルサイズのチェック
             if ($fileInfo->size() > $limitFileSize) {
-                throw new RuntimeException('Exceeded filesize limit.');
+                $file_up = false;
+                $message[] = 'Exceeded filesize limit.';
             }
 
             // ファイルタイプのチェックし、拡張子を取得
@@ -52,16 +59,24 @@ class AppUtility
                         'gif' => 'image/gif',
                     ],
                     true)){
-                throw new RuntimeException('aaaaInvalid file format.');
+                $file_up = false;
+                $message[] = 'Invalid file format.';
+            }
+            if ($file_up === false) {
+                $conversion = implode(",", $message);
+                $category->Flash->error(__($conversion));
+//                return $file_up;
             }
 
             // ファイルの移動 move_uploaded_file()だと止まったときエラーが返せないため
-            if (!@move_uploaded_file($file["tmp_name"], $dir)){
-                throw new RuntimeException('Failed to move uploaded file.');
+            if (!@move_uploaded_file($file['tmp_name'], $dir)){
+                $file_up = false;
+                $message[] = 'ファイルの移動に失敗しました。';
             }
 
         } catch (RuntimeException $e) {
-            throw $e;
+            $category->Flash->error(__('ファイルの更新に失敗しました。'));
+            $category->Flash->error(__($e->getMessage()));
         }
     }
 
@@ -82,7 +97,7 @@ class AppUtility
             $array = date('YmdHis') . $uploadFile['name'];
             return $array;
         } catch (RuntimeException $e) {
-            $category->Flash->error(__('ファイルのアップロードができませんでした.'));
+            $category->Flash->error(__('ファイルの更新に失敗しました。'));
             $category->Flash->error(__($e->getMessage()));
         }
     }

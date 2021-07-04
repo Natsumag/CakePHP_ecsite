@@ -5,6 +5,7 @@ use App\Utils\AppUtility;
 use Cake\Event\Event;
 use Cake\Filesystem\File;
 use RuntimeException;
+use Cake\ORM\RulesChecker;
 
 
 /**
@@ -73,31 +74,29 @@ class CategoriesController extends AppController
                 $uploadFileName = date('YmdHis') . $uf['name'];
                 $uploadPath = WWW_ROOT . 'files/Categories/image/' . $uploadFileName;
                 $limitFileSize = 1024 * 1024;
-                AppUtility::file_upload($uf, $uploadPath, $limitFileSize);
+                $file_up = AppUtility::file_upload($uf, $uploadPath, $limitFileSize);
                 // ファイル名の格納
                 $array2['file_name' . $num] = $uploadFileName;
                 $num++;
             }
-            $data = array(
-                'ih_correspond_id' => $this->request->getData('ih_correspond_id'),
-                'material_id' => $this->request->getData('material_id'),
-                'name' => $this->request->getData('name'),
-                'description' => $this->request->getData('description'),
-                'file_name1' => array_key_exists('file_name1', $array2) ? $array2['file_name1'] : '',
-                'file_name2' => array_key_exists('file_name2', $array2) ? $array2['file_name2'] : '',
-                'file_name3' => array_key_exists('file_name3', $array2) ? $array2['file_name3'] : '',
-                'file_name4' => array_key_exists('file_name4', $array2) ? $array2['file_name4'] : '',
-                'file_name5' => array_key_exists('file_name5', $array2) ? $array2['file_name5'] : ''
-            );
-
-            $category= $this->Categories->newEntity($data);
-
-
-            if ($this->Categories->save($category)) {
-                $this->Flash->success(__('The category has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
-            }
+//            if ($file_up === true) {
+                $data = array(
+                    'ih_correspond_id' => $this->request->getData('ih_correspond_id'),
+                    'material_id' => $this->request->getData('material_id'),
+                    'name' => $this->request->getData('name'),
+                    'description' => $this->request->getData('description'),
+                    'file_name1' => array_key_exists('file_name1', $array2) ? $array2['file_name1'] : '',
+                    'file_name2' => array_key_exists('file_name2', $array2) ? $array2['file_name2'] : '',
+                    'file_name3' => array_key_exists('file_name3', $array2) ? $array2['file_name3'] : '',
+                    'file_name4' => array_key_exists('file_name4', $array2) ? $array2['file_name4'] : '',
+                    'file_name5' => array_key_exists('file_name5', $array2) ? $array2['file_name5'] : ''
+                );
+                $category= $this->Categories->newEntity($data);
+                if ($this->Categories->save($category)) {
+                    $this->Flash->success(__('The category has been saved.'));
+                    return $this->redirect(['action' => 'index']);
+                }
+//            }
             $this->Flash->error(__('The category could not be saved. Please, try again.'));
         }
         $materials = $this->Categories->Materials->find('list', ['limit' => 20]);
@@ -213,4 +212,16 @@ class CategoriesController extends AppController
         parent::beforeFilter($event);
         $this->Auth->allow(['add','index','edit','view', 'delete']);
     }
+
+    public function buildRules(RulesChecker $rules)
+    {
+
+        // 更新のルールを追加
+        $rules->addUpdate(function ($entity, $options) {
+            // 失敗／成功を示す真偽値を返す
+        }, 'ruleName');
+
+        return $rules;
+    }
+
 }

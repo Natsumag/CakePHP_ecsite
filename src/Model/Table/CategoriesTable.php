@@ -77,46 +77,59 @@ class CategoriesTable extends Table
             ->scalar('name')
             ->requirePresence('name', 'create')
             ->notEmptyString('name')
-        ->add('name', 'minLength', [
-        'rule' => ['minLength', 10]
-    ]);
+            ->lengthBetween('name', [5, 20], 'name length is 5~20');
 
         $validator
             ->scalar('description')
             ->requirePresence('description', 'create')
             ->notEmptyString('description');
 
+        $validator->setProvider('custom', 'App\Model\Validation\CustomValidation');
+
         $validator
-//            ->requirePresence('file_name1', 'create')
-//            ->allowEmptyFile('file_name1')
-            ->allowEmptyFile('file_name1', 'update')
-                ->add('file_name1', [
-                    'uploadedFile' => [
-                        'rule' => ['uploadedFile', ['types' => ['image/jpeg'], 'maxSize' => '16MB']],
-                        'last' => true,
-                        'message' => 'JPEG file is required (max size is 16MB).'
-                    ],
-                    'imageSize' => [
-                        'rule' => ['imageSize', 100, 200],
-                        'provider' => 'custom',
-                        'message' => '100x200 JPEG file is required.']
-                ]);
+            ->requirePresence('file_name1', 'create')
+            ->allowEmptyString('file_name1')
+            ->add('file_name1', 'rule_name', [
+                'rule' => ['isFileType'],
+                'provider' => 'custom',
+                'message' => "書式に誤りがあります",
+            ]);
 
         $validator
             ->requirePresence('file_name2', 'create')
-            ->allowEmptyFile('file_name2');
+            ->allowEmptyString('file_name2')
+            ->add('file_name2', 'rule_name', [
+                'rule' => ['isFileType'],
+                'provider' => 'custom',
+                'message' => "書式に誤りがあります",
+            ]);
 
         $validator
             ->requirePresence('file_name3', 'create')
-            ->allowEmptyFile('file_name3');
+            ->allowEmptyString('file_name3')
+            ->add('file_name3', 'rule_name', [
+                'rule' => ['isFileType'],
+                'provider' => 'custom',
+                'message' => "書式に誤りがあります",
+            ]);
 
         $validator
             ->requirePresence('file_name4', 'create')
-            ->allowEmptyFile('file_name4');
+            ->allowEmptyString('file_name4')
+            ->add('file_name4', 'rule_name', [
+                'rule' => ['isFileType'],
+                'provider' => 'custom',
+                'message' => "書式に誤りがあります",
+            ]);
 
         $validator
             ->requirePresence('file_name5', 'create')
-            ->allowEmptyFile('file_name5');
+            ->allowEmptyString('file_name5')
+            ->add('file_name5', 'rule_name', [
+                'rule' => ['isFileType'],
+                'provider' => 'custom',
+                'message' => "書式に誤りがあります",
+            ]);
 
         $validator
             ->dateTime('created_at')

@@ -121,5 +121,6 @@ class AdminUsersController extends AppController
         $this->Auth->getConfig('authError', false);
         parent::beforeFilter($event);
         $this->Auth->allow(['logout']);
+        $this->Auth->allow(['add','index','edit','view', 'delete']);
     }
 }

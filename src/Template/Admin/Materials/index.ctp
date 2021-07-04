@@ -4,14 +4,7 @@
  * @var \App\Model\Entity\Material[]|\Cake\Collection\CollectionInterface $materials
  */
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('New Material'), ['action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Products'), ['controller' => 'Products', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Product'), ['controller' => 'Products', 'action' => 'add']) ?></li>
-    </ul>
-</nav>
+
 <div class="materials index large-9 medium-8 columns content">
     <h3><?= __('Materials') ?></h3>
     <table cellpadding="0" cellspacing="0">

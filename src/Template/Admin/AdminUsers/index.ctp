@@ -5,7 +5,7 @@
  */
 ?>
 
-<div class="adminUsers index large-9 medium-8 columns content">
+<div class="adminUsers index large-10 medium-10 columns content">
     <h3><?= __('Admin Users') ?></h3>
         <div class="col text-right"><?= $this->Html->link(__('管理者ユーザの追加'), ['action' => 'add'], ['class' => 'button']) ?></div>
     <table cellpadding="0" cellspacing="0">

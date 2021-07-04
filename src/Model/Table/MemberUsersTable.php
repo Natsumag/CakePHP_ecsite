@@ -105,16 +105,28 @@ class MemberUsersTable extends Table
     }
 
     /**
+     * 必要な値のみIndexに表示
+     *
+     */
+    public function findMemberIndex(Query $query)
+    {
+        return $query
+            // 一覧上で常に必要となるカラムを取得
+            ->select(['id', 'name', 'email', 'zip_code', 'address', 'tel', 'delete_flag', 'updated_at'])
+            ;
+    }
+
+    /**
      * Returns a rules checker object that will be used for validating
      * application integrity.
      *
      * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
      * @return \Cake\ORM\RulesChecker
      */
-//    public function buildRules(RulesChecker $rules)
-//    {
-//        $rules->add($rules->isUnique(['email']));
-//
-//        return $rules;
-//    }
+    public function buildRules(RulesChecker $rules)
+    {
+        // 同じemailが保存されないための処理
+        $rules->add($rules->isUnique(['email']));
+        return $rules;
+    }
 }

@@ -4,17 +4,6 @@
  * @var \App\Model\Entity\Material $material
  */
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('Edit Material'), ['action' => 'edit', $material->id]) ?> </li>
-        <li><?= $this->Form->postLink(__('Delete Material'), ['action' => 'delete', $material->id], ['confirm' => __('Are you sure you want to delete # {0}?', $material->id)]) ?> </li>
-        <li><?= $this->Html->link(__('List Materials'), ['action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Material'), ['action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Products'), ['controller' => 'Products', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Product'), ['controller' => 'Products', 'action' => 'add']) ?> </li>
-    </ul>
-</nav>
 <div class="materials view large-9 medium-8 columns content">
     <h3><?= h($material->material) ?></h3>
     <table class="vertical-table">

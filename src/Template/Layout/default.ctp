@@ -110,6 +110,11 @@ $cakeDescription = 'ユーザ画面';
                 <a class="nav-link" href="<?= $this->Url->build(['controller' => 'member/PurchaseHistories', 'action' => 'index']) ?>">PurchaseHistoryDetail</a>
             </li>
         </ul>
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="<?= $this->Url->build(['controller' => 'member/MemberUsers', 'action' => 'edit']) ?>">MemberUserEdit</a>
+            </li>
+        </ul>
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
                 <a class="nav-link" href="<?= $this->Url->build(['controller' => 'member/MemberUsers', 'action' => 'logout']) ?>">Logout</a>

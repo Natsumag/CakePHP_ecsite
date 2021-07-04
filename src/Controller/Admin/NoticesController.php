@@ -54,7 +54,7 @@ class NoticesController extends AppController
 
     public function delete($id = null)
     {
-        $this->request->allowMethod(['post', 'delete']);
+        $this->request->allowMethod(['post']);
         $notice = $this->Notices->get($id);
         if ($this->Notices->delete($notice)) {
             $this->Flash->success(__('The notice has been deleted.'));

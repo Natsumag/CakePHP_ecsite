@@ -5,10 +5,10 @@
  */
 ?>
 
-<div class="memberUsers index large-9 medium-8 columns content">
+<div class="memberUsers index large-12 medium-12 columns content">
     <h3>
-        <?= __('Member Users') ?><br>
-        <?= $this->Html->link(__('新規追加'), ['action' => 'add']) ?>
+        <?= __('Member Users') ?>
+        <?= $this->Html->link(__('add'), ['action' => 'add']) ?>
     </h3>
     <table cellpadding="0" cellspacing="0">
         <thead>
@@ -20,7 +20,6 @@
                 <th scope="col"><?= $this->Paginator->sort('address') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('tel') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('delete_flag') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('created_at') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('updated_at') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
@@ -41,7 +40,6 @@
                         echo 'true<br>';
                     } ?>
                 </td>
-                <td><?= h($memberUser->created_at) ?></td>
                 <td><?= h($memberUser->updated_at) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('編集'), ['action' => 'edit', $memberUser->id], ['class' => 'button']) ?>

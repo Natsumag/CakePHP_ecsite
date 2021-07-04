@@ -24,10 +24,7 @@ class CategoriesController extends AppController
      */
     public function index()
     {
-        $this->paginate = [
-            'contain' => ['Materials'],
-        ];
-        $categories = $this->paginate($this->Categories);
+        $categories = $this->paginate($this->Categories->find('CategoryIndex'));
         $this->set('ihCorrespods', IH_CORRESPOND);
         $this->set(compact('categories'));
     }
@@ -79,7 +76,7 @@ class CategoriesController extends AppController
                 $array2['file_name' . $num] = $uploadFileName;
                 $num++;
             }
-//            if ($file_up === true) {
+            if ($file_up === true) {
                 $data = array(
                     'ih_correspond_id' => $this->request->getData('ih_correspond_id'),
                     'material_id' => $this->request->getData('material_id'),
@@ -96,7 +93,7 @@ class CategoriesController extends AppController
                     $this->Flash->success(__('The category has been saved.'));
                     return $this->redirect(['action' => 'index']);
                 }
-//            }
+            }
             $this->Flash->error(__('The category could not be saved. Please, try again.'));
         }
         $materials = $this->Categories->Materials->find('list', ['limit' => 20]);

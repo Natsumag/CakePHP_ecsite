@@ -141,4 +141,14 @@ class CategoriesTable extends Table
 
         return $validator;
     }
+    /**
+     * 必要な値のみIndexに表示
+     *
+     */
+    public function findCategoryIndex(Query $query)
+    {
+        return $query
+            ->select(['id', 'ih_correspond_id', 'material_id', 'name', 'description', 'file_name1', 'updated_at', 'material' => 'Materials.material'])
+            ->contain(['Materials']);
+    }
 }

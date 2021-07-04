@@ -62,6 +62,12 @@ class AdminUsersTable extends Table
             ->allowEmptyString('id', null, 'create');
 
         $validator
+            ->scalar('name')
+            ->maxLength('name', 40)
+            ->requirePresence('name', 'create')
+            ->notEmptyString('name');
+
+        $validator
             ->email('email')
             ->requirePresence('email', 'create')
             ->notEmptyString('email')
@@ -69,7 +75,7 @@ class AdminUsersTable extends Table
 
         $validator
             ->scalar('password')
-            ->maxLength('password', 400)
+            ->maxLength('password', 20)
             ->requirePresence('password', 'create')
             ->notEmptyString('password');
 
@@ -85,13 +91,19 @@ class AdminUsersTable extends Table
             ->boolean('delete_flag')
             ->allowEmptyString('delete_flag');
 
-        $validator
-            ->scalar('name')
-            ->maxLength('name', 40)
-            ->requirePresence('name', 'create')
-            ->notEmptyString('name');
-
         return $validator;
+    }
+
+    /**
+     * 必要な値のみIndexに表示
+     *
+     */
+    public function findAdminIndex(Query $query)
+    {
+        return $query
+            // 一覧上で常に必要となるカラムを取得
+            ->select(['id', 'name', 'email', 'delete_flag', 'created_at'])
+        ;
     }
 
     /**
@@ -103,8 +115,8 @@ class AdminUsersTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
+        // 同じemailが保存されないための処理
         $rules->add($rules->isUnique(['email']));
-
         return $rules;
     }
 }

@@ -49,7 +49,7 @@ $cakeDescription = 'ユーザ会員画面';
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <?php if ($this->request->getSession()->read('Auth.User')): ?>
+        <?php if ($this->request->getSession()->read('Auth.User')): ?>
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
                     <a class="nav-link" href="<?= $this->Url->build(['controller' => 'Carts', 'action' => 'index']) ?>">Cart</a>
@@ -74,18 +74,28 @@ $cakeDescription = 'ユーザ会員画面';
                     <a class="nav-link" href="<?= $this->Url->build(['controller' => 'PurchaseHistories', 'action' => 'index']) ?>">PurchaseHistoryDetail</a>
                 </li>
             </ul>
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="<?= $this->Url->build(['controller' => 'MemberUsers', 'action' => 'edit']) ?>">MemberUserEdit</a>
+                </li>
+            </ul>
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
                     <a class="nav-link" href="<?= $this->Url->build(['controller' => 'MemberUsers', 'action' => 'logout']) ?>">Logout</a>
                 </li>
             </ul>
-                <?php else: ?>
-                    <ul class="navbar-nav mr-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="<?= $this->Url->build(['controller' => 'MemberUsers', 'action' => 'login']) ?>">Login</a>
-                        </li>
-                    </ul>
-                <?php endif; ?>
+        <?php else: ?>
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="<?= $this->Url->build(['controller' => 'MemberUsers', 'action' => 'add']) ?>">MemberUserAdd</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="<?= $this->Url->build(['controller' => 'MemberUsers', 'action' => 'login']) ?>">Login</a>
+                </li>
+            </ul>
+        <?php endif; ?>
         </div>
     </nav>
 <?= $this->Flash->render() ?>

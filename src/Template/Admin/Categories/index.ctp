@@ -4,7 +4,7 @@
  * @var \App\Model\Entity\Category[]|\Cake\Collection\CollectionInterface $categories
  */
 ?>
-<div class="categories index large-9 medium-8 columns content">
+<div class="categories index large-12 medium-12 columns content">
     <h3><?= __('Categories') ?>
         <?= $this->Html->link(__('Add'), ['action' => 'add']) ?>
     </h3>
@@ -17,7 +17,6 @@
                 <th scope="col"><?= $this->Paginator->sort('name') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('description') ?></th>
                 <th scope="col" class="actions"><?= __('file') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('created_at') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('updated_at') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
@@ -35,12 +34,10 @@
                 <?php else: ?>
                     <td><?= $ihCorrespods[4] ?></td>
                 <?php endif; ?>
-
-                <td><?= $category->has('material') ? $this->Html->link($category->material->material, ['controller' => 'Materials', 'action' => 'view', $category->material->id]) : '' ?></td>
+                <td><?= $this->Html->link($category->material, ['controller' => 'Materials', 'action' => 'view', $category->material_id]) ?></td>
                 <td><?= h($category->name) ?></td>
                 <td><?= h($category->description) ?></td>
                 <td><?= $this->Html->image('../files/Categories/image/'.$category->file_name1, array('height' => 100, 'width' => 100)) ?></td>
-                <td><?= h($category->created_at) ?></td>
                 <td><?= h($category->updated_at) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $category->id]) ?>

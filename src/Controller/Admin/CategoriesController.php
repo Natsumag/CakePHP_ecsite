@@ -116,154 +116,33 @@ class CategoriesController extends AppController
     {
         $category = $this->Categories->get($id);
         if ($this->request->is(['patch', 'post', 'put'])) {
-
+            $get_data = $this->request->getData();
             $beforeUploadPath = WWW_ROOT . '/files/Categories/image/';
             $limitFileSize = 1024 * 1024;
-            $uploadFile1 = $this->request->getData('file_name1');
-            if ($uploadFile1['error'] == 0) {
-                $uploadPath1 = $beforeUploadPath . date('YmdHis') . $uploadFile1['name'];
-                try {
-                    // 古い画像ファイルの削除
-                    if (($this->request->getData('file_before1'))) {
-                        $delFile = new File( $beforeUploadPath . $this->request->getData('file_before1'));
-                        if (!$delFile->delete()) {
-                            $this->log('ファイル更新時に下記ファイルが削除できませんでした。',LOG_DEBUG);
-                            $this->log($this->request->getData('file_before1'), LOG_DEBUG);
-                        }
-                    }
-                    // 更新処理
-                    AppUtility::file_upload($this->request->getData('file_name1'), $uploadPath1, $limitFileSize);
-                    $array['file_name1'] = date('YmdHis') . $uploadFile1['name'];
-                } catch (RuntimeException $e) {
-                    $this->Flash->error(__('ファイルのアップロードができませんでした.'));
-                    $this->Flash->error(__($e->getMessage()));
-                }
-            } else {
-                if ($this->request->getData('file_before1')) {
-                    $beforeFileName1 = $this->request->getData('file_before1');
-                    $array['file_name1'] = $beforeFileName1;
+
+            for($i = 1; $i <= 5; $i++) {
+                $uploadFile = $get_data['file_name'.$i];
+                if (isset($get_data['file_before'.$i])) {
+                    $file_before = $get_data['file_before'.$i];
                 } else {
-                    $array['file_name1'] = '';
+                    $file_before = 'null';
+                }
+                if ($uploadFile['error'] == 0) {
+                    $uploadPath = $beforeUploadPath . date('YmdHis') . $uploadFile['name'];
+                    $array['file_name'.$i] = AppUtility::edit_check_file($file_before, $beforeUploadPath, $uploadPath, $uploadFile, $limitFileSize);
+                } else {
+                    if ($file_before != 'null') {
+                        $array['file_name'.$i] = $file_before;
+                    } else {
+                        $array['file_name'.$i] = '';
+                    }
                 }
             }
-
-            $uploadFile2 = $this->request->getData('file_name2');
-            if ($uploadFile2['error'] == 0) {
-                $uploadPath2 = $beforeUploadPath . date('YmdHis') . $uploadFile2['name'];
-                try {
-                    // 古い画像ファイルの削除
-                    if (($this->request->getData('file_before2'))) {
-                        $delFile = new File( $beforeUploadPath . $this->request->getData('file_before2'));
-                        if (!$delFile->delete()) {
-                            $this->log('ファイル更新時に下記ファイルが削除できませんでした。',LOG_DEBUG);
-                            $this->log($this->request->getData('file_before2'), LOG_DEBUG);
-                        }
-                    }
-                    // 更新処理
-                    AppUtility::file_upload($this->request->getData('file_name2'), $uploadPath2, $limitFileSize);
-                    $array['file_name2'] = date('YmdHis') . $uploadFile2['name'];
-                } catch (RuntimeException $e) {
-                    $this->Flash->error(__('ファイルのアップロードができませんでした.'));
-                    $this->Flash->error(__($e->getMessage()));
-                }
-            } else {
-                if ($this->request->getData('file_before2')) {
-                    $beforeFileName2 = $this->request->getData('file_before2');
-                    $array['file_name2'] = $beforeFileName2;
-                } else {
-                    $array['file_name2'] = '';
-                }
-            }
-
-            $uploadFile3 = $this->request->getData('file_name3');
-            if ($uploadFile3['error'] == 0) {
-                $uploadPath3 = $beforeUploadPath . date('YmdHis') . $uploadFile3['name'];
-                try {
-                    // 古い画像ファイルの削除
-                    if (($this->request->getData('file_before3'))) {
-                        $delFile = new File( $beforeUploadPath . $this->request->getData('file_before3'));
-                        if (!$delFile->delete()) {
-                            $this->log('ファイル更新時に下記ファイルが削除できませんでした。',LOG_DEBUG);
-                            $this->log($this->request->getData('file_before3'), LOG_DEBUG);
-                        }
-                    }
-                    // 更新処理
-                    AppUtility::file_upload($this->request->getData('file_name3'), $uploadPath3, $limitFileSize);
-                    $array['file_name3'] = date('YmdHis') . $uploadFile3['name'];
-                } catch (RuntimeException $e) {
-                    $this->Flash->error(__('ファイルのアップロードができませんでした.'));
-                    $this->Flash->error(__($e->getMessage()));
-                }
-            } else {
-                if ($this->request->getData('file_before2')) {
-                    $beforeFileName3 = $this->request->getData('file_before3');
-                    $array['file_name3'] = $beforeFileName3;
-                } else {
-                    $array['file_name3'] = '';
-                }
-            }
-
-            $uploadFile4 = $this->request->getData('file_name4');
-            if ($uploadFile4['error'] == 0) {
-                $uploadPath4 = $beforeUploadPath . date('YmdHis') . $uploadFile4['name'];
-                try {
-                    // 古い画像ファイルの削除
-                    if (($this->request->getData('file_before4'))) {
-                        $delFile = new File( $beforeUploadPath . $this->request->getData('file_before4'));
-                        if (!$delFile->delete()) {
-                            $this->log('ファイル更新時に下記ファイルが削除できませんでした。',LOG_DEBUG);
-                            $this->log($this->request->getData('file_before4'), LOG_DEBUG);
-                        }
-                        // 更新処理
-                        AppUtility::file_upload($this->request->getData('file_name4'), $uploadPath4, $limitFileSize);
-                        $array['file_name4'] = date('YmdHis') . $uploadFile4['name'];
-                    }
-                } catch (RuntimeException $e) {
-                    $this->Flash->error(__('ファイルのアップロードができませんでした.'));
-                    $this->Flash->error(__($e->getMessage()));
-                }
-            } else {
-                if ($this->request->getData('file_before4')) {
-                    $beforeFileName4 = $this->request->getData('file_before4');
-                    $array['file_name4'] = $beforeFileName4;
-                } else {
-                    $array['file_name4'] = '';
-                }
-            }
-
-            $uploadFile5 = $this->request->getData('file_name5');
-            if ($uploadFile5['error'] == 0) {
-                $uploadPath5 = $beforeUploadPath . date('YmdHis') . $uploadFile5['name'];
-                try {
-                    // 古い画像ファイルの削除
-                    if (($this->request->getData('file_before5'))) {
-                        $delFile = new File( $beforeUploadPath . $this->request->getData('file_before5'));
-                        if (!$delFile->delete()) {
-                            $this->log('ファイル更新時に下記ファイルが削除できませんでした。',LOG_DEBUG);
-                            $this->log($this->request->getData('file_before5'), LOG_DEBUG);
-                        }
-                    }
-                    // 更新処理
-                    AppUtility::file_upload($this->request->getData('file_name5'), $uploadPath5, $limitFileSize);
-                    $array['file_name5'] = date('YmdHis') . $uploadFile5['name'];
-                } catch (RuntimeException $e) {
-                    $this->Flash->error(__('ファイルのアップロードができませんでした.'));
-                    $this->Flash->error(__($e->getMessage()));
-                }
-            } else {
-                if ($this->request->getData('file_before5')) {
-                    $beforeFileName5 = $this->request->getData('file_before5');
-                    $array['file_name5'] = $beforeFileName5;
-                } else {
-                    $array['file_name5'] = '';
-                }
-            }
-
             $data = array(
-                'ih_correspond_id' => $this->request->getData('ih_correspond_id'),
-                'material_id' => $this->request->getData('material_id'),
-                'name' => $this->request->getData('name'),
-                'description' => $this->request->getData('description'),
+                'ih_correspond_id' => $get_data['ih_correspond_id'],
+                'material_id' => $get_data['material_id'],
+                'name' => $get_data['name'],
+                'description' => $get_data['description'],
                 'file_name1' => $array['file_name1'],
                 'file_name2' => $array['file_name2'],
                 'file_name3' => $array['file_name3'],
@@ -296,99 +175,31 @@ class CategoriesController extends AppController
     {
         $this->request->allowMethod(['post', 'delete']);
         $category = $this->Categories->get($id);
-
-        $fileName1 = $category->file_name1;
-        $fileName2 = $category->file_name2;
-        $fileName3 = $category->file_name3;
-        $fileName4 = $category->file_name4;
-        $fileName5 = $category->file_name5;
-
         // 画像の削除処理
         $beforeUploadPath = WWW_ROOT . '/files/Categories/image/';
-        $filePath1 = $beforeUploadPath . $fileName1;
-        try {
-            $delFile = new File($filePath1);
-            // ファイル削除処理実行
-            if ($delFile->delete()) {
-                $category['file_name1'] = "";
-            } else {
-                throw new RuntimeException('ファイルの削除ができませんでした.');
-            }
-        } catch (RuntimeException $e){
-            $this->log($e->getMessage(),LOG_DEBUG);
-            $this->log($category->file_name1,LOG_DEBUG);
-        }
-
-        if ($fileName2 !== '') {
-            $filePath2 = $beforeUploadPath . $fileName2;
-            try {
-                $delFile = new File($filePath2);
-                // ファイル削除処理実行
-                if ($delFile->delete()) {
-                    $category['file_name2'] = "";
-                } else {
-                    throw new RuntimeException('ファイルの削除ができませんでした.');
+        for($i = 1; $i <= 5; $i++) {
+            $fileName = $category['file_name'.$i];
+            if ($fileName !== '') {
+                $filePath = $beforeUploadPath . $fileName;
+                try {
+                    $delFile = new File($filePath);
+                    // ファイル削除処理実行
+                    if ($delFile->delete()) {
+                        $category['file_name'.$i] = "";
+                    } else {
+                        throw new RuntimeException('ファイルの削除ができませんでした.');
+                    }
+                } catch (RuntimeException $e) {
+                    $this->log($e->getMessage(), LOG_DEBUG);
+                    $this->log($category['file_name'.$i], LOG_DEBUG);
                 }
-            } catch (RuntimeException $e){
-                $this->log($e->getMessage(),LOG_DEBUG);
-                $this->log($category->file_name2,LOG_DEBUG);
             }
         }
-
-        if ($fileName3 !== '') {
-            $filePath3 = $beforeUploadPath . $fileName3;
-            try {
-                $delFile = new File($filePath3);
-                // ファイル削除処理実行
-                if ($delFile->delete()) {
-                    $category['file_name3'] = "";
-                } else {
-                    throw new RuntimeException('ファイルの削除ができませんでした.');
-                }
-            } catch (RuntimeException $e){
-                $this->log($e->getMessage(),LOG_DEBUG);
-                $this->log($category->file_name3,LOG_DEBUG);
-            }
-        }
-
-        if ($fileName4 !== '') {
-            $filePath4 = $beforeUploadPath . $fileName4;
-            try {
-                $delFile = new File($filePath4);
-                // ファイル削除処理実行
-                if ($delFile->delete()) {
-                    $category['file_name4'] = "";
-                } else {
-                    throw new RuntimeException('ファイルの削除ができませんでした.');
-                }
-            } catch (RuntimeException $e){
-                $this->log($e->getMessage(),LOG_DEBUG);
-                $this->log($category->file_name4,LOG_DEBUG);
-            }
-        }
-
-        if ($fileName5 !== '') {
-            $filePath5 = $beforeUploadPath . $fileName5;
-            try {
-                $delFile = new File($filePath5);
-                // ファイル削除処理実行
-                if ($delFile->delete()) {
-                    $category['file_name5'] = "";
-                } else {
-                    throw new RuntimeException('ファイルの削除ができませんでした.');
-                }
-            } catch (RuntimeException $e){
-                $this->log($e->getMessage(),LOG_DEBUG);
-                $this->log($category->file_name5,LOG_DEBUG);
-            }
-        }
-
         if ($this->Categories->delete($category)) {
             $this->Flash->success(__('The category has been deleted.'));
         } else {
             $this->Flash->error(__('The category could not be deleted. Please, try again.'));
         }
-
         return $this->redirect(['action' => 'index']);
     }
 

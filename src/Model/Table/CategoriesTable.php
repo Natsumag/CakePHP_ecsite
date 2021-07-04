@@ -76,7 +76,10 @@ class CategoriesTable extends Table
         $validator
             ->scalar('name')
             ->requirePresence('name', 'create')
-            ->notEmptyString('name');
+            ->notEmptyString('name')
+        ->add('name', 'minLength', [
+        'rule' => ['minLength', 10]
+    ]);
 
         $validator
             ->scalar('description')
@@ -84,8 +87,20 @@ class CategoriesTable extends Table
             ->notEmptyString('description');
 
         $validator
-            ->requirePresence('file_name1', 'create')
-            ->allowEmptyFile('file_name1');
+//            ->requirePresence('file_name1', 'create')
+//            ->allowEmptyFile('file_name1')
+            ->allowEmptyFile('file_name1', 'update')
+                ->add('file_name1', [
+                    'uploadedFile' => [
+                        'rule' => ['uploadedFile', ['types' => ['image/jpeg'], 'maxSize' => '16MB']],
+                        'last' => true,
+                        'message' => 'JPEG file is required (max size is 16MB).'
+                    ],
+                    'imageSize' => [
+                        'rule' => ['imageSize', 100, 200],
+                        'provider' => 'custom',
+                        'message' => '100x200 JPEG file is required.']
+                ]);
 
         $validator
             ->requirePresence('file_name2', 'create')

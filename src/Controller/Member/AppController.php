@@ -33,7 +33,7 @@ class AppController extends Controller
             'loginRedirect'  => [ 'controller' => 'MemberUsers' , 'action' => 'index' ],
             'logoutRedirect' => [ 'controller' => 'MemberUsers' , 'action' => 'login' ],
             'loginAction'    => '/member/MemberUsers/login',
-            'authError'      => 'ログインしてください'
+//            'authError'      => 'ログインしてください'
         ]);
     }
 }

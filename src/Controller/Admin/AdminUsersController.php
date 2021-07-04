@@ -71,16 +71,8 @@ class AdminUsersController extends AppController
     {
         $this->request->allowMethod(['post']);
         $adminUser = $this->AdminUsers->get($id);
-        $adminUser_flag = $adminUser->delete_flag;
-
-        if ($adminUser_flag == false) {
-            $delete_flag = true;
-            $data = array('delete_flag' => $delete_flag);
-        } else {
-            $delete_flag = false;
-            $data = array('delete_flag' => $delete_flag);
-        }
-
+        $delete_flag = !($adminUser->delete_flag);
+        $data = array('delete_flag' => $delete_flag);
         $adminUser = $this->AdminUsers->patchEntity($adminUser, $data);
         if ($this->AdminUsers->save($adminUser)) {
             $this->Flash->success(__('The category has been saved.'));
@@ -91,29 +83,27 @@ class AdminUsersController extends AppController
 
     public function login()
     {
-        if (!$this->Auth->user()) {
-            if ($this->request->is('post')) {
-                $adminUser = $this->Auth->identify();
-                $adminUser_flag = $adminUser['delete_flag'];
-                if ($adminUser_flag == true) {
-                    $this->Flash->error(__('delete_flag is true'));
-                    return $this->redirect(['action' => 'login']);
-                }
-                if ($adminUser) {
-                    $this->Auth->setUser($adminUser);
-                    return $this->redirect($this->Auth->redirectUrl());
-                }
+        if ($this->request->is('post')) {
+            $adminUser = $this->Auth->identify();
+            $adminUser_flag = $adminUser['delete_flag'];
+            if ($adminUser_flag == true) {
+                $this->Flash->error(__('delete_flag is true'));
+                return $this->redirect(['action' => 'login']);
+            }
+            if ($adminUser) {
+                $this->Auth->setUser($adminUser);
+                return $this->redirect($this->Auth->redirectUrl());
+            } else {
                 $this->Flash->error(__('メールアドレスまたはパスワードに誤りがあります。'));
             }
+            $this->Flash->error(__(''));
         }
-        $this->Flash->error(__('すでにログインしています'));
-        return $this->redirect(['controller' => '../Categories', 'action' => 'index']);
     }
 
     public function logout()
     {
         // セッションを破棄
-         $this->request->session()->destroy();
+         $this->request->getSession()->destroy();
         return $this->redirect($this->Auth->logout());
     }
 
@@ -127,6 +117,8 @@ class AdminUsersController extends AppController
 
     // ログイン認証不要のページ指定（loginの追加不要）
     public function beforeFilter(Event $event){
+        $this->Auth->allow('login');
+        $this->Auth->getConfig('authError', false);
         parent::beforeFilter($event);
         $this->Auth->allow(['logout']);
     }

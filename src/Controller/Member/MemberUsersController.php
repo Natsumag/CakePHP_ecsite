@@ -35,28 +35,28 @@ class MemberUsersController extends AppController
 
     public function login()
     {
-        if (!$this->Auth->user()) {
-            if ($this->request->is('post')) {
-                    $memberUser = $this->Auth->identify();
-                    $memberUser_flag = $memberUser['delete_flag'];
-                    if ($memberUser_flag == true) {
-                        $this->Flash->error(__('delete_flag is true'));
-                        return $this->redirect(['action' => 'login']);
-                    }
-                    if ($memberUser) {
-                        $this->Auth->setUser($memberUser);
-                        return $this->redirect(['controller' => '../Categories', 'action' => 'index']);
-                    }
-                $this->Flash->error(__('not Login'));
+        if ($this->request->is('post')) {
+            if (!$this->Auth->user()) {
+                $memberUser = $this->Auth->identify();
+                $memberUser_flag = $memberUser['delete_flag'];
+                if ($memberUser_flag == true) {
+                    $this->Flash->error(__('delete_flag is true'));
+                    return $this->redirect(['action' => 'login']);
+                }
+                if ($memberUser) {
+                    $this->Auth->setUser($memberUser);
+                    return $this->redirect(['controller' => '../Categories', 'action' => 'index']);
+                }
+                $this->Flash->error(__('すでにログインしています'));
+                return $this->redirect(['controller' => '../Categories', 'action' => 'index']);
             }
+            $this->Flash->error(__('not Login'));
         }
-        $this->Flash->error(__('すでにログインしています'));
-        return $this->redirect(['controller' => '../Categories', 'action' => 'index']);
     }
 
     public function logout()
     {
-        $this->request->session()->destroy();
+        $this->request->getSession()->destroy();
         return $this->redirect($this->Auth->logout());
     }
 
@@ -67,6 +67,8 @@ class MemberUsersController extends AppController
 
     // ログイン認証不要のページ指定（loginの追加不要）
     public function beforeFilter(Event $event){
+        $this->Auth->allow('login');
+        $this->Auth->getConfig('authError', false);
         parent::beforeFilter($event);
         $this->Auth->allow(['add','index','logout']);
     }

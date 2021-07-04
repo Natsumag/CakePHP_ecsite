@@ -1,6 +1,7 @@
 <?php
 namespace App\Utils;
 
+use App\Controller\Admin\CategoriesController;
 use Cake\Filesystem\Folder;
 use Cake\Filesystem\File;
 use RuntimeException;
@@ -13,7 +14,8 @@ class AppUtility
     /*
      * Common function
      */
-    public function file_upload($file = null,$dir = null, $limitFileSize = 1024 * 1024){
+    public function file_upload($file = null,$dir = null, $limitFileSize = 1024 * 1024)
+    {
         try {
 
             // 未定義、複数ファイル、破損攻撃のいずれかの場合は無効処理
@@ -42,7 +44,7 @@ class AppUtility
                 throw new RuntimeException('Exceeded filesize limit.');
             }
 
-//             ファイルタイプのチェックし、拡張子を取得
+            // ファイルタイプのチェックし、拡張子を取得
             if (false === $ext = array_search($fileInfo->mime(),
                     [
                         'jpg' => 'image/jpeg',
@@ -63,9 +65,25 @@ class AppUtility
         }
     }
 
-    public function file_exist($uploadFile) {
-        if($uploadFile['error'] !== 0) {
-            throw new RuntimeException('ファイルを選択してください。');
+    public function edit_check_file($file_before, $beforeUploadPath, $uploadPath, $uploadFile, $limitFileSize = 1024 * 1024)
+    {
+        $category = new CategoriesController();
+        try {
+            // 古い画像ファイルの削除
+            if ($file_before) {
+                $delete_file = new File($beforeUploadPath . $file_before);
+                if (!$delete_file->delete()) {
+                    $category->log('ファイル更新時に下記のファイルが削除できませんでした。', LOG_DEBUG);
+                    $category->log($file_before, LOG_DEBUG);
+                }
+            }
+            // 更新処理
+            AppUtility::file_upload($uploadFile, $uploadPath, $limitFileSize);
+            $array = date('YmdHis') . $uploadFile['name'];
+            return $array;
+        } catch (RuntimeException $e) {
+            $category->Flash->error(__('ファイルのアップロードができませんでした.'));
+            $category->Flash->error(__($e->getMessage()));
         }
     }
 

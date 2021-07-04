@@ -52,14 +52,8 @@ class MemberUsersController extends AppController
     {
         $this->request->allowMethod(['post']);
         $memberUser = $this->MemberUsers->get($id);
-        $memberUser_flag = $memberUser->delete_flag;
-        if ($memberUser_flag == false) {
-            $delete_flag = true;
-            $data = array('delete_flag' => $delete_flag);
-        } else {
-            $delete_flag = false;
-            $data = array('delete_flag' => $delete_flag);
-        }
+        $delete_flag = !($memberUser->delete_flag);
+        $data = array('delete_flag' => $delete_flag);
 
         $memberUser = $this->MemberUsers->patchEntity($memberUser, $data);
         if ($this->MemberUsers->save($memberUser)) {

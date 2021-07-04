@@ -5,7 +5,7 @@
  */
 ?>
 <div class="adminUsers form large-9 medium-8 columns content">
-    <?= $this->Form->create($adminUser) ?>
+    <?= $this->Form->create($adminUser, ['url' => ['controller' => 'AdminUsers', 'action' => 'edit']]) ?>
     <fieldset>
         <legend><?= __('Edit Admin User') ?></legend>
         <?php
@@ -21,12 +21,13 @@
             echo h($adminUser->updated_at);
         ?>
     </fieldset>
+    <?= $this->Form->button(__('Submit')) ?>
+    <?= $this->Form->end() ?>
     <?php if (h($adminUser->delete_flag) == false) {
         echo $this->Form->postLink(__('削除'), ['action' => 'delete', $adminUser->id], ['class' => 'button', 'confirm' => __('Are you sure you want to delete # {0}?', $adminUser->id)]);
     } else {
         echo $this->Form->postLink(__('削除取り消し'), ['action' => 'delete', $adminUser->id], ['class' => 'button', 'confirm' => __('Are you sure you want to delete # {0}?', $adminUser->id)]);
     } ?>
     <?= $this->Html->link(__('一覧へ戻る'), ['action' => 'index']) ?>
-    <?= $this->Form->button(__('Submit')) ?>
-    <?= $this->Form->end() ?>
+
 </div>

@@ -27,7 +27,19 @@
         <p>ID:<?= $this->Number->format($category->id) ?></p>
         <?php
             echo $this->Form->control('ih_correspond_id', ['options' => $ihCorrespods]);
-            echo $this->Form->control('material_id', ['options' => $materials]);
+        ?>
+        <div class="input select">
+            <label for="material-id">Material</label>
+            <select name="material_id" id="material-id">
+                <?php
+                $this->Form->unlockField('material_id');
+                foreach ($materials as $material) {
+                    echo '<option value='. $material['id'] .'>'. $material['material'] .'</option>';
+                }
+                ?>
+            </select>
+        </div>
+        <?php
             echo $this->Form->control('name');
             echo $this->Form->control('description');
             if ($category->file_name1) {

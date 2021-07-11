@@ -64,15 +64,4 @@ class NoticesController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
-
-    public function isAuthorized($notices = null)
-    {
-        return true;
-    }
-
-    // ログイン認証不要のページ指定（loginの追加不要）、一時的に追加している。
-    public function beforeFilter(Event $event){
-        parent::beforeFilter($event);
-        $this->Auth->allow(['add','index','edit','view', 'delete']);
-    }
 }

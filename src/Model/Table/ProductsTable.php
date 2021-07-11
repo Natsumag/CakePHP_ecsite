@@ -118,4 +118,13 @@ class ProductsTable extends Table
 
         return $validator;
     }
+
+    public function findRelatedProductIndex(Query $query, $id)
+    {
+        return $query
+            ->select(['id', 'name', 'price', 'units_in_stock', 'number_of_units_sold', 'size_rectangle', 'size_circle', 'updated_at'])
+            ->where('category_id' == $id)
+            ->all()
+        ;
+    }
 }

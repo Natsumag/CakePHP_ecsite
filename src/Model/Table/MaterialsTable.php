@@ -78,4 +78,19 @@ class MaterialsTable extends Table
 
         return $validator;
     }
+
+    public function findMaterialIndex(Query $query)
+    {
+        return $query
+            ->select(['id', 'material', 'updated_at'])
+            ;
+    }
+
+    public function findMaterialsList(Query $query)
+    {
+        return $query
+            ->select(['Materials__id'=> 'id', 'Materials__material' => 'material'])
+            ->from('materials Materials')
+            ;
+    }
 }

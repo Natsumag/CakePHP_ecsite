@@ -29,18 +29,6 @@ class PurchaseHistoriesController extends AppController
     {
         $this->paginate = ['contain' => ['MemberUsers'],];
         $purchaseHistories = $this->paginate($this->PurchaseHistories);
-
         $this->set(compact('purchaseHistories'));
-    }
-
-    public function isAuthorized($categories = null)
-    {
-        return true;
-    }
-
-    // ログイン認証不要のページ指定（loginの追加不要）
-    public function beforeFilter(Event $event){
-        parent::beforeFilter($event);
-        $this->Auth->allow(['add','index']);
     }
 }

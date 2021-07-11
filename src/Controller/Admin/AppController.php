@@ -67,4 +67,9 @@ class AppController extends Controller
 
         $this->viewBuilder()->setLayout('admin_default');
     }
+
+    public function isAuthorized($adminusers = null)
+    {
+        return true;
+    }
 }

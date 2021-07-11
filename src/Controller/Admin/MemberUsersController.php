@@ -85,12 +85,4 @@ class MemberUsersController extends AppController
         }
         $this->Flash->error(__('The Member user could not be saved. Please, try again.'));
     }
-
-    /**
-     * role別にアクセスを制御したい場合はここに記述。全ロールに許可する場合はreturn true
-     */
-    public function isAuthorized($categories = null)
-    {
-        return true;
-    }
 }

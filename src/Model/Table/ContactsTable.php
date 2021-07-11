@@ -106,8 +106,22 @@ class ContactsTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
+        // 対象テーブルに値が存在しなかった場合、エラーになる
         $rules->add($rules->existsIn(['admin_user_id'], 'AdminUsers'));
         $rules->add($rules->existsIn(['member_user_id'], 'MemberUsers'));
         return $rules;
+    }
+
+    /**
+     * 必要な値のみ表示
+     *
+     */
+    public function findContactIndex(Query $query)
+    {
+        return $query
+            ->select(['id', 'admin_name_id' => 'AdminUsers.id', 'admin_name' => 'AdminUsers.name', 'name' => 'MemberUsers.name', 'email', 'content', 'reply_states_flag', 'updated_at'])
+            ->contain(['AdminUsers'])
+            ->contain(['MemberUsers'])
+            ;
     }
 }

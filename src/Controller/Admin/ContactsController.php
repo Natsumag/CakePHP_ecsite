@@ -13,13 +13,6 @@ use Cake\Mailer\Email;
  */
 class ContactsController extends AppController
 {
-    public function initialize()
-    {
-        parent::initialize();
-        // モデルの読み込み
-        $this->loadModel('Contacts');
-    }
-
     /**
      * Index method
      *
@@ -27,11 +20,7 @@ class ContactsController extends AppController
      */
     public function index()
     {
-        $this->paginate = [
-            'contain' => ['MemberUsers'],
-        ];
-        $contacts = $this->paginate($this->Contacts);
-
+        $contacts = $this->paginate($this->Contacts->find('ContactIndex'));
         $this->set(compact('contacts'));
     }
 
@@ -44,13 +33,15 @@ class ContactsController extends AppController
         $material = $this->Contacts->get($id, [
             'contain' => ['MemberUsers'],
         ]);
-
         $this->set('material', $material);
     }
 
     /**
-     * Edit method
+     * Reply method
      *
+     * @param string|null $id Contacts id.
+     * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function reply($id = null)
     {
@@ -65,7 +56,6 @@ class ContactsController extends AppController
             $contact = $this->Contacts->patchEntity($contact, $data);
             if ($this->Contacts->save($contact)) {
                 $this->Flash->success(__('The material has been saved.'));
-
                 $login_user = $this->Auth->user();
                 // メール送信
                 $email = new Email('default');
@@ -83,17 +73,5 @@ class ContactsController extends AppController
             $this->Flash->error(__('The material could not be saved. Please, try again.'));
         }
         $this->set(compact('contact'));
-    }
-
-
-    public function isAuthorized($material = null)
-    {
-        return true;
-    }
-
-    // ログイン認証不要のページ指定（loginの追加不要）、一時的に追加している。
-    public function beforeFilter(Event $event){
-        parent::beforeFilter($event);
-        $this->Auth->allow(['index','reply','view']);
     }
 }

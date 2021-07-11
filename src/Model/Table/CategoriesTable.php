@@ -86,50 +86,16 @@ class CategoriesTable extends Table
 
         $validator->setProvider('custom', 'App\Model\Validation\CustomValidation');
 
-        $validator
-            ->requirePresence('file_name1', 'create')
-            ->allowEmptyString('file_name1')
-            ->add('file_name1', 'rule_name', [
-                'rule' => ['isFileType'],
-                'provider' => 'custom',
-                'message' => "書式に誤りがあります",
-            ]);
-
-        $validator
-            ->requirePresence('file_name2', 'create')
-            ->allowEmptyString('file_name2')
-            ->add('file_name2', 'rule_name', [
-                'rule' => ['isFileType'],
-                'provider' => 'custom',
-                'message' => "書式に誤りがあります",
-            ]);
-
-        $validator
-            ->requirePresence('file_name3', 'create')
-            ->allowEmptyString('file_name3')
-            ->add('file_name3', 'rule_name', [
-                'rule' => ['isFileType'],
-                'provider' => 'custom',
-                'message' => "書式に誤りがあります",
-            ]);
-
-        $validator
-            ->requirePresence('file_name4', 'create')
-            ->allowEmptyString('file_name4')
-            ->add('file_name4', 'rule_name', [
-                'rule' => ['isFileType'],
-                'provider' => 'custom',
-                'message' => "書式に誤りがあります",
-            ]);
-
-        $validator
-            ->requirePresence('file_name5', 'create')
-            ->allowEmptyString('file_name5')
-            ->add('file_name5', 'rule_name', [
-                'rule' => ['isFileType'],
-                'provider' => 'custom',
-                'message' => "書式に誤りがあります",
-            ]);
+        for($i = 1; $i <= 5; $i++) {
+            $validator
+                ->requirePresence('file_name'.$i, 'create')
+                ->allowEmptyString('file_name'.$i)
+                ->add('file_name'.$i, 'rule_name', [
+                    'rule' => ['is_file_type'],
+                    'provider' => 'custom',
+                    'message' => "書式に誤りがあります",
+                ]);
+        }
 
         $validator
             ->dateTime('created_at')
@@ -141,14 +107,27 @@ class CategoriesTable extends Table
 
         return $validator;
     }
+
     /**
-     * 必要な値のみIndexに表示
+     * 必要な値のみ表示
      *
      */
     public function findCategoryIndex(Query $query)
     {
         return $query
             ->select(['id', 'ih_correspond_id', 'material_id', 'name', 'description', 'file_name1', 'updated_at', 'material' => 'Materials.material'])
-            ->contain(['Materials']);
+            ->contain(['Materials'])
+            ;
+    }
+
+    public function findCategoryView(Query $query, $id)
+    {
+        return $query
+            ->select(['id', 'ih_correspond_id', 'material_id', 'name', 'description', 'file_name1', 'file_name2', 'file_name3', 'file_name4', 'file_name5', 'updated_at', 'material' => 'Materials.material'])
+            ->where('id' == $id)
+            ->contain(['Materials'])
+            ->contain(['Products'])
+            ->first()
+            ;
     }
 }

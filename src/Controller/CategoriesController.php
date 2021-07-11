@@ -9,7 +9,6 @@ class CategoriesController extends AppController
         parent::initialize();
         // モデルの読み込み
         $this->loadModel('Products');
-        $this->loadModel('Categories');
     }
 
     /**

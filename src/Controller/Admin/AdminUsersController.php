@@ -125,14 +125,6 @@ class AdminUsersController extends AppController
         return $this->redirect($this->Auth->logout());
     }
 
-    /**
-     * role別にアクセスを制御したい場合はここに記述。全ロールに許可する場合はreturn true
-     */
-    public function isAuthorized($adminUser = null)
-    {
-        return true;
-    }
-
     public function beforeFilter(Event $event)
     {
         // URLでloginページにリダイレクト時、フラッシュメッセージを出さないようにする

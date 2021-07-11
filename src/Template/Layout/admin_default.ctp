@@ -48,7 +48,7 @@ $cakeDescription = '管理画面';
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-<!--    --><?php //if ($this->request->getSession()->read('Auth.User')): ?>
+    <?php if ($this->request->getSession()->read('Auth.User')): ?>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item dropdown">
@@ -142,13 +142,13 @@ $cakeDescription = '管理画面';
                 </li>
             </ul>
         </div>
-<!--    --><?php //else: ?>
-<!--        <ul class="navbar-nav mr-auto">-->
-<!--            <li class="nav-item">-->
-<!--                <a class="nav-link" href="--><?//= $this->Url->build(['controller' => 'AdminUsers', 'action' => 'login']) ?><!--">Login</a>-->
-<!--            </li>-->
-<!--        </ul>-->
-<!--    --><?php //endif; ?>
+    <?php else: ?>
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="<?= $this->Url->build(['controller' => 'AdminUsers', 'action' => 'login']) ?>">Login</a>
+            </li>
+        </ul>
+    <?php endif; ?>
 </nav>
 <?= $this->Flash->render() ?>
 <div class="container clearfix">

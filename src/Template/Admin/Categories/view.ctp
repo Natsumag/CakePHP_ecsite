@@ -39,11 +39,7 @@ use Cake\Core\Configure;
         </tr>
         <tr>
             <th scope="row"><?= __('Material') ?></th>
-            <td><?= $category->has('material') ? $this->Html->link($category->material->material, ['controller' => 'Materials', 'action' => 'view', $category->material->id]) : '' ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Created At') ?></th>
-            <td><?= h($category->created_at) ?></td>
+            <td><?= h($category->material) ?></td>
         </tr>
         <tr>
             <th scope="row"><?= __('Updated At') ?></th>
@@ -86,29 +82,27 @@ use Cake\Core\Configure;
     </div>
     <div class="related">
         <h4><?= __('Related Products') ?></h4>
-        <?php if (!empty($category->products)): ?>
+        <?php if (!empty($related_products)): ?>
         <table cellpadding="0" cellspacing="0">
             <tr>
                 <th scope="col"><?= __('Id') ?></th>
-                <th scope="col"><?= __('Ih Correspond Id') ?></th>
-                <th scope="col"><?= __('Material Id') ?></th>
                 <th scope="col"><?= __('Name') ?></th>
                 <th scope="col"><?= __('Units In Stock') ?></th>
                 <th scope="col"><?= __('Number Of Units Sold') ?></th>
-
-                <th scope="col"><?= __('Size') ?></th>
-
-                <th scope="col"><?= __('File') ?></th>
+                <th scope="col"><?= __('Size Rectangle') ?></th>
+                <th scope="col"><?= __('Size Circle') ?></th>
+                <th scope="col"><?= __('Updated At') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
-            <?php foreach ($category->products as $products): ?>
+            <?php foreach ($related_products as $products): ?>
             <tr>
                 <td><?= h($products->id) ?></td>
                 <td><?= h($products->name) ?></td>
                 <td><?= h($products->units_in_stock) ?></td>
                 <td><?= h($products->number_of_units_sold) ?></td>
+                <td><?= h($products->size_rectangle) ?></td>
                 <td><?= h($products->size_circle) ?></td>
-                <td><?= $this->Html->image('../files/Categories/image/'.$products->file_name1, array('height' => 100, 'width' => 100)); ?></td>
+                <td><?= h($products->updated_at) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['controller' => 'Products', 'action' => 'view', $products->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['controller' => 'Products', 'action' => 'edit', $products->id]) ?>

@@ -54,18 +54,9 @@ $cakeDescription = 'ユーザ会員画面';
                 <li class="nav-item">
                     <a class="nav-link" href="<?= $this->Url->build(['controller' => 'Carts', 'action' => 'index']) ?>">Cart</a>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Contact
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="<?= $this->Url->build(['controller' => 'Contacts', 'action' => 'index']) ?>">
-                            Index
-                        </a>
-                        <a class="dropdown-item" href="<?= $this->Url->build(['controller' => 'Contacts', 'action' => 'add']) ?>">
-                            Add
-                        </a>
-                    </div>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="<?= $this->Url->build(['controller' => 'Contacts', 'action' => 'add']) ?>">ContactAdd</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="<?= $this->Url->build(['controller' => '../Categories', 'action' => 'index']) ?>">Category</a>

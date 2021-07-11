@@ -19,8 +19,7 @@ class MaterialsController extends AppController
      */
     public function index()
     {
-        $materials = $this->paginate($this->Materials);
-
+        $materials = $this->Materials->find('MaterialIndex');
         $this->set(compact('materials'));
     }
 
@@ -52,7 +51,6 @@ class MaterialsController extends AppController
             $material = $this->Materials->patchEntity($material, $this->request->getData());
             if ($this->Materials->save($material)) {
                 $this->Flash->success(__('The material has been saved.'));
-
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The material could not be saved. Please, try again.'));
@@ -70,11 +68,10 @@ class MaterialsController extends AppController
     public function edit($id = null)
     {
         $material = $this->Materials->get($id);
-        if ($this->request->is(['patch', 'post', 'put'])) {
+        if ($this->request->is(['post', 'put'])) {
             $material = $this->Materials->patchEntity($material, $this->request->getData());
             if ($this->Materials->save($material)) {
                 $this->Flash->success(__('The material has been saved.'));
-
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The material could not be saved. Please, try again.'));
@@ -98,18 +95,6 @@ class MaterialsController extends AppController
         } else {
             $this->Flash->error(__('The material could not be deleted. Please, try again.'));
         }
-
         return $this->redirect(['action' => 'index']);
-    }
-
-    public function isAuthorized($material = null)
-    {
-        return true;
-    }
-
-    // ログイン認証不要のページ指定（loginの追加不要）、一時的に追加している。
-    public function beforeFilter(Event $event){
-        parent::beforeFilter($event);
-        $this->Auth->allow(['add','index','edit','view', 'delete']);
     }
 }

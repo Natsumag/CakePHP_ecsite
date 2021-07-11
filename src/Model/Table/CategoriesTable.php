@@ -109,7 +109,7 @@ class CategoriesTable extends Table
     }
 
     /**
-     * 必要な値のみ表示
+     * 必要な値のみ取得
      *
      */
     public function findCategoryIndex(Query $query)
@@ -117,17 +117,35 @@ class CategoriesTable extends Table
         return $query
             ->select(['id', 'ih_correspond_id', 'material_id', 'name', 'description', 'file_name1', 'updated_at', 'material' => 'Materials.material'])
             ->contain(['Materials'])
-            ;
+        ;
     }
 
     public function findCategoryView(Query $query, $id)
     {
         return $query
             ->select(['id', 'ih_correspond_id', 'material_id', 'name', 'description', 'file_name1', 'file_name2', 'file_name3', 'file_name4', 'file_name5', 'updated_at', 'material' => 'Materials.material'])
-            ->where('id' == $id)
             ->contain(['Materials'])
             ->contain(['Products'])
+            ->where(['Categories.id' => $id['id']])
             ->first()
-            ;
+        ;
+    }
+
+    public function findCategoryDelete(Query $query, $id)
+    {
+        return $query
+            ->select(['id', 'file_name1', 'file_name2', 'file_name3', 'file_name4', 'file_name5'])
+            ->where(['Categories.id' => $id['id']])
+            ->first()
+        ;
+    }
+
+    public function findRelatedCategoryIndex(Query $query, $id)
+    {
+        return $query
+            ->select(['id', 'ih_correspond_id', 'name', 'file_name1'])
+            ->where(['Categories.material_id' => $id['id']])
+            ->all()
+        ;
     }
 }

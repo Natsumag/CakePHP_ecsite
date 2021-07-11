@@ -5,7 +5,7 @@
  */
 ?>
 
-<div class="purchaseHistories form large-9 medium-8 columns content">
+<div class="purchaseHistories form large-10 medium-10 columns content">
     <?= $this->Form->create($contact, ['type' => 'post']) ?>
     <fieldset>
         <legend><?= __('Add Contact') ?></legend>

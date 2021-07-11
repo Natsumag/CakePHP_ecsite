@@ -122,9 +122,11 @@ class ProductsTable extends Table
     public function findRelatedProductIndex(Query $query, $id)
     {
         return $query
-            ->select(['id', 'name', 'price', 'units_in_stock', 'number_of_units_sold', 'size_rectangle', 'size_circle', 'updated_at'])
-            ->where('category_id' == $id)
+            ->select(['id', 'name', 'units_in_stock', 'number_of_units_sold', 'size_rectangle', 'size_circle', 'updated_at'])
+            ->contain(['Categories'])
+            ->where(['Categories.id' => $id['id']])
             ->all()
         ;
     }
+
 }

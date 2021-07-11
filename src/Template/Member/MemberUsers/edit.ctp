@@ -4,7 +4,7 @@
  * @var \App\Model\Entity\MemberUser $memberUser
  */
 ?>
-<div class="adminUsers form large-9 medium-8 columns content">
+<div class="adminUsers form large-10 medium-10 columns content">
     <?= $this->Form->create($memberUser, ['url' => ['controller' => 'MemberUsers', 'action' => 'edit']]) ?>
     <fieldset>
         <legend><?= __('Edit Member User') ?></legend>

@@ -17,7 +17,7 @@
         <li><?= $this->Html->link(__('New Product'), ['controller' => 'Products', 'action' => 'add']) ?> </li>
     </ul>
 </nav>
-<div class="purchaseHistoryDetails view large-9 medium-8 columns content">
+<div class="purchaseHistoryDetails view large-10 medium-10 columns content">
     <h3><?= h($purchaseHistoryDetail->id) ?></h3>
     <table class="vertical-table">
         <tr>

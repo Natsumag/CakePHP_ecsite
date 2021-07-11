@@ -5,7 +5,7 @@
  */
 ?>
 
-<div class="purchaseHistories form large-9 medium-8 columns content">
+<div class="purchaseHistories form large-10 medium-10 columns content">
     <?= $this->Form->create($contact, ['type' => 'post', 'url' => ['controller' => 'Contacts', 'action' => 'confirm']]) ?>
     <fieldset>
         <legend><?= __('お問い合わせ内容の確認') ?></legend>

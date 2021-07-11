@@ -5,8 +5,6 @@ use App\Utils\AppUtility;
 use Cake\Event\Event;
 use Cake\Filesystem\File;
 use RuntimeException;
-use Cake\ORM\RulesChecker;
-
 
 /**
  * Categories Controller
@@ -82,14 +80,14 @@ class CategoriesController extends AppController
             if ($file_error_check === true) {
                 $data = array(
                     'ih_correspond_id' => $get_data['ih_correspond_id'],
-                    'material_id' => $get_data['material_id'],
-                    'name' => $get_data['name'],
-                    'description' => $get_data['description'],
-                    'file_name1' => array_key_exists('file_name1', $store_file_name) ? $store_file_name['file_name1'] : '',
-                    'file_name2' => array_key_exists('file_name2', $store_file_name) ? $store_file_name['file_name2'] : '',
-                    'file_name3' => array_key_exists('file_name3', $store_file_name) ? $store_file_name['file_name3'] : '',
-                    'file_name4' => array_key_exists('file_name4', $store_file_name) ? $store_file_name['file_name4'] : '',
-                    'file_name5' => array_key_exists('file_name5', $store_file_name) ? $store_file_name['file_name5'] : ''
+                    'material_id'      => $get_data['material_id'],
+                    'name'             => $get_data['name'],
+                    'description'      => $get_data['description'],
+                    'file_name1'       => array_key_exists('file_name1', $store_file_name) ? $store_file_name['file_name1'] : '',
+                    'file_name2'       => array_key_exists('file_name2', $store_file_name) ? $store_file_name['file_name2'] : '',
+                    'file_name3'       => array_key_exists('file_name3', $store_file_name) ? $store_file_name['file_name3'] : '',
+                    'file_name4'       => array_key_exists('file_name4', $store_file_name) ? $store_file_name['file_name4'] : '',
+                    'file_name5'       => array_key_exists('file_name5', $store_file_name) ? $store_file_name['file_name5'] : ''
                 );
                 $category= $this->Categories->newEntity($data);
                 if ($this->Categories->save($category)) {
@@ -101,7 +99,8 @@ class CategoriesController extends AppController
         }
         $materials = $this->Categories->Materials->find('MaterialsList');
         $this->set('ihCorrespods', IH_CORRESPOND);
-        $this->set(compact('category', 'materials'));
+        $this->set(compact('category'));
+        $this->set(compact('materials'));
     }
 
     /**
@@ -113,7 +112,9 @@ class CategoriesController extends AppController
      */
     public function edit($id = null)
     {
-        $category = $this->Categories->get($id);
+        $category = $this->Categories->find('CategoryView', [
+            'id' => $id
+        ]);
         if ($this->request->is(['post', 'put'])) {
             $get_data = $this->request->getData();
             $before_upload_path = WWW_ROOT . '/files/Categories/image/';
@@ -141,12 +142,12 @@ class CategoriesController extends AppController
                 'ih_correspond_id' => $get_data['ih_correspond_id'],
                 'material_id'      => $get_data['material_id'],
                 'name'             => $get_data['name'],
-                'description' => $get_data['description'],
-                'file_name1' => $array['file_name1'],
-                'file_name2' => $array['file_name2'],
-                'file_name3' => $array['file_name3'],
-                'file_name4' => $array['file_name4'],
-                'file_name5' => $array['file_name5']
+                'description'      => $get_data['description'],
+                'file_name1'       => $array['file_name1'],
+                'file_name2'       => $array['file_name2'],
+                'file_name3'       => $array['file_name3'],
+                'file_name4'       => $array['file_name4'],
+                'file_name5'       => $array['file_name5']
             );
             $category = $this->Categories->patchEntity($category, $data);
             if ($this->Categories->save($category)) {
@@ -170,7 +171,9 @@ class CategoriesController extends AppController
     public function delete($id = null)
     {
         $this->request->allowMethod(['post', 'delete']);
-        $category = $this->Categories->get($id);
+        $category = $this->Categories->find('CategoryDelete', [
+            'id' => $id
+        ]);
         // 画像の削除処理
         $before_upload_path = WWW_ROOT . '/files/Categories/image/';
         for($i = 1; $i <= 5; $i++) {

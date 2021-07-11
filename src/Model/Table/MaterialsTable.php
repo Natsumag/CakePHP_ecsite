@@ -86,11 +86,29 @@ class MaterialsTable extends Table
             ;
     }
 
+    public function findMaterialView(Query $query, $id)
+    {
+        return $query
+            ->select(['id', 'material', 'updated_at'])
+            ->where(['Materials.id' => $id['id']])
+            ->first()
+        ;
+    }
+
+    public function findMaterialDelete(Query $query, $id)
+    {
+        return $query
+            ->select(['id'])
+            ->where(['Materials.id' => $id['id']])
+            ->first()
+            ;
+    }
+
     public function findMaterialsList(Query $query)
     {
         return $query
             ->select(['Materials__id'=> 'id', 'Materials__material' => 'material'])
             ->from('materials Materials')
-            ;
+        ;
     }
 }

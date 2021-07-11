@@ -15,11 +15,7 @@ class NoticesController extends AppController
 {
     public function index()
     {
-        $this->paginate = [
-            'contain' => ['AdminUsers'],
-        ];
-        $notices = $this ->paginate($this->Notices);
-
+        $notices = $this->paginate($this->Notices->find('NoticeIndex'));
         $this->set(compact('notices'));
     }
 
@@ -39,8 +35,10 @@ class NoticesController extends AppController
 
     public function edit($id = null)
     {
-        $notice = $this->Notices->get($id);
-        if ($this->request->is(['patch', 'post', 'put'])) {
+        $notice = $this->Notices->find('NoticeView', [
+            'id' => $id
+        ]);
+        if ($this->request->is(['post', 'put'])) {
             $notice = $this->Notices->patchEntity($notice, $this->request->getData());
             if ($this->Notices->save($notice)) {
                 $this->Flash->success(__('The Notice has been saved.'));
@@ -54,8 +52,10 @@ class NoticesController extends AppController
 
     public function delete($id = null)
     {
-        $this->request->allowMethod(['post']);
-        $notice = $this->Notices->get($id);
+        $this->request->allowMethod(['post', 'delete']);
+        $notice = $this->Notices->find('NoticeDelete', [
+            'id' => $id
+        ]);
         if ($this->Notices->delete($notice)) {
             $this->Flash->success(__('The notice has been deleted.'));
         } else {

@@ -4,23 +4,7 @@
  * @var \App\Model\Entity\Category $category
  */
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Form->postLink(
-                __('Delete'),
-                ['action' => 'delete', $category->id],
-                ['confirm' => __('Are you sure you want to delete # {0}?', $category->id)]
-            )
-        ?></li>
-        <li><?= $this->Html->link(__('List Categories'), ['action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('List Products'), ['controller' => 'Products', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Product'), ['controller' => 'Products', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Materials'), ['controller' => 'Materials', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Material'), ['controller' => 'Materials', 'action' => 'add']) ?></li>
-    </ul>
-</nav>
-<div class="categories form large-9 medium-8 columns content">
+<div class="categories form large-10 medium-10 columns content">
     <?= $this->Form->create($category, ['type' => 'file']); ?>
     <fieldset>
         <legend><?= __('Edit Category') ?></legend>
@@ -67,12 +51,9 @@
                 echo $this->Form->control('file_before5',['type'=>'hidden', "value"=>$category->file_name5]);
             }
             echo $this->Form->control('file_name5', ['type' => 'file']);
-
-
-
         ?>
-
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>
     <?= $this->Form->end() ?>
+    <?= $this->Form->postLink(__('削除'), ['action' => 'delete', $category->id], ['class' => 'button', 'confirm' => __('Are you sure you want to delete # {0}?', $category->id)]); ?>
 </div>

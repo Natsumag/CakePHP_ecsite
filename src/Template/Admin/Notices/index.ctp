@@ -4,8 +4,9 @@
  * @var \App\Model\Entity\Notice[]|\Cake\Collection\CollectionInterface $notices
  */
 ?>
-<div class="products index large-9 medium-8 columns content">
+<div class="products index large-10 medium-10 columns content">
     <h3><?= __('Notices') ?></h3>
+    <div class="col text-right"><?= $this->Html->link(__('add'), ['action' => 'add'], ['class' => 'button']) ?></div>
     <table cellpadding="0" cellspacing="0">
         <thead>
         <tr>
@@ -14,7 +15,6 @@
             <th scope="col"><?= $this->Paginator->sort('event_date') ?></th>
             <th scope="col"><?= $this->Paginator->sort('content') ?></th>
             <th scope="col"><?= $this->Paginator->sort('detail') ?></th>
-            <th scope="col"><?= $this->Paginator->sort('created_at') ?></th>
             <th scope="col"><?= $this->Paginator->sort('updated_at') ?></th>
             <th scope="col" class="actions"><?= __('Actions') ?></th>
         </tr>
@@ -23,12 +23,10 @@
         <?php foreach ($notices as $notice): ?>
             <tr>
                 <td><?= $this->Number->format($notice->id) ?></td>
-                <td><?= $notice->has('admin_user') ? $this->Html->link($notice->admin_user->name, ['controller' => 'AdminUsers', 'action' => 'view', $notice->admin_user->id]) : '' ?></td>
-
+                <td><?= $this->Html->link($notice->admin_name, ['controller' => 'Admin_Users', 'action' => 'edit', $notice->admin_name_id]) ?></td>
                 <td><?= h($notice->event_date) ?></td>
                 <td><?= h($notice->content) ?></td>
                 <td><?= h($notice->detail) ?></td>
-                <td><?= h($notice->created_at) ?></td>
                 <td><?= h($notice->updated_at) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $notice->id]) ?>

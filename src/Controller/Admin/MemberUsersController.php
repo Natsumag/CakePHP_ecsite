@@ -19,7 +19,7 @@ class MemberUsersController extends AppController
      */
     public function index()
     {
-        $memberUsers = $this->paginate($this->MemberUsers->find('MemberIndex'));
+        $memberUsers = $this->paginate($this->MemberUsers->find('MemberUserIndex'));
         $this->set(compact('memberUsers'));
     }
 
@@ -51,7 +51,9 @@ class MemberUsersController extends AppController
      */
     public function edit($id = null)
     {
-        $memberUser = $this->MemberUsers->get($id);
+        $memberUser = $this->MemberUsers->find('MemberUserView', [
+            'id' => $id
+        ]);
         if ($this->request->is(['post', 'put'])) {
             $memberUser = $this->MemberUsers->patchEntity($memberUser, $this->request->getData());
             if ($this->MemberUsers->save($memberUser)) {
@@ -73,16 +75,25 @@ class MemberUsersController extends AppController
      */
     public function delete($id = null)
     {
-        $this->request->allowMethod(['post']);
-        $memberUser = $this->MemberUsers->get($id);
-        $delete_flag = !($memberUser->delete_flag);
-        $data = array('delete_flag' => $delete_flag);
-
+        $this->request->allowMethod(['post', 'delete']);
+        $memberUser = $this->MemberUsers->find('MemberUserDelete', [
+            'id' => $id
+        ]);
+        $delete_flag_change = !($memberUser->delete_flag);
+        $data = array('delete_flag' => $delete_flag_change);
         $memberUser = $this->MemberUsers->patchEntity($memberUser, $data);
         if ($this->MemberUsers->save($memberUser)) {
-            $this->Flash->success(__('The Member user has been saved.'));
+            if ($delete_flag_change == true) {
+                $this->Flash->success(__('The Member user has been deleted.'));
+            } else {
+                $this->Flash->success(__('The Member user has been canceled delete.'));
+            }
             return $this->redirect(['action' => 'index']);
         }
-        $this->Flash->error(__('The Member user could not be saved. Please, try again.'));
+        if ($delete_flag_change == true) {
+            $this->Flash->error(__('The Member user could not be deleted. Please, try again.'));
+        } else {
+            $this->Flash->error(__('The Member user could not be canceled delete. Please, try again.'));
+        }
     }
 }

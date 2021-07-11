@@ -32,11 +32,16 @@ class MaterialsController extends AppController
      */
     public function view($id = null)
     {
-        $material = $this->Materials->get($id, [
-            'contain' => ['Categories'],
+        $material = $this->Materials->find('MaterialView', [
+            'id' => $id
         ]);
-
-        $this->set('material', $material);
+        $this->loadModel('Categories');
+        $related_categories = $this->Categories->find('RelatedCategoryIndex', [
+            'id' => $id
+        ]);
+        $this->set(compact('material'));
+        $this->set(compact('related_categories'));
+        $this->set('ihCorrespods', IH_CORRESPOND);
     }
 
     /**
@@ -67,7 +72,9 @@ class MaterialsController extends AppController
      */
     public function edit($id = null)
     {
-        $material = $this->Materials->get($id);
+        $material = $this->Materials->find('MaterialView', [
+            'id' => $id
+        ]);
         if ($this->request->is(['post', 'put'])) {
             $material = $this->Materials->patchEntity($material, $this->request->getData());
             if ($this->Materials->save($material)) {
@@ -89,7 +96,9 @@ class MaterialsController extends AppController
     public function delete($id = null)
     {
         $this->request->allowMethod(['post', 'delete']);
-        $material = $this->Materials->get($id);
+        $material = $this->Materials->find('MaterialDelete', [
+            'id' => $id
+        ]);
         if ($this->Materials->delete($material)) {
             $this->Flash->success(__('The material has been deleted.'));
         } else {

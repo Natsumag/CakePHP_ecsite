@@ -1,6 +1,7 @@
 <?php
 namespace App\Model\Table;
 
+use Cake\ORM\Query;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
@@ -84,6 +85,33 @@ class NoticesTable extends Table
             ->allowEmptyDateTime('updated_at');
 
         return $validator;
+    }
+
+    public function findNoticeIndex(Query $query)
+    {
+        return $query
+            // 一覧上で常に必要となるカラムを取得
+            ->select(['id', 'admin_name_id' => 'AdminUsers.id', 'admin_name' => 'AdminUsers.name', 'event_date', 'content', 'detail', 'updated_at'])
+            ->contain(['AdminUsers'])
+        ;
+    }
+
+    public function findNoticeView(Query $query, $id)
+    {
+        return $query
+            ->select(['id', 'event_date', 'content', 'detail'])
+            ->where(['Notices.id' => $id['id']])
+            ->first()
+        ;
+    }
+
+    public function findNoticeDelete(Query $query, $id)
+    {
+        return $query
+            ->select(['id'])
+            ->where(['Notices.id' => $id['id']])
+            ->first()
+        ;
     }
 
 }

@@ -6,7 +6,7 @@
 
 ?>
 
-<div class="categories view large-9 medium-8 columns content">
+<div class="categories view large-10 medium-10 columns content">
     <h3><?= h($category->name) ?></h3>
     <table class="vertical-table">
         <tr>

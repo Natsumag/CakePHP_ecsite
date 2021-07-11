@@ -4,7 +4,6 @@
  * @var \App\Model\Entity\Contact[]|\Cake\Collection\CollectionInterface $contacts
  */
 ?>
-
 <div class="products index large-10 medium-10 columns content">
     <h3><?= __('Contacts') ?></h3>
     <table cellpadding="0" cellspacing="0">

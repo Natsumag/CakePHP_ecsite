@@ -4,7 +4,7 @@
  * @var \App\Model\Entity\MemberUser $memberUser
  */
 ?>
-<div class="memberUsers form large-9 medium-8 columns content">
+<div class="memberUsers form large-10 medium-10 columns content">
     <?= $this->Form->create($memberUser) ?>
     <fieldset>
         <legend><?= __('Add Member User') ?></legend>

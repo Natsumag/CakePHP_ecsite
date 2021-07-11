@@ -133,6 +133,9 @@ $cakeDescription = '管理画面';
                     </div>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="<?= $this->Url->build(['controller' => 'PurchaseHistories', 'action' => 'index']) ?>">PurchaseHistory</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="<?= $this->Url->build(['controller' => 'PurchaseHistoryDetails', 'action' => 'index']) ?>">PurchaseHistoryDetail</a>
                 </li>
             </ul>

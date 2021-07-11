@@ -4,17 +4,7 @@
  * @var \App\Model\Entity\PurchaseHistoryDetail[]|\Cake\Collection\CollectionInterface $purchaseHistoryDetails
  */
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('New Purchase History Detail'), ['action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Purchase Histories'), ['controller' => 'PurchaseHistories', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Purchase History'), ['controller' => 'PurchaseHistories', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Products'), ['controller' => 'Products', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Product'), ['controller' => 'Products', 'action' => 'add']) ?></li>
-    </ul>
-</nav>
-<div class="purchaseHistoryDetails index large-9 medium-8 columns content">
+<div class="purchaseHistoryDetails index large-10 medium-10 columns content">
     <h3><?= __('Purchase History Details') ?></h3>
     <table cellpadding="0" cellspacing="0">
         <thead>

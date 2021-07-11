@@ -6,10 +6,8 @@
 ?>
 
 <div class="memberUsers index large-12 medium-12 columns content">
-    <h3>
-        <?= __('Member Users') ?>
-        <?= $this->Html->link(__('add'), ['action' => 'add']) ?>
-    </h3>
+    <h3><?= __('Member Users') ?></h3>
+    <div class="col text-right"><?= $this->Html->link(__('add'), ['action' => 'add'], ['class' => 'button']) ?></div>
     <table cellpadding="0" cellspacing="0">
         <thead>
             <tr>

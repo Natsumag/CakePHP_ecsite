@@ -5,9 +5,8 @@
  */
 ?>
 <div class="categories index large-12 medium-12 columns content">
-    <h3><?= __('Categories') ?>
-        <?= $this->Html->link(__('Add'), ['action' => 'add']) ?>
-    </h3>
+    <h3><?= __('Categories') ?></h3>
+    <div class="col text-right"><?= $this->Html->link(__('add'), ['action' => 'add'], ['class' => 'button']) ?></div>
     <table cellpadding="0" cellspacing="0">
         <thead>
             <tr>

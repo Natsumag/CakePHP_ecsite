@@ -5,7 +5,7 @@
  */
 ?>
 
-<div class="materials form large-9 medium-8 columns content">
+<div class="materials form large-10 medium-10 columns content">
     <?= $this->Form->create($material) ?>
     <fieldset>
         <legend><?= __('Add Material') ?></legend>

@@ -25,18 +25,6 @@ class ContactsController extends AppController
     }
 
     /**
-     * View method
-     *
-     */
-    public function view($id = null)
-    {
-        $material = $this->Contacts->get($id, [
-            'contain' => ['MemberUsers'],
-        ]);
-        $this->set('material', $material);
-    }
-
-    /**
      * Reply method
      *
      * @param string|null $id Contacts id.
@@ -45,8 +33,10 @@ class ContactsController extends AppController
      */
     public function reply($id = null)
     {
-        $contact = $this->Contacts->get($id);
-        if ($this->request->is(['patch', 'post', 'put'])) {
+        $contact = $this->Contacts->find('ContactView', [
+            'id' => $id
+        ]);
+        if ($this->request->is(['post', 'put'])) {
             $reply_content = $this->request->getData('reply_content');
             $login_user = $this->Auth->user('id');
             $data = array(

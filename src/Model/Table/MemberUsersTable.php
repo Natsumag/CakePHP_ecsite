@@ -108,11 +108,31 @@ class MemberUsersTable extends Table
      * 必要な値のみIndexに表示
      *
      */
-    public function findMemberIndex(Query $query)
+    public function findMemberUserIndex(Query $query)
     {
         return $query
             // 一覧上で常に必要となるカラムを取得
             ->select(['id', 'name', 'email', 'zip_code', 'address', 'tel', 'delete_flag', 'updated_at'])
+        ;
+    }
+
+    public function findMemberUserView(Query $query, $id)
+    {
+        return $query
+            // 一覧上で常に必要となるカラムを取得
+            ->select(['id', 'name', 'email', 'zip_code', 'address', 'tel', 'delete_flag', 'updated_at'])
+            ->where(['MemberUsers.id' => $id['id']])
+            ->first()
+        ;
+    }
+
+    public function findMemberUserDelete(Query $query, $id)
+    {
+        return $query
+            // 一覧上で常に必要となるカラムを取得
+            ->select(['id', 'delete_flag'])
+            ->where(['MemberUsers.id' => $id['id']])
+            ->first()
             ;
     }
 

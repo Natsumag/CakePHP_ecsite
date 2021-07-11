@@ -98,12 +98,30 @@ class AdminUsersTable extends Table
      * 必要な値のみIndexに表示
      *
      */
-    public function findAdminIndex(Query $query)
+    public function findAdminUserIndex(Query $query)
     {
         return $query
             // 一覧上で常に必要となるカラムを取得
             ->select(['id', 'name', 'email', 'delete_flag', 'created_at'])
         ;
+    }
+
+    public function findAdminUserView(Query $query, $id)
+    {
+        return $query
+            ->select(['id', 'name', 'email', 'delete_flag', 'created_at'])
+            ->where(['AdminUsers.id' => $id['id']])
+            ->first()
+        ;
+    }
+
+    public function findAdminUserDelete(Query $query, $id)
+    {
+        return $query
+            ->select(['id', 'delete_flag'])
+            ->where(['AdminUsers.id' => $id['id']])
+            ->first()
+            ;
     }
 
     /**

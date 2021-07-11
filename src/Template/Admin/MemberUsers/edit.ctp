@@ -4,7 +4,7 @@
  * @var \App\Model\Entity\MemberUser $memberUser
  */
 ?>
-<div class="adminUsers form large-9 medium-8 columns content">
+<div class="adminUsers form large-10 medium-10 columns content">
     <?= $this->Form->create($memberUser) ?>
     <fieldset>
         <legend><?= __('Edit Member User') ?></legend>
@@ -23,9 +23,6 @@
         } else {
             echo 'true<br>';
         }
-        echo 'Created At<br>';
-        echo h($memberUser->created_at);
-        echo '<br>';
         echo 'Updated At<br>';
         echo h($memberUser->updated_at);
         ?>

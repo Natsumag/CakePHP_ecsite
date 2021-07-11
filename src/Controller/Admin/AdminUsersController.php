@@ -19,7 +19,7 @@ class AdminUsersController extends AppController
      */
     public function index()
     {
-        $adminUsers = $this->paginate($this->AdminUsers->find('AdminIndex'));
+        $adminUsers = $this->paginate($this->AdminUsers->find('AdminUserIndex'));
         $this->set(compact('adminUsers'));
     }
 
@@ -52,7 +52,9 @@ class AdminUsersController extends AppController
      */
     public function edit($id = null)
     {
-        $adminUser = $this->AdminUsers->get($id);
+        $adminUser = $this->AdminUsers->find('AdminUserView', [
+            'id' => $id
+        ]);
         if ($this->request->is(['post', 'put'])) {
             $adminUser = $this->AdminUsers->patchEntity($adminUser, $this->request->getData());
             if ($this->AdminUsers->save($adminUser)) {
@@ -75,22 +77,22 @@ class AdminUsersController extends AppController
      public function delete($id = null)
     {
         $this->request->allowMethod(['post', 'delete']);
-        $adminUser = $this->AdminUsers->get($id);
+        $adminUser = $this->AdminUsers->find('AdminUserDelete', [
+            'id' => $id
+        ]);
         // delete_flagを逆転させて保存
-        $delete_flag = !($adminUser->delete_flag);
-        debug($delete_flag);
-        exit();
-        $data = array('delete_flag' => $delete_flag);
+        $delete_flag_change = !($adminUser->delete_flag);
+        $data = array('delete_flag' => $delete_flag_change);
         $adminUser = $this->AdminUsers->patchEntity($adminUser, $data);
         if ($this->AdminUsers->save($adminUser)) {
-            if ($delete_flag == true) {
+            if ($delete_flag_change == true) {
                 $this->Flash->success(__('The Admin user has been deleted.'));
             } else {
                 $this->Flash->success(__('The Admin user has been canceled delete.'));
             }
             return $this->redirect(['action' => 'index']);
         }
-        if ($delete_flag == true) {
+        if ($delete_flag_change == true) {
             $this->Flash->error(__('The Admin user could not be deleted. Please, try again.'));
         } else {
             $this->Flash->error(__('The Admin user could not be canceled delete. Please, try again.'));
@@ -130,6 +132,7 @@ class AdminUsersController extends AppController
         // URLでloginページにリダイレクト時、フラッシュメッセージを出さないようにする
         $this->Auth->allow('login');
         $this->Auth->getConfig('authError', false);
+
         // ログイン認証不要のページ指定（loginの追加不要）
         parent::beforeFilter($event);
         $this->Auth->allow(['logout']);

@@ -7,6 +7,7 @@
 
 <div class="materials index large-10 medium-10 columns content">
     <h3><?= __('Materials') ?></h3>
+    <div class="col text-right"><?= $this->Html->link(__('add'), ['action' => 'add'], ['class' => 'button']) ?></div>
     <table cellpadding="0" cellspacing="0">
         <thead>
             <tr>

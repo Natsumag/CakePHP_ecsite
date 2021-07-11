@@ -122,6 +122,16 @@ class ContactsTable extends Table
             ->select(['id', 'admin_name_id' => 'AdminUsers.id', 'admin_name' => 'AdminUsers.name', 'name' => 'MemberUsers.name', 'email', 'content', 'reply_states_flag', 'updated_at'])
             ->contain(['AdminUsers'])
             ->contain(['MemberUsers'])
-            ;
+        ;
+    }
+
+    public function findContactView(Query $query, $id)
+    {
+        return $query
+            ->select(['id', 'name' => 'MemberUsers.name', 'email', 'content', 'reply_states_flag', 'updated_at'])
+            ->contain(['MemberUsers'])
+            ->where(['Contacts.id' => $id['id']])
+            ->first()
+        ;
     }
 }

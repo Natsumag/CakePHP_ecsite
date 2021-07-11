@@ -14,7 +14,7 @@
         <li><?= $this->Html->link(__('New Material'), ['controller' => 'Materials', 'action' => 'add']) ?></li>
     </ul>
 </nav>
-<div class="products form large-9 medium-8 columns content">
+<div class="products form large-10 medium-10 columns content">
     <?= $this->Form->create($product); ?>
     <fieldset>
         <legend><?= __('Add Product') ?></legend>

@@ -15,7 +15,7 @@
         <li><?= $this->Html->link(__('New Category'), ['controller' => 'Categories', 'action' => 'add']) ?> </li>
     </ul>
 </nav>
-<div class="products view large-9 medium-8 columns content">
+<div class="products view large-10 medium-10 columns content">
     <h3><?= h($product->name) ?></h3>
     <table class="vertical-table">
         <tr>

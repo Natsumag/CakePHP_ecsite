@@ -5,7 +5,7 @@
  */
 ?>
 
-<div class="categories index large-9 medium-8 columns content">
+<div class="categories index large-10 medium-10 columns content">
     <h3><?= __('Categories') ?></h3>
     <table cellpadding="0" cellspacing="0">
         <thead>

@@ -27,7 +27,7 @@
                 <td><?= h($product->name) ?></td>
                 <td><?= h($product->size_circle) ?></td>
                 <td><?= h($product->size_rectangle) ?></td>
-                <td><?= $product->has('category') ? $this->Html->link($product->category->name, ['controller' => 'Categories', 'action' => 'view', $product->category->id]) : '' ?></td>
+                <td><?= $this->Html->link($product->category_name, ['controller' => 'Categories', 'action' => 'view', $product->category_id]) ?></td>
                 <td><?= $this->Number->format($product->units_in_stock) ?></td>
                 <td><?= $this->Number->format($product->number_of_units_sold) ?></td>
                 <td class="actions">

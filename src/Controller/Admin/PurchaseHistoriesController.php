@@ -17,18 +17,33 @@ use Cake\Mailer\Email;
 class PurchaseHistoriesController extends AppController
 {
     /**
-     * @var bool|object
+     * Index method
+     *
+     * @return \Cake\Http\Response|null
      */
-    public function initialize() {
-        parent::initialize();
-        // モデルの読み込み
-        $this->loadModel('PurchaseHistories');
-    }
-
     public function index()
     {
-        $this->paginate = ['contain' => ['MemberUsers'],];
-        $purchaseHistories = $this->paginate($this->PurchaseHistories);
+        $purchaseHistories = $this->paginate($this->PurchaseHistories->find('PurchaseHistoryIndex'));
         $this->set(compact('purchaseHistories'));
+    }
+
+    /**
+     * View method
+     *
+     * @param string|null $id Purchase History id.
+     * @return \Cake\Http\Response|null
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     */
+    public function view($id = null)
+    {
+        $this->loadModel('PurchaseHistoryDetails');
+        $related_purchase_history_details = $this->PurchaseHistoryDetails->find('RelatedPurchaseHistoryDetailIndex', [
+            'id' => $id
+        ]);
+        $purchaseHistory = $this->PurchaseHistories->find('PurchaseHistoryView', [
+            'id' => $id
+        ]);
+        $this->set(compact('related_purchase_history_details'));
+        $this->set(compact('purchaseHistory'));
     }
 }

@@ -14,12 +14,10 @@ class CartsController extends AppController
 {
     public function index()
     {
-        $this->paginate = [
-            'contain' => ['Products'],
-        ];
-
-        $carts = $this->paginate($this->Carts);
-
+        $login_id = $this->Auth->user('id');
+        $carts = $this->Carts->find('CartIndex', [
+            'login_id' => $login_id
+        ]);
         $this->set(compact('carts'));
         $this->set('total');
     }
@@ -29,8 +27,7 @@ class CartsController extends AppController
         $cart = $this->Carts->newEntity();
         if ($this->request->is('post')) {
             $login_id = $this->Auth->user('id');
-            $product_id = $this->request->getData('product_id');
-            $product_num = $this->request->getData('product_num');
+            $data = $this->request->getData();
             // ログインしていない場合
             if (!($login_id)) {
                 return $this->redirect(['controller' => 'memberUsers', 'action' => 'login']);
@@ -38,19 +35,19 @@ class CartsController extends AppController
             // 同じproduct_idがあるか検索し、あった場合、そこにnumを追加する
             $data = array(
                 'member_user_id' => $login_id,
-                'product_id' => $product_id,
-                'product_num' => $product_num
+                'product_id' => $data['product_id'],
+                'product_num' => $data['product_num']
             );
             // ログイン者かつ商品IDが一致するもの
-            $query = $this->Carts->find()->where(['member_user_id' => $login_id, 'product_id' => $product_id])->first();
+            $query = $this->Carts->find()->where(['member_user_id' => $login_id, 'product_id' => $data['product_id']])->first();
             // product_idが一致するレコードがあったとき更新する
             if (isset($query)) {
                 // product_numの更新
                 $product_num_old = $query->product_num;
-                $product_num_update = $product_num + $product_num_old;
+                $product_num_update = $data['product_num'] + $product_num_old;
                 $data = array(
                     'member_user_id' => $login_id,
-                    'product_id' => $product_id,
+                    'product_id' => $data['product_id'],
                     'product_num' => $product_num_update
                 );
                 $product_num_up = $this->Carts->patchEntity($query, $data);
@@ -60,7 +57,6 @@ class CartsController extends AppController
                 }
                 $this->Flash->error(__('The cart could not be updated. Please, try again.'));
             }
-
             $cart = $this->Carts->patchEntity($cart, $data);
             if ($this->Carts->save($cart)) {
                 $this->Flash->success(__('The cart has been saved.'));
@@ -73,13 +69,13 @@ class CartsController extends AppController
 
     public function edit()
     {
-        $product_id = $this->request->getData('product_id');
-        $product_num = $this->request->getData('product_num');
-
-        $cart = $this->Carts->get($product_id);
-        if ($this->request->is(['patch', 'post', 'put'])) {
+        $data = $this->request->getData();
+        $cart = $this->Carts->find('CartEdit', [
+            'cart_id' => $data['product_id']
+        ]);
+        if ($this->request->is(['post', 'put'])) {
             $data = array(
-                'product_num' => $product_num
+                'product_num' => $data['product_num']
             );
             $cart = $this->Carts->patchEntity($cart, $data);
             if ($this->Carts->save($cart)) {
@@ -94,25 +90,19 @@ class CartsController extends AppController
     public function delete($id = null)
     {
         $this->request->allowMethod(['post', 'delete']);
-        $cart = $this->Carts->get($id);
+        $cart = $this->Carts->find('CartDelete', [
+            'id' => $id
+        ]);
         if ($this->Carts->delete($cart)) {
             $this->Flash->success(__('The cart has been deleted.'));
         } else {
             $this->Flash->error(__('The cart could not be deleted. Please, try again.'));
         }
-
         return $this->redirect(['action' => 'index']);
     }
-
 
     public function isAuthorized($categories = null)
     {
         return true;
-    }
-
-    // ログイン認証不要のページ指定（loginの追加不要）
-    public function beforeFilter(Event $event){
-        parent::beforeFilter($event);
-        $this->Auth->allow(['add', 'edit', 'delete', 'index']);
     }
 }

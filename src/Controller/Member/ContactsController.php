@@ -69,10 +69,4 @@ class ContactsController extends AppController
     {
         return true;
     }
-
-    // ログイン認証不要のページ指定（loginの追加不要）、一時的に追加している。
-    public function beforeFilter(Event $event){
-        parent::beforeFilter($event);
-        $this->Auth->allow(['add', 'confirm', 'complete']);
-    }
 }

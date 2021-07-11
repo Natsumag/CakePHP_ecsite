@@ -121,7 +121,7 @@ class AdminUsersTable extends Table
             ->select(['id', 'delete_flag'])
             ->where(['AdminUsers.id' => $id['id']])
             ->first()
-            ;
+        ;
     }
 
     /**

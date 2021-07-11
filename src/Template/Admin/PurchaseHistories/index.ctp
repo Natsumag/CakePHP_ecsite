@@ -15,7 +15,6 @@
                 <th scope="col"><?= $this->Paginator->sort('payment_flag') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('purchase_flag') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('created_at') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('updated_at') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
         </thead>
@@ -23,16 +22,25 @@
             <?php foreach ($purchaseHistories as $purchaseHistory): ?>
             <tr>
                 <td><?= $this->Number->format($purchaseHistory->id) ?></td>
-                <td><?= $purchaseHistory->has('member_user') ? $this->Html->link($purchaseHistory->member_user->name, ['controller' => 'MemberUsers', 'action' => 'view', $purchaseHistory->member_user->id]) : '' ?></td>
+                <td><?= $this->Html->link($purchaseHistory->member_name, ['controller' => 'Member_Users', 'action' => 'edit', $purchaseHistory->member_name_id]) ?></td>
                 <td><?= $this->Number->format($purchaseHistory->total_fee) ?></td>
-                <td><?= h($purchaseHistory->payment_flag) ?></td>
-                <td><?= h($purchaseHistory->purchase_flag) ?></td>
+                <td>
+                    <?php if (h($purchaseHistory->payment_flag) == false) {
+                        echo 'false<br>';
+                    } else {
+                        echo 'true<br>';
+                    } ?>
+                </td>
+                <td>
+                    <?php if (h($purchaseHistory->purchase_flag) == false) {
+                        echo 'false<br>';
+                    } else {
+                        echo 'true<br>';
+                    } ?>
+                </td>
                 <td><?= h($purchaseHistory->created_at) ?></td>
-                <td><?= h($purchaseHistory->updated_at) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $purchaseHistory->id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $purchaseHistory->id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $purchaseHistory->id], ['confirm' => __('Are you sure you want to delete # {0}?', $purchaseHistory->id)]) ?>
                 </td>
             </tr>
             <?php endforeach; ?>

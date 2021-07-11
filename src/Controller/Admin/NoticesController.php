@@ -13,12 +13,22 @@ use Cake\Event\Event;
 
 class NoticesController extends AppController
 {
+    /**
+     * Index method
+     *
+     * @return \Cake\Http\Response|null
+     */
     public function index()
     {
         $notices = $this->paginate($this->Notices->find('NoticeIndex'));
         $this->set(compact('notices'));
     }
 
+    /**
+     * Add method
+     *
+     * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
+     */
     public function add()
     {
         $notice = $this->Notices->newEntity();
@@ -33,6 +43,13 @@ class NoticesController extends AppController
         $this->set(compact('notice'));
     }
 
+    /**
+     * Edit method
+     *
+     * @param string|null $id Notice id.
+     * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     */
     public function edit($id = null)
     {
         $notice = $this->Notices->find('NoticeView', [
@@ -50,6 +67,13 @@ class NoticesController extends AppController
         $this->set(compact('notice'));
     }
 
+    /**
+     * Delete method
+     *
+     * @param string|null $id Notice id.
+     * @return \Cake\Http\Response|null Redirects to index.
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     */
     public function delete($id = null)
     {
         $this->request->allowMethod(['post', 'delete']);
@@ -61,7 +85,6 @@ class NoticesController extends AppController
         } else {
             $this->Flash->error(__('The notice could not be deleted. Please, try again.'));
         }
-
         return $this->redirect(['action' => 'index']);
     }
 }

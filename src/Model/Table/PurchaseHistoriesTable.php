@@ -98,10 +98,42 @@ class PurchaseHistoriesTable extends Table
      * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
      * @return \Cake\ORM\RulesChecker
      */
-//    public function buildRules(RulesChecker $rules)
-//    {
-//        $rules->add($rules->existsIn(['member_user_id'], 'MemberUsers'));
-//
-//        return $rules;
-//    }
+    public function buildRules(RulesChecker $rules)
+    {
+        $rules->add($rules->existsIn(['member_user_id'], 'MemberUsers'));
+
+        return $rules;
+    }
+
+    public function findPurchaseHistoryIndex(Query $query)
+    {
+        return $query
+            // 一覧上で常に必要となるカラムを取得
+            ->select(['id', 'member_name_id' => 'MemberUsers.id', 'member_name' => 'MemberUsers.name', 'total_fee', 'payment_flag', 'purchase_flag', 'created_at'])
+            ->contain(['MemberUsers'])
+        ;
+    }
+
+    public function findPurchaseHistoryView(Query $query, $id)
+    {
+        return $query
+            // 一覧上で常に必要となるカラムを取得
+            ->select(['id', 'member_name_id' => 'MemberUsers.id', 'member_name' => 'MemberUsers.name', 'total_fee', 'payment_flag', 'purchase_flag', 'created_at'])
+            ->contain(['MemberUsers'])
+            ->contain(['PurchaseHistoryDetails'])
+            ->where(['PurchaseHistories.id' => $id['id']])
+            ->first()
+        ;
+    }
+
+    public function findMemberPurchaseHistoryIndex(Query $query, $login_id)
+    {
+        return $query
+            // 一覧上で常に必要となるカラムを取得
+            ->select(['id', 'member_name_id' => 'MemberUsers.id', 'total_fee', 'payment_flag', 'purchase_flag', 'created_at'])
+            ->contain(['MemberUsers'])
+            ->where(['MemberUsers.id' => $login_id['login_id']])
+            ->all()
+        ;
+    }
 }

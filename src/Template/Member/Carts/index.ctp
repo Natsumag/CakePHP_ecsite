@@ -10,19 +10,18 @@
     <table cellpadding="0" cellspacing="0">
         <thead>
         <tr>
-            <th scope="col"><?= $this->Paginator->sort('product_id') ?></th>
             <th scope="col"><?= $this->Paginator->sort('name') ?></th>
             <th scope="col"><?= $this->Paginator->sort('price') ?></th>
             <th scope="col"><?= $this->Paginator->sort('product_num') ?></th>
             <th scope="col"><?= $this->Paginator->sort('total') ?></th>
+            <th scope="col" class="actions"><?= __('Actions') ?></th>
         </tr>
         </thead>
         <tbody>
         <?php foreach ($carts as $cart): ?>
             <tr>
-                <td><?= $this->Number->format($cart->id) ?></td>
-                <td><?= $cart->has('product') ? $this->Html->link($cart->product->name, ['controller' => '../generalCategories', 'action' => 'view', $cart->product->category_id]) : '' ?></td>
-                <td><?= h($cart->product->price) ?></td>
+                <td><?= $this->Html->link($cart->product_name, ['controller' => 'Materials', 'action' => 'view', $cart->product_id]) ?></td>
+                <td><?= h($cart->price) ?></td>
 
                 <td class="actions">
                     <?= $this->Form->create('null', [ 'type' => 'post', 'url' => ['controller' => 'Carts', 'action' => 'edit']]); ?>
@@ -35,16 +34,14 @@
                             <option value='<?= $i ?>' <?= $i== $cart->product_num ? 'selected' : '' ?>><?= $i; ?></option>
                         <?php endfor; ?>
                     </select>
-
                     <?= $this->Form->button(__('Edit')) ?>
                     <?= $this->Form->end() ?>
                 </td>
-
-                <td><?= h(($cart->product->price) * ($cart->product_num)) ?></td>
+                <td><?= h(($cart->price) * ($cart->product_num)) ?></td>
                 <td class="actions">
                     <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $cart->id], ['confirm' => __('Are you sure you want to delete # {0}?', $cart->id)]) ?>
                 </td>
-                <?php $total += ($cart->product->price) * ($cart->product_num);?>
+                <?php $total += ($cart->price) * ($cart->product_num);?>
             </tr>
         <?php endforeach; ?>
         </tbody>

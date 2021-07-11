@@ -119,6 +119,25 @@ class ProductsTable extends Table
         return $validator;
     }
 
+    public function findProductIndex(Query $query)
+    {
+        return $query
+            // 一覧上で常に必要となるカラムを取得
+            ->select(['id', 'category_id' => 'Categories.id', 'category_name' => 'Categories.name', 'name', 'size_circle', 'size_rectangle','units_in_stock', 'number_of_units_sold'])
+            ->contain(['Categories'])
+        ;
+    }
+
+    public function findProductView(Query $query, $id)
+    {
+        return $query
+            ->select(['id', 'category_id' => 'Categories.id', 'category_name' => 'Categories.name', 'name', 'size_circle', 'size_rectangle','units_in_stock', 'number_of_units_sold','price', 'thickness', 'height', 'updated_at'])
+            ->contain(['Categories'])
+            ->where(['Products.id' => $id['id']])
+            ->first()
+        ;
+    }
+
     public function findRelatedProductIndex(Query $query, $id)
     {
         return $query
@@ -127,6 +146,15 @@ class ProductsTable extends Table
             ->where(['Categories.id' => $id['id']])
             ->all()
         ;
+    }
+
+    public function findProductDelete(Query $query, $id)
+    {
+        return $query
+            ->select(['id'])
+            ->where(['Products.id' => $id['id']])
+            ->first()
+            ;
     }
 
 }

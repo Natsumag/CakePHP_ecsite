@@ -148,4 +148,13 @@ class CategoriesTable extends Table
             ->all()
         ;
     }
+
+    public function findGeneralCategoryIndex(Query $query)
+    {
+        return $query
+            ->select(['id', 'ih_correspond_id', 'material_id', 'material' => 'Materials.material', 'name', 'description', 'file_name1', 'updated_at'])
+            ->contain(['Materials'])
+            ;
+    }
+
 }

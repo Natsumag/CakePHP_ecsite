@@ -37,7 +37,7 @@
                         <td><?= $ihCorrespods[4] ?></td>
                     <?php endif; ?>
                     <td><?= $categories_array->products[0]->size_circle[0]; ?></td>
-                    <td><?= $categories_array->material->material ?></td>
+                    <td><?= $categories_array->material ?></td>
                     <td><?= h($categories_array->description) ?></td>
                     <td class="actions">
                         <?= $this->Html->link(__('View'), ['action' => 'view', $categories_array->id]) ?>

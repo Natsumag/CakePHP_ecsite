@@ -91,11 +91,21 @@ class PurchaseHistoryDetailsTable extends Table
      * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
      * @return \Cake\ORM\RulesChecker
      */
-//    public function buildRules(RulesChecker $rules)
-//    {
-//        $rules->add($rules->existsIn(['purchase_history_id'], 'PurchaseHistories'));
-//        $rules->add($rules->existsIn(['product_id'], 'Products'));
-//
-//        return $rules;
-//    }
+    public function buildRules(RulesChecker $rules)
+    {
+        $rules->add($rules->existsIn(['purchase_history_id'], 'PurchaseHistories'));
+        $rules->add($rules->existsIn(['product_id'], 'Products'));
+
+        return $rules;
+    }
+
+    public function findRelatedPurchaseHistoryDetailIndex(Query $query, $id)
+    {
+        return $query
+            ->select(['id', 'product_id' => 'Products.id', 'product_name' => 'Products.name', 'size_rectangle' => 'Products.size_rectangle', 'size_circle' => 'Products.size_circle', 'product_num', 'created_at'])
+            ->contain(['Products'])
+            ->where(['PurchaseHistoryDetails.purchase_history_id' => $id['id']])
+            ->all()
+            ;
+    }
 }

@@ -41,7 +41,9 @@ class MemberUsersController extends AppController
     public function edit()
     {
         $id = $this->Auth->user('id');
-        $memberUser = $this->MemberUsers->get($id);
+        $memberUser = $this->MemberUsers->find('MemberUserView', [
+            'id' => $id
+        ]);
         if ($this->request->is(['post', 'put'])) {
             $memberUser = $this->MemberUsers->patchEntity($memberUser, $this->request->getData());
             if ($this->MemberUsers->save($memberUser)) {
@@ -61,9 +63,11 @@ class MemberUsersController extends AppController
      */
     public function delete()
     {
-        $this->request->allowMethod(['post']);
+        $this->request->allowMethod(['post', 'delete']);
         $id = $this->Auth->user('id');
-        $memberUser = $this->MemberUsers->get($id);
+        $memberUser = $this->MemberUsers->find('MemberUserDelete', [
+            'id' => $id
+        ]);
         $delete_flag = true;
         $data = array('delete_flag' => $delete_flag);
         $memberUser = $this->MemberUsers->patchEntity($memberUser, $data);
@@ -117,8 +121,9 @@ class MemberUsersController extends AppController
         // URLでloginページにリダイレクト時、フラッシュメッセージを出さないようにする
         $this->Auth->allow('login');
         $this->Auth->getConfig('authError', false);
+
         // ログイン認証不要のページ指定（loginの追加不要）
         parent::beforeFilter($event);
-        $this->Auth->allow(['add', 'logout']);
+        $this->Auth->allow(['logout']);
     }
 }

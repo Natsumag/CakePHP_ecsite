@@ -19,10 +19,7 @@ class ProductsController extends AppController
      */
     public function index()
     {
-        $this->paginate = [
-            'contain' => ['Categories'],
-        ];
-        $products = $this->paginate($this->Products);
+        $products = $this->paginate($this->Products->find('ProductIndex'));
         $this->set(compact('products'));
     }
 
@@ -35,10 +32,10 @@ class ProductsController extends AppController
      */
     public function view($id = null)
     {
-        $product = $this->Products->get($id, [
-            'contain' => ['Categories'],
+        $product = $this->Products->find('ProductView', [
+            'id' => $id
         ]);
-        $this->set('product', $product);
+        $this->set(compact('product'));
     }
 
     /**
@@ -53,12 +50,11 @@ class ProductsController extends AppController
             $product = $this->Products->patchEntity($product, $this->request->getData());
             if ($this->Products->save($product)) {
                 $this->Flash->success(__('The product has been saved.'));
-
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The product could not be saved. Please, try again.'));
         }
-            $categories = $this->Products->Categories->find('list', ['limit' => 20]);
+            $categories = $this->Products->Categories->find('list');
             $this->set(compact('product', 'categories'));
     }
 
@@ -71,9 +67,10 @@ class ProductsController extends AppController
      */
     public function edit($id = null)
     {
-        $product = $this->Products->get($id);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-
+        $product = $this->Products->find('ProductView', [
+            'id' => $id
+        ]);
+        if ($this->request->is(['post', 'put'])) {
             $product = $this->Products->patchEntity($product, $this->request->getData());
             if ($this->Products->save($product)) {
                 $this->Flash->success(__('The product has been saved.'));
@@ -96,14 +93,14 @@ class ProductsController extends AppController
     public function delete($id = null)
     {
         $this->request->allowMethod(['post', 'delete']);
-        $product = $this->Products->get($id);
-
+        $product = $this->Products->find('ProductDelete', [
+            'id' => $id
+        ]);
         if ($this->Products->delete($product)) {
             $this->Flash->success(__('The product has been deleted.'));
         } else {
             $this->Flash->error(__('The product could not be deleted. Please, try again.'));
         }
-
         return $this->redirect(['action' => 'index']);
     }
 }

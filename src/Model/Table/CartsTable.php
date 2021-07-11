@@ -91,11 +91,38 @@ class CartsTable extends Table
      * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
      * @return \Cake\ORM\RulesChecker
      */
-//    public function buildRules(RulesChecker $rules)
-//    {
-//        $rules->add($rules->existsIn(['member_user_id'], 'MemberUsers'));
-//        $rules->add($rules->existsIn(['product_id'], 'Products'));
-//
-//        return $rules;
-//    }
+    public function buildRules(RulesChecker $rules)
+    {
+        $rules->add($rules->existsIn(['member_user_id'], 'MemberUsers'));
+        $rules->add($rules->existsIn(['product_id'], 'Products'));
+        return $rules;
+    }
+
+    public function findCartIndex(Query $query, $login_id)
+    {
+        return $query
+            ->select(['id', 'product_id' => 'Products.id', 'product_name' => 'Products.name', 'price' => 'Products.price', 'product_num'])
+            ->where(['Carts.member_user_id' => $login_id['login_id']])
+            ->contain(['Products'])
+        ;
+    }
+
+    public function findCartEdit(Query $query, $cart_id)
+    {
+        return $query
+            ->select(['id', 'product_num'])
+            ->where(['Carts.id' => $cart_id['cart_id']])
+            ->first()
+        ;
+    }
+
+    public function findCartDelete(Query $query, $id)
+    {
+        return $query
+            ->select(['id'])
+            ->where(['Carts.id' => $id['id']])
+            ->first()
+        ;
+    }
+
 }

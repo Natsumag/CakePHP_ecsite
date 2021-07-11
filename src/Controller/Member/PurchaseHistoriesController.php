@@ -35,10 +35,10 @@ class PurchaseHistoriesController extends AppController
         ];
         // members_user_idが$login_idと一致するもののみ表示
         $login_id = $this->Auth->user('id');
-        $only_my_purchase_histories = $this->PurchaseHistories->find()->where(['member_user_id' => $login_id]);
-        $purchaseHistories = $this->paginate($only_my_purchase_histories);
-
-        $this->set(compact('purchaseHistories'));
+        $purchase_histories = $this->PurchaseHistories->find('MemberPurchaseHistoryIndex', [
+            'login_id' => $login_id
+        ]);
+        $this->set(compact('purchase_histories'));
     }
 
     public function add()
@@ -110,8 +110,6 @@ class PurchaseHistoriesController extends AppController
         $login_username = $this->Auth->user('name');
         $this->set(compact('login_username'));
     }
-
-
 
     public function isAuthorized($categories = null)
     {

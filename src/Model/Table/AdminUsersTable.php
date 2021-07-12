@@ -63,21 +63,22 @@ class AdminUsersTable extends Table
 
         $validator
             ->scalar('name')
-            ->maxLength('name', 40)
             ->requirePresence('name', 'create')
-            ->notEmptyString('name');
+            ->notEmptyString('name')
+            ->lengthBetween('name', [5, 40], 'length is 5~40');
 
         $validator
             ->email('email')
             ->requirePresence('email', 'create')
             ->notEmptyString('email')
+            ->lengthBetween('email', [10, 100], 'length is 10~100')
             ->add('email', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
 
         $validator
             ->scalar('password')
-            ->maxLength('password', 20)
             ->requirePresence('password', 'create')
-            ->notEmptyString('password');
+            ->notEmptyString('password')
+            ->lengthBetween('password', [8, 20], 'length is 8~20');
 
         $validator
             ->dateTime('created_at')
@@ -90,7 +91,6 @@ class AdminUsersTable extends Table
         $validator
             ->boolean('delete_flag')
             ->allowEmptyString('delete_flag');
-
         return $validator;
     }
 
@@ -101,7 +101,6 @@ class AdminUsersTable extends Table
     public function findAdminUserIndex(Query $query)
     {
         return $query
-            // 一覧上で常に必要となるカラムを取得
             ->select(['id', 'name', 'email', 'delete_flag', 'created_at'])
         ;
     }

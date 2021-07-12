@@ -71,21 +71,22 @@ class CategoriesTable extends Table
         $validator
             ->integer('ih_correspond_id')
             ->requirePresence('ih_correspond_id', 'create')
-            ->notEmptyString('ih_correspond_id');
+            ->notEmptyString('ih_correspond_id')
+            ->maxLength('ih_correspond_id', 1, 'length is too long');
 
         $validator
             ->scalar('name')
             ->requirePresence('name', 'create')
             ->notEmptyString('name')
-            ->lengthBetween('name', [5, 20], 'name length is 5~20');
+            ->lengthBetween('name', [5, 20], 'length is 5~20');
 
         $validator
             ->scalar('description')
             ->requirePresence('description', 'create')
-            ->notEmptyString('description');
+            ->notEmptyString('description')
+            ->lengthBetween('description', [20, 200], 'length is 20~200');
 
         $validator->setProvider('custom', 'App\Model\Validation\CustomValidation');
-
         for($i = 1; $i <= 5; $i++) {
             $validator
                 ->requirePresence('file_name'.$i, 'create')
@@ -104,14 +105,9 @@ class CategoriesTable extends Table
         $validator
             ->dateTime('updated_at')
             ->allowEmptyDateTime('updated_at');
-
         return $validator;
     }
 
-    /**
-     * 必要な値のみ取得
-     *
-     */
     public function findCategoryIndex(Query $query)
     {
         return $query
@@ -154,7 +150,7 @@ class CategoriesTable extends Table
         return $query
             ->select(['id', 'ih_correspond_id', 'material_id', 'material' => 'Materials.material', 'name', 'description', 'file_name1', 'updated_at'])
             ->contain(['Materials'])
-            ;
+        ;
     }
 
 }

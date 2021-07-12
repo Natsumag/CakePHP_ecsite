@@ -57,37 +57,40 @@ class MemberUsersTable extends Table
 
         $validator
             ->scalar('name')
-            ->maxLength('name', 30)
             ->requirePresence('name', 'create')
-            ->notEmptyString('name');
+            ->notEmptyString('name')
+            ->lengthBetween('name', [5, 100], 'length is 5~100');
 
         $validator
             ->email('email')
             ->requirePresence('email', 'create')
-            ->notEmptyString('email');
+            ->notEmptyString('email')
+            ->lengthBetween('email', [10, 100], 'length is 10~100');
 
         $validator
             ->scalar('password')
-            ->maxLength('password', 40)
             ->requirePresence('password', 'create')
-            ->notEmptyString('password');
+            ->notEmptyString('password')
+            ->lengthBetween('password', [8, 20], 'length is 8~20');
 
         $validator
             ->integer('zip_code')
             ->requirePresence('zip_code', 'create')
-            ->notEmptyString('zip_code');
+            ->notEmptyString('zip_code')
+            ->lengthBetween('zip_code', [7, 8], 'length is 7~8');
 
         $validator
             ->scalar('address')
             ->maxLength('address', 200)
             ->requirePresence('address', 'create')
-            ->notEmptyString('address');
+            ->notEmptyString('address')
+            ->lengthBetween('address', [10, 200], 'length is 10~200');
 
         $validator
             ->scalar('tel')
-            ->maxLength('tel', 21)
             ->requirePresence('tel', 'create')
-            ->notEmptyString('tel');
+            ->notEmptyString('tel')
+            ->lengthBetween('tel', [7, 21], 'length is 7~21');
 
         $validator
             ->boolean('delete_flag')
@@ -100,7 +103,6 @@ class MemberUsersTable extends Table
         $validator
             ->dateTime('updated_at')
             ->allowEmptyDateTime('updated_at');
-
         return $validator;
     }
 
@@ -111,7 +113,6 @@ class MemberUsersTable extends Table
     public function findMemberUserIndex(Query $query)
     {
         return $query
-            // 一覧上で常に必要となるカラムを取得
             ->select(['id', 'name', 'email', 'zip_code', 'address', 'tel', 'delete_flag', 'updated_at'])
         ;
     }
@@ -119,7 +120,6 @@ class MemberUsersTable extends Table
     public function findMemberUserView(Query $query, $id)
     {
         return $query
-            // 一覧上で常に必要となるカラムを取得
             ->select(['id', 'name', 'email', 'zip_code', 'address', 'tel', 'delete_flag', 'updated_at'])
             ->where(['MemberUsers.id' => $id['id']])
             ->first()
@@ -129,11 +129,10 @@ class MemberUsersTable extends Table
     public function findMemberUserDelete(Query $query, $id)
     {
         return $query
-            // 一覧上で常に必要となるカラムを取得
             ->select(['id', 'delete_flag'])
             ->where(['MemberUsers.id' => $id['id']])
             ->first()
-            ;
+        ;
     }
 
     /**

@@ -29,15 +29,6 @@
             <th scope="row"><?= __('Description') ?></th>
             <td><?= h($category->description) ?></td>
         </tr>
-<!--        foreachとかで回したい-->
-        <tr>
-            <?php
-            for($i = 1; $i <= 5; $i++) {
-                echo '<th scope="row">' . __('File' . $i) . '</th>';
-                echo '<td>' . $this->Html->image('../files/Categories/image/'.$category->file_name.$i, array('height' => 100, 'width' => 100)) . '</td>';
-            }
-            ?>
-        </tr>
         <tr>
             <th scope="row"><?= __('File1') ?></th>
             <td><?= $this->Html->image('../files/Categories/image/'.$category->file_name1, array('height' => 100, 'width' => 100)); ?></td>

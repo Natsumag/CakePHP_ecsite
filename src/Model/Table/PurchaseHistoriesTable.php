@@ -70,7 +70,8 @@ class PurchaseHistoriesTable extends Table
         $validator
             ->integer('total_fee')
             ->requirePresence('total_fee', 'create')
-            ->notEmptyString('total_fee');
+            ->notEmptyString('total_fee')
+            ->maxLength('total_fee', 6);
 
         $validator
             ->boolean('payment_flag')
@@ -87,22 +88,7 @@ class PurchaseHistoriesTable extends Table
         $validator
             ->dateTime('updated_at')
             ->allowEmptyDateTime('updated_at');
-
         return $validator;
-    }
-
-    /**
-     * Returns a rules checker object that will be used for validating
-     * application integrity.
-     *
-     * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
-     * @return \Cake\ORM\RulesChecker
-     */
-    public function buildRules(RulesChecker $rules)
-    {
-        $rules->add($rules->existsIn(['member_user_id'], 'MemberUsers'));
-
-        return $rules;
     }
 
     public function findPurchaseHistoryIndex(Query $query)
@@ -135,5 +121,19 @@ class PurchaseHistoriesTable extends Table
             ->where(['MemberUsers.id' => $login_id['login_id']])
             ->all()
         ;
+    }
+
+    /**
+     * Returns a rules checker object that will be used for validating
+     * application integrity.
+     *
+     * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
+     * @return \Cake\ORM\RulesChecker
+     */
+    public function buildRules(RulesChecker $rules)
+    {
+        $rules->add($rules->existsIn(['member_user_id'], 'MemberUsers'));
+
+        return $rules;
     }
 }

@@ -68,19 +68,21 @@ class ContactsTable extends Table
 
         $validator
             ->scalar('name')
-            ->maxLength('name', 30)
             ->requirePresence('name', 'create')
-            ->notEmptyString('name');
+            ->notEmptyString('name')
+            ->lengthBetween('name', [10, 20], 'length is 10~20');
 
         $validator
             ->email('email')
             ->requirePresence('email', 'create')
-            ->notEmptyString('email');
+            ->notEmptyString('email')
+            ->lengthBetween('email', [10, 100], 'length is 10~100');
 
         $validator
             ->scalar('content')
             ->requirePresence('content', 'create')
-            ->notEmptyString('content');
+            ->notEmptyString('content')
+            ->lengthBetween('content', [10, 200], 'length is 10~200');
 
         $validator
             ->boolean('reply_states_flag')
@@ -93,29 +95,9 @@ class ContactsTable extends Table
         $validator
             ->dateTime('updated_at')
             ->allowEmptyDateTime('updated_at');
-
         return $validator;
     }
 
-    /**
-     * Returns a rules checker object that will be used for validating
-     * application integrity.
-     *
-     * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
-     * @return \Cake\ORM\RulesChecker
-     */
-    public function buildRules(RulesChecker $rules)
-    {
-        // 対象テーブルに値が存在しなかった場合、エラーになる
-        $rules->add($rules->existsIn(['admin_user_id'], 'AdminUsers'));
-        $rules->add($rules->existsIn(['member_user_id'], 'MemberUsers'));
-        return $rules;
-    }
-
-    /**
-     * 必要な値のみ表示
-     *
-     */
     public function findContactIndex(Query $query)
     {
         return $query
@@ -133,5 +115,20 @@ class ContactsTable extends Table
             ->where(['Contacts.id' => $id['id']])
             ->first()
         ;
+    }
+
+    /**
+     * Returns a rules checker object that will be used for validating
+     * application integrity.
+     *
+     * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
+     * @return \Cake\ORM\RulesChecker
+     */
+    public function buildRules(RulesChecker $rules)
+    {
+        // 対象テーブルに値が存在しなかった場合、エラーになる
+        $rules->add($rules->existsIn(['admin_user_id'], 'AdminUsers'));
+        $rules->add($rules->existsIn(['member_user_id'], 'MemberUsers'));
+        return $rules;
     }
 }

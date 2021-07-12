@@ -66,47 +66,52 @@ class ProductsTable extends Table
 
         $validator
             ->scalar('name')
-            ->maxLength('name', 50)
             ->requirePresence('name', 'create')
-            ->notEmptyString('name');
+            ->notEmptyString('name')
+            ->lengthBetween('name', [5, 50], 'length is 5~50');
 
         $validator
             ->integer('price')
-            ->maxLength('price', 7)
             ->requirePresence('price', 'create')
-            ->notEmptyString('price');
+            ->notEmptyString('price')
+            ->lengthBetween('price', [3, 7], 'length is 3~7');
 
         $validator
             ->integer('units_in_stock')
-            ->maxLength('units_in_stock', 4)
             ->requirePresence('units_in_stock', 'create')
-            ->notEmptyString('units_in_stock');
+            ->notEmptyString('units_in_stock')
+            ->lengthBetween('units_in_stock', [1, 4], 'length is 1~4');
 
         $validator
             ->integer('number_of_units_sold')
             ->maxLength('number_of_units_sold', 5)
             ->requirePresence('number_of_units_sold', 'create')
-            ->notEmptyString('number_of_units_sold');
+            ->notEmptyString('number_of_units_sold')
+            ->lengthBetween('number_of_units_sold', [1, 5], 'length is 1~5');
 
         $validator
             ->scalar('size_circle')
             ->maxLength('size_circle', 5)
-            ->allowEmptyString('size_circle');
+            ->allowEmptyString('size_circle')
+            ->lengthBetween('size_circle', [1, 5], 'length is 1~5');
 
         $validator
             ->scalar('size_rectangle')
             ->maxLength('size_rectangle', 5)
-            ->allowEmptyString('size_rectangle');
+            ->allowEmptyString('size_rectangle')
+            ->lengthBetween('size_rectangle', [1, 5], 'length is 1~5');
 
         $validator
             ->integer('thickness')
             ->maxLength('thickness', 3)
-            ->allowEmptyString('thickness');
+            ->allowEmptyString('thickness')
+            ->lengthBetween('thickness', [1, 3], 'length is 1~3');
 
         $validator
             ->integer('height')
             ->maxLength('height', 3)
-            ->allowEmptyString('height');
+            ->allowEmptyString('height')
+            ->lengthBetween('height', [1, 3], 'length is 1~3');
 
         $validator
             ->dateTime('created_at')
@@ -115,14 +120,12 @@ class ProductsTable extends Table
         $validator
             ->dateTime('updated_at')
             ->allowEmptyDateTime('updated_at');
-
         return $validator;
     }
 
     public function findProductIndex(Query $query)
     {
         return $query
-            // 一覧上で常に必要となるカラムを取得
             ->select(['id', 'category_id' => 'Categories.id', 'category_name' => 'Categories.name', 'name', 'size_circle', 'size_rectangle','units_in_stock', 'number_of_units_sold'])
             ->contain(['Categories'])
         ;
@@ -154,7 +157,7 @@ class ProductsTable extends Table
             ->select(['id'])
             ->where(['Products.id' => $id['id']])
             ->first()
-            ;
+        ;
     }
 
 }

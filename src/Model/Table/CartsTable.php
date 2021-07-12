@@ -71,7 +71,8 @@ class CartsTable extends Table
         $validator
             ->integer('product_num')
             ->requirePresence('product_num', 'create')
-            ->notEmptyString('product_num');
+            ->notEmptyString('product_num')
+            ->lengthBetween('product_num', [1, 9], 'length is 1~9');
 
         $validator
             ->dateTime('created_at')
@@ -80,22 +81,7 @@ class CartsTable extends Table
         $validator
             ->dateTime('updated_at')
             ->allowEmptyDateTime('updated_at');
-
         return $validator;
-    }
-
-    /**
-     * Returns a rules checker object that will be used for validating
-     * application integrity.
-     *
-     * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
-     * @return \Cake\ORM\RulesChecker
-     */
-    public function buildRules(RulesChecker $rules)
-    {
-        $rules->add($rules->existsIn(['member_user_id'], 'MemberUsers'));
-        $rules->add($rules->existsIn(['product_id'], 'Products'));
-        return $rules;
     }
 
     public function findCartIndex(Query $query, $login_id)
@@ -125,4 +111,28 @@ class CartsTable extends Table
         ;
     }
 
+    public function findInCart(Query $query, $login_id, $product_id)
+    {
+        return $query
+            ->select(['id', 'product_num'])
+            ->where(['MemberUsers.id' => $login_id])
+            ->where(['Carts.product_id' => $product_id])
+            ->contain(['MemberUsers'])
+            ->first()
+        ;
+    }
+
+    /**
+     * Returns a rules checker object that will be used for validating
+     * application integrity.
+     *
+     * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
+     * @return \Cake\ORM\RulesChecker
+     */
+    public function buildRules(RulesChecker $rules)
+    {
+        $rules->add($rules->existsIn(['member_user_id'], 'MemberUsers'));
+        $rules->add($rules->existsIn(['product_id'], 'Products'));
+        return $rules;
+    }
 }

@@ -104,5 +104,4 @@ class AppUtility
             $category->Flash->error(__($e->getMessage()));
         }
     }
-
 }

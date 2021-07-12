@@ -69,12 +69,14 @@ class NoticesTable extends Table
         $validator
             ->scalar('content')
             ->requirePresence('content', 'create')
-            ->notEmptyString('content');
+            ->notEmptyString('content')
+            ->lengthBetween('content', [10, 200], 'length is 10~200');
 
         $validator
             ->scalar('detail')
             ->requirePresence('detail', 'create')
-            ->notEmptyString('detail');
+            ->notEmptyString('detail')
+            ->lengthBetween('detail', [10, 300], 'length is 10~300');
 
         $validator
             ->dateTime('created_at')
@@ -83,7 +85,6 @@ class NoticesTable extends Table
         $validator
             ->dateTime('updated_at')
             ->allowEmptyDateTime('updated_at');
-
         return $validator;
     }
 

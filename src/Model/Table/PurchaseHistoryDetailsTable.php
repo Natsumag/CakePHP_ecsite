@@ -71,7 +71,8 @@ class PurchaseHistoryDetailsTable extends Table
         $validator
             ->integer('product_num')
             ->requirePresence('product_num', 'create')
-            ->notEmptyString('product_num');
+            ->notEmptyString('product_num')
+            ->lengthBetween('material', [1, 3], 'length is 1~3');
 
         $validator
             ->dateTime('created_at')
@@ -80,8 +81,17 @@ class PurchaseHistoryDetailsTable extends Table
         $validator
             ->dateTime('updated_at')
             ->allowEmptyDateTime('updated_at');
-
         return $validator;
+    }
+
+    public function findRelatedPurchaseHistoryDetailIndex(Query $query, $id)
+    {
+        return $query
+            ->select(['id', 'product_id' => 'Products.id', 'product_name' => 'Products.name', 'size_rectangle' => 'Products.size_rectangle', 'size_circle' => 'Products.size_circle', 'product_num', 'created_at'])
+            ->contain(['Products'])
+            ->where(['PurchaseHistoryDetails.purchase_history_id' => $id['id']])
+            ->all()
+        ;
     }
 
     /**
@@ -97,15 +107,5 @@ class PurchaseHistoryDetailsTable extends Table
         $rules->add($rules->existsIn(['product_id'], 'Products'));
 
         return $rules;
-    }
-
-    public function findRelatedPurchaseHistoryDetailIndex(Query $query, $id)
-    {
-        return $query
-            ->select(['id', 'product_id' => 'Products.id', 'product_name' => 'Products.name', 'size_rectangle' => 'Products.size_rectangle', 'size_circle' => 'Products.size_circle', 'product_num', 'created_at'])
-            ->contain(['Products'])
-            ->where(['PurchaseHistoryDetails.purchase_history_id' => $id['id']])
-            ->all()
-            ;
     }
 }

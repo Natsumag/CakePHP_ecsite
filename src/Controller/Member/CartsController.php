@@ -1,6 +1,7 @@
 <?php
 namespace App\Controller\Member;
 
+use App\Utils\AppUtility;
 use Cake\Event\Event;
 
 /**
@@ -40,6 +41,10 @@ class CartsController extends AppController
             );
             // ログイン者かつ商品IDが一致するもの
             $query = $this->Carts->find()->where(['member_user_id' => $login_id, 'product_id' => $data['product_id']])->first();
+//            $query = $this->Carts->find('InCart', [
+//                'data' => $data,
+//            ]);
+
             // product_idが一致するレコードがあったとき更新する
             if (isset($query)) {
                 // product_numの更新
@@ -50,14 +55,10 @@ class CartsController extends AppController
                     'product_id' => $data['product_id'],
                     'product_num' => $product_num_update
                 );
-                $product_num_up = $this->Carts->patchEntity($query, $data);
-                if ($this->Carts->save($product_num_up)) {
-                    $this->Flash->success(__('The cart has been updated.'));
-                    return $this->redirect(['action' => 'index']);
-                }
-                $this->Flash->error(__('The cart could not be updated. Please, try again.'));
+                $cart = $this->Carts->patchEntity($query, $data);
+            } else {
+                $cart = $this->Carts->patchEntity($cart, $data);
             }
-            $cart = $this->Carts->patchEntity($cart, $data);
             if ($this->Carts->save($cart)) {
                 $this->Flash->success(__('The cart has been saved.'));
                 return $this->redirect(['action' => 'index']);
@@ -74,10 +75,7 @@ class CartsController extends AppController
             'cart_id' => $data['product_id']
         ]);
         if ($this->request->is(['post', 'put'])) {
-            $data = array(
-                'product_num' => $data['product_num']
-            );
-            $cart = $this->Carts->patchEntity($cart, $data);
+            $cart = $this->Carts->patchEntity($cart, ['product_num' => $data['product_num']]);
             if ($this->Carts->save($cart)) {
                 $this->Flash->success(__('The Cart has been updated.'));
                 return $this->redirect(['action' => 'index']);

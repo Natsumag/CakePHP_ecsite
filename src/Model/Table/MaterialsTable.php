@@ -64,9 +64,9 @@ class MaterialsTable extends Table
 
         $validator
             ->scalar('material')
-            ->maxLength('material', 100)
             ->requirePresence('material', 'create')
-            ->notEmptyString('material');
+            ->notEmptyString('material')
+            ->lengthBetween('material', [2, 100], 'length is 2~100');
 
         $validator
             ->dateTime('created_at')
@@ -75,7 +75,6 @@ class MaterialsTable extends Table
         $validator
             ->dateTime('updated_at')
             ->allowEmptyDateTime('updated_at');
-
         return $validator;
     }
 
@@ -83,7 +82,7 @@ class MaterialsTable extends Table
     {
         return $query
             ->select(['id', 'material', 'updated_at'])
-            ;
+        ;
     }
 
     public function findMaterialView(Query $query, $id)
@@ -101,7 +100,7 @@ class MaterialsTable extends Table
             ->select(['id'])
             ->where(['Materials.id' => $id['id']])
             ->first()
-            ;
+        ;
     }
 
     public function findMaterialsList(Query $query)

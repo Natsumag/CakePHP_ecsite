@@ -26,6 +26,15 @@ HTTPSもしくはSSHのどちらかのコマンドを実行
 $ https://github.com/Natsumag/CakePHP_ecsite.git // HTTPS
 $ git@github.com:Natsumag/CakePHP_ecsite.git // SSH
 ```
+7. DBの設定
+* ログイン: `mysql -u root -p`
+* DBの作成: `CREATE DATABASE ecsite;`
+* 確認: `Show Databases;`
+* ログアウト: `exit`
+8. テーブルの作成とテストデータの挿入
+* 移動: `cd /var/www/html/ecsite`
+* マイグレーション実行: `bin/cake bake migration`
+* シーダー実行: `bin/cake migrations seed`
 
 ## 概要
 https://www.risoli.jp/ の機能を参考にフライパン専門のECサイトを作成

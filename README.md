@@ -30,9 +30,13 @@ $ git@github.com:Natsumag/CakePHP_ecsite.git // SSH
 ## 概要
 https://www.risoli.jp/ の機能を参考にフライパン専門のECサイトを作成
 
-* A
-** B 
-
+管理者ユーザ
+* お知らせ（notices）、商品カテゴリー（Categories）、商品（Products）、材質（Materials）の登録・編集・削除が可能
+* 会員ユーザ（MemberUsers）、お問い合わせ（Contents）、購入履歴（PurchaseHistories、PurchaseHistoryDetails）の閲覧が可能
+* お問い合わせ（Contents）の返信が可能
+会員ユーザ
+* 自身の会員ユーザ（MemberUsers）、カート（Carts）の追加・編集・削除が可能
+* 自身の会員ユーザ（MemberUsers）、商品カテゴリー（Categories）、商品（Products）、カート（Carts）、購入履歴（PurchaseHistories）の閲覧が可能
 
 ## 構成図
 ![スクリーンショット 2021-06-29 22 01 23](https://user-images.githubusercontent.com/45713320/123802038-ce1daa00-d925-11eb-958f-1b613f4f1ab2.png)

@@ -27,8 +27,9 @@ $ https://github.com/Natsumag/CakePHP_ecsite.git // HTTPS
 $ git@github.com:Natsumag/CakePHP_ecsite.git // SSH
 ```
 
-## 参考サイト
-https://www.risoli.jp/
+## 概要
+https://www.risoli.jp/ の機能を参考にフライパン専門のECサイトを作成
+
 
 ## 構成図
 ![スクリーンショット 2021-06-29 22 01 23](https://user-images.githubusercontent.com/45713320/123802038-ce1daa00-d925-11eb-958f-1b613f4f1ab2.png)

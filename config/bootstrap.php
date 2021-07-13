@@ -71,6 +71,10 @@ use Cake\Utility\Security;
 try {
     Configure::config('default', new PhpConfig());
     Configure::load('app', 'default', false);
+
+    // 定数ファイルの読み込み
+    Configure::load("const");
+
 } catch (\Exception $e) {
     exit($e->getMessage() . "\n");
 }
@@ -201,3 +205,5 @@ Type::build('timestamp')
 //Inflector::rules('irregular', ['red' => 'redlings']);
 //Inflector::rules('uninflected', ['dontinflectme']);
 //Inflector::rules('transliteration', ['/å/' => 'aa']);
+
+\App\Application::addPlugin('BootstrapUI');

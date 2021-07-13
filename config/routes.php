@@ -89,6 +89,20 @@ Router::scope('/', function (RouteBuilder $routes) {
      * routes you want in your application.
      */
     $routes->fallbacks(DashedRoute::class);
+
+//    $routes->connect('/Admin-users/index', ['controller' => 'AdminUsers', 'action' => 'index']);
+    Router::prefix('Admin', function ($routes) {
+        // この全てのルートは `/Admin` によってプレフィックスされます。
+        // そのために、 prefix => Admin をルート要素として追加します。
+        $routes->fallbacks(DashedRoute::class);
+    });
+
+    Router::prefix('Member', function ($routes) {
+        // この全てのルートは `/Member` によってプレフィックスされます。
+        // そのために、 prefix => Member をルート要素として追加します。
+        $routes->fallbacks(DashedRoute::class);
+    });
+
 });
 
 /*

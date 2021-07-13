@@ -50,6 +50,19 @@ class AppController extends Controller
          * Enable the following component for recommended CakePHP security settings.
          * see https://book.cakephp.org/3/en/controllers/components/security.html
          */
-        //$this->loadComponent('Security');
+        $this->loadComponent('Security');
+
+        $this->loadComponent('Auth', [
+            'authorize'      => [ 'Controller'],
+            'authenticate'   => [ 'Form' => [
+                'userModel' => 'AdminUsers',
+                'fields' => ['username' => 'email', 'password' => 'password']
+            ]
+            ],
+            'loginRedirect'  => [ 'controller' => 'AdminUsers' , 'action' => 'index' ],
+            'logoutRedirect' => [ 'controller' => 'AdminUsers' , 'action' => 'login' ],
+            'loginAction'    => '/admin/adminUsers/login',
+            'authError'      => 'ログインしてください'
+        ]);
     }
 }

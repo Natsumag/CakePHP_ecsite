@@ -87,7 +87,7 @@ class CartsTable extends Table
     public function findCartIndex(Query $query, $login_id)
     {
         return $query
-            ->select(['id', 'product_id' => 'Products.id', 'product_name' => 'Products.name', 'price' => 'Products.price', 'product_num'])
+            ->select(['id', 'product_id' => 'Products.id', 'product_name' => 'Products.name', 'price' => 'Products.price', 'product_num', 'size_circle' => 'Products.size_circle', 'size_rectangle' => 'Products.size_rectangle'])
             ->where(['Carts.member_user_id' => $login_id['login_id']])
             ->contain(['Products'])
         ;
@@ -111,12 +111,12 @@ class CartsTable extends Table
         ;
     }
 
-    public function findInCart(Query $query, $login_id, $product_id)
+    public function findInCart(Query $query, $data)
     {
         return $query
             ->select(['id', 'product_num'])
-            ->where(['MemberUsers.id' => $login_id])
-            ->where(['Carts.product_id' => $product_id])
+            ->where(['MemberUsers.id' => $data['data']['member_user_id']])
+            ->where(['Carts.product_id' => $data['data']['product_id']])
             ->contain(['MemberUsers'])
             ->first()
         ;

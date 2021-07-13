@@ -83,8 +83,14 @@
                                    echo "<option value='{$i}'>$i</option>";
                                  } ?>
                             </select>
-<!--                        --><?//= h($products->number_of_units_sold) ?><!--と照らし合わせて購入数を調節するandカートコントローラorモデルで数を減らす-->
-                            <?= $this->Form->button(__('カートに入れる')) ?>
+                            <?php
+                                if(h($products->number_of_units_sold) == '0'):
+                                    echo $this->Form->button(__('カートに入れる'), ['disabled' => true]);
+                                else:
+                                    echo $this->Form->button(__('カートに入れる'));
+                                endif;
+                            ?>
+
                             <?= $this->Form->end() ?>
                         </td>
                     </tr>

@@ -19,8 +19,12 @@ class CategoriesController extends AppController
     public function index()
     {
         $categories = $this->paginate($this->Categories->find('GeneralCategoryIndex'));
+        $categories = $categories->toArray();
+        $related_products = $this->Products->find('ProductAllPriceAndSize');
+        $related_products = $related_products->toArray();
         $this->set('ihCorrespods', IH_CORRESPOND);
         $this->set(compact('categories'));
+        $this->set(compact('related_products'));
     }
 
     /**
@@ -47,5 +51,11 @@ class CategoriesController extends AppController
     public function isAuthorized($product = null)
     {
         return true;
+    }
+
+    // ログイン認証不要のページ指定
+    public function beforeFilter(Event $event){
+        parent::beforeFilter($event);
+        $this->Auth->allow(['index','view']);
     }
 }

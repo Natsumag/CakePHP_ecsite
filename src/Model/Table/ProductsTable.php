@@ -160,4 +160,12 @@ class ProductsTable extends Table
         ;
     }
 
+    public function findProductAllPriceAndSize(Query $query)
+    {
+        return $query
+            ->select(['id', 'category_id', 'price', 'size_rectangle', 'size_circle', 'height'])
+            ->all()
+        ;
+    }
+
 }

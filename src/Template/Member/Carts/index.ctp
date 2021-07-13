@@ -11,6 +11,7 @@
         <thead>
         <tr>
             <th scope="col"><?= $this->Paginator->sort('name') ?></th>
+            <th scope="col"><?= $this->Paginator->sort('size') ?></th>
             <th scope="col"><?= $this->Paginator->sort('price') ?></th>
             <th scope="col"><?= $this->Paginator->sort('product_num') ?></th>
             <th scope="col"><?= $this->Paginator->sort('total') ?></th>
@@ -21,8 +22,15 @@
         <?php foreach ($carts as $cart): ?>
             <tr>
                 <td><?= $this->Html->link($cart->product_name, ['controller' => 'Materials', 'action' => 'view', $cart->product_id]) ?></td>
+                <td>
+                    <?php if(isset($cart->size_circle)):
+                        echo h($cart->size_circle);
+                    else:
+                        echo h($cart->size_rectangle);
+                    endif;
+                    ?>
+                </td>
                 <td><?= h($cart->price) ?></td>
-
                 <td class="actions">
                     <?= $this->Form->create('null', [ 'type' => 'post', 'url' => ['controller' => 'Carts', 'action' => 'edit']]); ?>
                     <!-- セキュリティコンポーネントのハッシュプロセスを通過しないようにするためunlockedFieldを設定 -->

@@ -1,7 +1,6 @@
 <?php
 namespace App\Controller\Member;
 
-//use App\Controller\Member\PurchaseHistoriesController;
 use Cake\Event\Event;
 use Cake\Mailer\Email;
 
@@ -22,7 +21,6 @@ class PurchaseHistoriesController extends AppController
     public function initialize() {
         parent::initialize();
         // モデルの読み込み
-        $this->loadModel('PurchaseHistories');
         $this->loadModel('PurchaseHistoryDetails');
         $this->loadModel('Carts');
         $this->loadModel('Products');
@@ -30,10 +28,6 @@ class PurchaseHistoriesController extends AppController
 
     public function index()
     {
-        $this->paginate = [
-            'contain' => ['MemberUsers'],
-        ];
-        // members_user_idが$login_idと一致するもののみ表示
         $login_id = $this->Auth->user('id');
         $purchase_histories = $this->PurchaseHistories->find('MemberPurchaseHistoryIndex', [
             'login_id' => $login_id
@@ -114,11 +108,5 @@ class PurchaseHistoriesController extends AppController
     public function isAuthorized($categories = null)
     {
         return true;
-    }
-
-    // ログイン認証不要のページ指定（loginの追加不要）
-    public function beforeFilter(Event $event){
-        parent::beforeFilter($event);
-        $this->Auth->allow(['add','index']);
     }
 }

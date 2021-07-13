@@ -40,11 +40,9 @@ class CartsController extends AppController
                 'product_num' => $data['product_num']
             );
             // ログイン者かつ商品IDが一致するもの
-            $query = $this->Carts->find()->where(['member_user_id' => $login_id, 'product_id' => $data['product_id']])->first();
-//            $query = $this->Carts->find('InCart', [
-//                'data' => $data,
-//            ]);
-
+            $query = $this->Carts->find('InCart', [
+                'data' => $data,
+            ]);
             // product_idが一致するレコードがあったとき更新する
             if (isset($query)) {
                 // product_numの更新
